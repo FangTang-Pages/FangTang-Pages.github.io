@@ -46,93 +46,108 @@
 
   function setupOpening() {
     history.scrollRestoration='manual';
-    const entryUrl=new URL(location.href);
-    const navigation=performance.getEntriesByType('navigation')[0]?.type;
-    const entryWork=entryUrl.searchParams.get('view')==='work' || (navigation==='back_forward'&&history.state?.portfolioView==='work');
+    const entryUrl=new URL(location.href),navigation=performance.getEntriesByType('navigation')[0]?.type;
+    const entryWork=entryUrl.searchParams.get('view')==='work'||(navigation==='back_forward'&&history.state?.portfolioView==='work');
     entryUrl.searchParams.delete('view');entryUrl.searchParams.delete('intro');
     if(entryUrl.hash==='#work')entryUrl.hash='';
     history.replaceState({...history.state,portfolioView:entryWork?'work':'intro'},'',entryUrl);
-    if(!entryWork)scrollTo({top:0,behavior:'instant'});
     const intro=document.querySelector('.motion-intro'),stage=intro.querySelector('.motion-stage');
     const directory=intro.querySelector('.motion-directory'),film=intro.querySelector('.hero-film');
     const video=intro.querySelector('#opening-video'),copy=intro.querySelector('.hero-copy');
     const slot=intro.querySelector('#lumi-slot'),mask=intro.querySelector('.opening-mask');
-    const maskType=mask.querySelector('#opening-type'),maskText=mask.querySelector('text');
-    const maskSolid=mask.querySelector('#opening-solid');
+    const maskType=mask.querySelector('#opening-type'),maskText=mask.querySelector('text'),maskSolid=mask.querySelector('#opening-solid');
     const cards=[...intro.querySelectorAll('.motion-card')];
     film.insertAdjacentHTML('beforeend',`<span class="entry-open docked-open" aria-hidden="true">${icon('ne')}</span>`);
-    let size,queued=false,progress=0,focusDirectory=false,interacted=false;
-    const clamp=v=>Math.max(0,Math.min(1,v));
-    const ease=v=>v*v*(3-2*v);
-    const mix=(a,b,t)=>a+(b-a)*t;
-    function update() {
-      queued=false;if(!size)return;
-      progress=clamp((scrollY-size.start)/size.travel);
-      // The first passage opens the letterforms; the second gives the film a place in the directory.
-      const aperture=clamp(progress/.43),docking=clamp((progress-.43)/.57);
-      const t=ease(docking),zoom=1+15*Math.pow(aperture,1.65);
-      maskType.setAttribute('transform',`translate(${size.w/2} ${size.h*.48}) scale(${size.typeFit*zoom}) translate(${-size.typeX} ${-size.typeY})`);
-      mask.style.opacity=1-ease(clamp((aperture-.55)/.45));
-      mask.style.visibility=aperture>=1?'hidden':'visible';
+    const REVEAL=850,HOLD=300,DOCK=1450,TOTAL=REVEAL+HOLD+DOCK;
+    let state=entryWork?'done':'idle',elapsed=entryWork?TOTAL:0,size,frame=0,lastTick=null,focusDirectory=false,touch=null,initialized=false;
+    const clamp=v=>Math.max(0,Math.min(1,v)),ease=v=>v*v*(3-2*v),mix=(a,b,t)=>a+(b-a)*t;
+    function lock(){document.documentElement.classList.add('intro-sequence-locked');}
+    function unlock(){document.documentElement.classList.remove('intro-sequence-locked');}
+    function paint(){
+      if(!size)return;
+      const revealing=ease(clamp(elapsed/REVEAL)),docking=clamp((elapsed-REVEAL-HOLD)/DOCK),t=ease(docking);
+      mask.style.transform=elapsed>=REVEAL?`translate3d(0,${-size.maskH*1.06}px,0)`:`perspective(1600px) translate3d(0,${-size.maskH*1.06*revealing}px,0) rotateX(${revealing*55}deg)`;
+      mask.style.visibility=elapsed>=REVEAL?'hidden':'visible';
+      mask.style.opacity=1-ease(clamp((revealing-.92)/.08));
       film.style.transform=`translate3d(${mix(0,size.x,t)}px,${mix(0,size.y,t)}px,0)`;
       film.style.width=`${mix(size.w,size.tw,t)}px`;film.style.height=`${mix(size.h,size.th,t)}px`;
       film.style.borderColor=`rgba(162,139,127,${t})`;
-      const fade=1-ease(clamp(progress/.19));
-      copy.style.opacity=fade;copy.style.pointerEvents=progress>.08?'none':'auto';copy.inert=progress>.08;
-      directory.style.setProperty('--reveal',ease(clamp((docking-.08)/.50)));
-      cards.forEach((card,i)=>{
-        const reveal=ease(clamp((docking-.12-i*.055)/.46));
-        card.style.opacity=reveal;
-        card.style.transform=i?`translateY(${(1-reveal)*(i%2?-28:28)}px)`:'none';
-      });
-      directory.inert=docking<.93;directory.setAttribute('aria-hidden',String(docking<.93));
-      film.classList.toggle('is-docked',docking>.995);
-      intro.dataset.progress=progress.toFixed(3);intro.dataset.aperture=aperture.toFixed(3);intro.dataset.docking=docking.toFixed(3);
-      if(focusDirectory&&progress>.999){focusDirectory=false;cards[0].querySelector('a').focus({preventScroll:true});}
+      const fade=1-ease(clamp(elapsed/360));copy.style.opacity=fade;copy.inert=state!=='idle';copy.style.pointerEvents=state==='idle'?'auto':'none';
+      directory.style.setProperty('--reveal',ease(clamp((docking-.06)/.50)));
+      cards.forEach((card,i)=>{const reveal=ease(clamp((docking-.10-i*.05)/.48));card.style.opacity=reveal;card.style.transform=i?`translateY(${(1-reveal)*(i%2?-28:28)}px)`:'none';});
+      directory.inert=state!=='done';directory.setAttribute('aria-hidden',String(state!=='done'));
+      film.classList.toggle('is-docked',state==='done');
+      intro.dataset.state=state;intro.dataset.phase=state==='idle'?'waiting':state==='done'?'directory':elapsed<REVEAL?'reveal':elapsed<REVEAL+HOLD?'full-video':'dock';
+      intro.dataset.progress=(elapsed/TOTAL).toFixed(3);intro.dataset.docking=docking.toFixed(3);
     }
-    function measure(preserve=false) {
-      const previous=preserve===true&&size?{progress:progress>.98?1:progress,offset:Math.max(0,scrollY-size.directoryY)}:null;
-      const header=document.querySelector('.header').getBoundingClientRect().height;
-      const viewport=Math.max(320,innerHeight-header),w=stage.clientWidth;
-      stage.style.minHeight=`${viewport}px`;
-      intro.classList.add('motion-ready');
-      mask.setAttribute('viewBox',`0 0 ${w} ${viewport}`);mask.style.height=`${viewport}px`;
-      maskSolid.setAttribute('width',w);maskSolid.setAttribute('height',viewport);
-      mask.querySelector('mask').setAttribute('width',w);mask.querySelector('mask').setAttribute('height',viewport);
+    function measure(){
+      const header=document.querySelector('.header').getBoundingClientRect().height,w=stage.clientWidth,h=Math.max(320,innerHeight-header),maskH=h*.5;
+      intro.classList.add('motion-ready');intro.classList.toggle('sequence-done',state==='done');
+      mask.setAttribute('viewBox',`0 0 ${w} ${maskH}`);mask.style.height=`${maskH}px`;
+      maskSolid.setAttribute('width',w);maskSolid.setAttribute('height',maskH);mask.querySelector('mask').setAttribute('width',w);mask.querySelector('mask').setAttribute('height',maskH);
       const stacked=w<=700;
       maskText.innerHTML=stacked?'<tspan x="0" y="-55">FANG XINGYUE / </tspan><tspan x="0" y="60">PORTFOLIO</tspan>':'<tspan x="0" y="0">FANG XINGYUE / PORTFOLIO</tspan>';
-      const box=maskText.getBBox();
-      const typeFit=(stacked?w*.82:Math.min(w*.58,1000))/box.width;
+      const b=maskText.getBBox(),fit=Math.min(w*(stacked?.90:.94)/b.width,maskH*.62/b.height),textY=maskH-Math.max(20,maskH*.10)-b.height*fit/2;
+      maskType.setAttribute('transform',`translate(${w/2} ${textY}) scale(${fit}) translate(${-b.x-b.width/2} ${-b.y-b.height/2})`);
+      const stageH=state==='done'?Math.max(h,directory.offsetHeight):h;
+      intro.style.height=`${stageH}px`;stage.style.height=`${stageH}px`;stage.style.minHeight=`${h}px`;
       const rect=slot.getBoundingClientRect(),stageRect=stage.getBoundingClientRect();
-      const stageH=Math.max(viewport,directory.offsetHeight),travel=Math.max(1050,Math.min(1700,viewport*1.8));
-      size={start:scrollY+intro.getBoundingClientRect().top-header,travel,w,h:viewport,x:rect.left-stageRect.left,y:rect.top-stageRect.top,tw:rect.width,th:rect.height,typeFit,typeX:box.x+box.width/2,typeY:box.y+box.height/2};
-      size.directoryY=size.start+travel;
-      intro.style.height=`${stageH+travel}px`;stage.style.height=`${stageH}px`;
-      intro.classList.add('motion-ready');
-      if(previous)scrollTo({top:size.start+previous.progress*travel+previous.offset,behavior:'instant'});
-      update();
+      size={w,h,maskH,x:rect.left-stageRect.left,y:rect.top-stageRect.top,tw:rect.width,th:rect.height};
+      paint();
     }
-    function queue(){if(!queued){queued=true;requestAnimationFrame(update);}}
+    function finish(){
+      state='done';elapsed=TOTAL;cancelAnimationFrame(frame);frame=0;lastTick=null;
+      unlock();measure();history.replaceState({...history.state,portfolioView:'work'},'');
+      if(focusDirectory)cards[0].querySelector('a').focus({preventScroll:true});
+    }
+    function advance(now){
+      frame=0;if(state!=='running'||document.hidden)return;
+      if(lastTick!==null)elapsed=Math.min(TOTAL,elapsed+Math.min(100,now-lastTick));
+      lastTick=now;paint();if(elapsed>=TOTAL)finish();else frame=requestAnimationFrame(advance);
+    }
+    function start(fromKeyboard=false){
+      if(state!=='idle')return;
+      focusDirectory=fromKeyboard;state='running';elapsed=0;lastTick=null;
+      scrollTo({top:0,behavior:'instant'});lock();measure();playFilm();frame=requestAnimationFrame(advance);
+    }
     function goDirectory(event){
-      event?.preventDefault();if(!size)measure();
-      history.replaceState({...history.state,portfolioView:'work'},'');focusDirectory=true;
-      scrollTo({top:size.directoryY,behavior:'smooth'});queue();
+      event?.preventDefault();
+      if(state==='idle')start(event?.detail===0);
+      else if(state==='done'){scrollTo({top:0,behavior:'smooth'});cards[0].querySelector('a').focus({preventScroll:true});}
     }
     document.querySelectorAll('[data-directory-link]').forEach(a=>a.addEventListener('click',goDirectory));
-    // Explicit portfolio brief: autoplay the silent film, with no playback controls on the home page.
+    addEventListener('wheel',event=>{
+      if(state==='done'||event.ctrlKey||event.metaKey||Math.abs(event.deltaY)<=Math.abs(event.deltaX)||Math.abs(event.deltaY)<1)return;
+      event.preventDefault();start();
+    },{passive:false});
+    addEventListener('keydown',event=>{
+      if(state==='done'||event.ctrlKey||event.metaKey||event.altKey||event.target.closest('a,button,input,textarea,select,[contenteditable]'))return;
+      if(['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' ','Enter'].includes(event.key)){event.preventDefault();start(true);}
+    });
+    addEventListener('touchstart',event=>{touch=event.touches.length===1?{x:event.touches[0].clientX,y:event.touches[0].clientY}:null;},{passive:true});
+    addEventListener('touchmove',event=>{
+      if(state==='done'||!touch||event.touches.length!==1)return;
+      const dx=event.touches[0].clientX-touch.x,dy=touch.y-event.touches[0].clientY;
+      if(Math.abs(dy)>Math.abs(dx)){event.preventDefault();if(dy>12)start();}
+    },{passive:false});
+    addEventListener('touchend',()=>{touch=null;},{passive:true});
+    intro.addEventListener('click',event=>{if(!event.target.closest('a,button'))start();});
+    addEventListener('scroll',()=>{if(state!=='done'&&scrollY>0)scrollTo({top:0,behavior:'instant'});},{passive:true});
     video.muted=true;video.defaultMuted=true;video.controls=false;
     const playFilm=()=>{if(!document.hidden)video.play().catch(()=>{});};
     video.addEventListener('loadeddata',playFilm,{once:true});
-    document.addEventListener('visibilitychange',()=>{if(document.hidden)video.pause();else playFilm();});
-    addEventListener('scroll',queue,{passive:true});
-    let resizeTimer;
-    addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>measure(true),120);});
-    ['wheel','touchstart','pointerdown','keydown'].forEach(type=>addEventListener(type,()=>{interacted=true;if(video.paused)playFilm();},{once:true,passive:true}));
-    function initialize(){measure();if(!interacted)scrollTo({top:entryWork?size.directoryY:0,behavior:'instant'});update();}
+    document.addEventListener('visibilitychange',()=>{
+      if(document.hidden){video.pause();cancelAnimationFrame(frame);frame=0;lastTick=null;}
+      else{playFilm();if(state==='running'&&!frame){lastTick=null;frame=requestAnimationFrame(advance);}}
+    });
+    let resizeTimer;addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(measure,80);});
+    function initialize(){
+      if(initialized){measure();return;}initialized=true;
+      scrollTo({top:0,behavior:'instant'});if(state==='done')unlock();else lock();measure();playFilm();
+    }
     requestAnimationFrame(initialize);addEventListener('load',initialize,{once:true});
-    addEventListener('pagehide',()=>history.replaceState({...history.state,portfolioView:progress>.93?'work':'intro'},''));
-    addEventListener('pageshow',event=>{if(event.persisted){measure();update();playFilm();}});
-    playFilm();
+    addEventListener('pagehide',()=>{history.replaceState({...history.state,portfolioView:state==='done'?'work':'intro'},'');cancelAnimationFrame(frame);frame=0;unlock();});
+    addEventListener('pageshow',event=>{if(event.persisted){if(state!=='done'){state='idle';elapsed=0;lock();scrollTo({top:0,behavior:'instant'});}else unlock();measure();playFilm();}});
   }
 
 
