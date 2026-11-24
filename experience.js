@@ -9,7 +9,7 @@
   const gallery = [];
   function figure(p, context, eager=false, cls='') {
     const i=gallery.push({...p,context})-1;
-    return `<figure class="selected-figure ${cls}"><button class="image-trigger" data-image-index="${i}" aria-label="放大：${esc(p.alt)}"><img src="${esc(p.src)}" width="${p.width}" height="${p.height}" alt="${esc(p.alt)}" ${eager?'fetchpriority="high"':'loading="lazy"'} decoding="async"><span class="image-enlarge" aria-hidden="true">${icon('plus')}</span></button>${p.caption?`<figcaption>${esc(p.caption)}</figcaption>`:''}</figure>`;
+    return `<figure class="selected-figure ${cls}"><button class="image-trigger" data-image-index="${i}" aria-label="放大：${esc(p.alt)}"><img class="${p.fit==='contain'?'fit-contain':''}" src="${esc(p.src)}" width="${p.width}" height="${p.height}" alt="${esc(p.alt)}" ${eager?'fetchpriority="high"':'loading="lazy"'} decoding="async"><span class="image-enlarge" aria-hidden="true">${icon('plus')}</span></button>${p.caption?`<figcaption>${esc(p.caption)}</figcaption>`:''}</figure>`;
   }
 
   const grid=document.querySelector('#project-grid');

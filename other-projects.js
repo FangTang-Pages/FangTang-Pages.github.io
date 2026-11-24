@@ -130,5 +130,41 @@ window.OTHER_PROJECTS = [
         "caption": "连续弧线 · 形态细节"
       }
     ]
+  },
+  {
+    "id": "generative-explorations",
+    "title": "生成式形态探索",
+    "subtitle": "算法生长与视觉生成",
+    "text": "以噪声侵蚀、路径生长与细胞自动机探索形态，结合 AI 生成场景与视觉表现。",
+    "tags": [
+      "生成式设计",
+      "AI 视觉"
+    ],
+    "images": [
+      {
+        "src": "assets/selected/misc-generative-terrain.webp",
+        "width": 1462,
+        "height": 931,
+        "alt": "由侵蚀地形模型转化的山地场景 AI 视觉效果",
+        "caption": "侵蚀地形 · AI 场景",
+        "fit": "contain"
+      },
+      {
+        "src": "assets/selected/misc-generative-growth.webp",
+        "width": 1024,
+        "height": 1191,
+        "alt": "围绕建筑立面延展的绿色路径生长 AI 视觉效果",
+        "caption": "路径生长 · AI 视觉",
+        "fit": "contain"
+      },
+      {
+        "src": "assets/selected/misc-generative-cellular.webp",
+        "width": 1508,
+        "height": 1500,
+        "alt": "细胞自动机探索形成的密集团簇与立面形态渲染",
+        "caption": "细胞自动机 · 形态渲染",
+        "fit": "contain"
+      }
+    ]
   }
 ];
