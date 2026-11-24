@@ -86,7 +86,7 @@
       if(focusDirectory&&progress>.999){focusDirectory=false;cards[0].querySelector('a').focus({preventScroll:true});}
     }
     function measure(preserve=false) {
-      const previous=preserve===true&&size?{progress,offset:Math.max(0,scrollY-size.start-size.travel)}:null;
+      const previous=preserve===true&&size?{progress:progress>.98?1:progress,offset:Math.max(0,scrollY-size.start-size.travel)}:null;
       const header=document.querySelector('.header').getBoundingClientRect().height;
       const viewport=Math.max(320,innerHeight-header);
       stage.style.minHeight=`${viewport}px`;
