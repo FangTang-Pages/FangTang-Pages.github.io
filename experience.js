@@ -25,17 +25,17 @@
     const id=new URLSearchParams(location.search).get('id') || 'lumi-city';
     const p=projects.find(p=>p.id===id), s=selected[id];
     if(!p || !s) {
-      target.innerHTML=`<section class="wrap empty"><h1>暂未找到这个项目</h1><p>请回到作品目录继续浏览。</p><a class="text-link" href="index.html#work">${icon('left')} 返回作品目录</a></section>`;
+      target.innerHTML=`<section class="wrap empty"><h1>暂未找到这个项目</h1><p>请回到作品目录继续浏览。</p><a class="text-link" href="index.html?view=work">${icon('left')} 返回作品目录</a></section>`;
     } else {
       document.title=`${p.title} · 方星月作品集`;
       document.querySelector('meta[name="description"]').content=p.intro;
       const next=projects[projects.indexOf(p)+1];
-      target.innerHTML=`<section class="selected-heading wrap"><a class="back-link" href="index.html#work">${icon('left')} 返回作品目录</a><div class="selected-title"><span class="project-number">${p.number}</span><div><p class="eyebrow">SELECTED PROJECT / 精选作品</p><h1>${esc(p.title)}</h1></div></div><div class="selected-summary"><div><h2>${esc(s.subtitle || p.name)}</h2><p>${esc(p.intro)}</p></div><div class="project-tags">${(s.tags || []).map(t=>`<span>${esc(t)}</span>`).join('')}</div></div></section>
+      target.innerHTML=`<section class="selected-heading wrap"><a class="back-link" href="index.html?view=work">${icon('left')} 返回作品目录</a><div class="selected-title"><span class="project-number">${p.number}</span><div><p class="eyebrow">SELECTED PROJECT / 精选作品</p><h1>${esc(p.title)}</h1></div></div><div class="selected-summary"><div><h2>${esc(s.subtitle || p.name)}</h2><p>${esc(p.intro)}</p></div><div class="project-tags">${(s.tags || []).map(t=>`<span>${esc(t)}</span>`).join('')}</div></div></section>
       <div class="wrap selected-hero">${figure(s.hero,p.title,true)}</div>
       <div class="selected-chapters wrap">${s.sections.map((section,i)=>`<section class="design-chapter" id="chapter-${i+1}"><div class="chapter-copy"><div><span class="eyebrow">${String(i+1).padStart(2,'0')} / ${esc((section.label || 'DESIGN PROCESS').replace(/^\d+\s*\/\s*/,''))}</span><h2>${esc(section.title)}</h2></div><p>${esc(section.text)}</p></div><div class="chapter-images ${section.images.length===1?'single-image':''}">${section.images.map(im=>figure(im,p.title)).join('')}</div></section>`).join('')}</div>
       ${id==='lumi-city'?`<section class="wrap detail-film" id="project-film"><div class="chapter-copy"><div><span class="eyebrow">FILM / 项目影片</span><h2>设计如何成为体验</h2></div><p>从实验与结构探索，到场景中的光影表达。</p></div><video controls playsinline preload="none" poster="assets/lumi-film-poster.webp" aria-label="LUMI CITY 完整项目影片"><source src="assets/lumi-film.mp4" type="video/mp4">请使用支持 MP4 的浏览器。</video></section>`:''}
       <section class="download-section wrap"><div><p class="eyebrow">THE COMPLETE PROJECT</p><h2>继续了解完整设计过程</h2><p>研究背景、更多推演与完整图纸，收录于项目作品集。</p></div><a class="download-button" href="documents/${esc(p.pdf)}" download>${icon('download')} 下载完整作品集 PDF</a></section>
-      <section class="next-project wrap"><span class="eyebrow">NEXT / 继续浏览</span><a href="${next?`project.html?id=${next.id}`:'other.html'}"><h2>${next?esc(next.title):'其他项目'}</h2>${icon('ne')}</a><a class="back-link" href="index.html#work">${icon('left')} 返回作品目录</a></section>`;
+      <section class="next-project wrap"><span class="eyebrow">NEXT / 继续浏览</span><a href="${next?`project.html?id=${next.id}`:'other.html'}"><h2>${next?esc(next.title):'其他项目'}</h2>${icon('ne')}</a><a class="back-link" href="index.html?view=work">${icon('left')} 返回作品目录</a></section>`;
     }
   }
   const otherTarget=document.querySelector('#other-projects');
@@ -45,6 +45,16 @@
   if(gallery.length) setupLightbox(gallery);
 
   function setupOpening() {
+    history.scrollRestoration='manual';
+    const entryUrl=new URL(location.href);
+    const navigation=performance.getEntriesByType('navigation')[0]?.type;
+    const entryWork=entryUrl.searchParams.get('view')==='work' || (navigation==='back_forward'&&history.state?.portfolioView==='work');
+    let userEnabled=entryUrl.searchParams.get('intro')==='1';
+    try{if(userEnabled)sessionStorage.setItem('portfolio-motion','on');else userEnabled=sessionStorage.getItem('portfolio-motion')==='on';}catch{}
+    entryUrl.searchParams.delete('view');entryUrl.searchParams.delete('intro');
+    if(entryUrl.hash==='#work')entryUrl.hash='';
+    history.replaceState({...history.state,portfolioView:entryWork?'work':'intro'},'',entryUrl);
+    if(!entryWork)scrollTo({top:0,behavior:'instant'});
     const intro=document.querySelector('.motion-intro'), stage=intro.querySelector('.motion-stage');
     const directory=intro.querySelector('.motion-directory'), film=intro.querySelector('.hero-film');
     const video=intro.querySelector('#opening-video'), copy=intro.querySelector('.hero-copy');
@@ -55,6 +65,7 @@
     const directoryToggle=heading.querySelector('button');
     const cards=[...intro.querySelectorAll('.motion-card')];
     const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+    const staticOpening=()=>reduced.matches&&!userEnabled;
     let size,queued=false,manualPause=false,progress=0,focusDirectory=false;
     const clamp=v=>Math.max(0,Math.min(1,v));
     const ease=v=>v*v*(3-2*v);
@@ -62,7 +73,19 @@
     function update() {
       queued=false;
       if(!size) return;
-      progress=reduced.matches?1:clamp((scrollY-size.start)/size.travel);
+      if(staticOpening()) {
+        progress=clamp((scrollY-size.start)/size.h);
+        film.style.transform='none';film.style.width=`${size.w}px`;film.style.height=`${size.h}px`;
+        film.style.borderColor='transparent';film.classList.remove('is-docked');
+        copy.style.opacity=1;copy.style.transform='none';copy.style.pointerEvents='auto';copy.inert=false;
+        toggle.style.opacity=1;toggle.style.pointerEvents='auto';toggle.tabIndex=0;
+        directory.style.setProperty('--reveal',1);directory.inert=false;directory.setAttribute('aria-hidden','false');
+        cards.forEach(card=>{card.style.opacity=1;card.style.transform='none';});
+        intro.dataset.progress=progress.toFixed(3);
+        if(focusDirectory&&progress>.999){focusDirectory=false;cards[0].querySelector('a').focus({preventScroll:true});}
+        return;
+      }
+      progress=clamp((scrollY-size.start)/size.travel);
       const t=ease(progress);
       film.style.transform=`translate3d(${mix(0,size.x,t)}px,${mix(0,size.y,t)}px,0)`;
       film.style.width=`${mix(size.w,size.tw,t)}px`;
@@ -86,46 +109,62 @@
       if(focusDirectory&&progress>.999){focusDirectory=false;cards[0].querySelector('a').focus({preventScroll:true});}
     }
     function measure(preserve=false) {
-      const previous=preserve===true&&size?{progress:progress>.98?1:progress,offset:Math.max(0,scrollY-size.start-size.travel)}:null;
+      const previous=preserve===true&&size?{progress:progress>.98?1:progress,offset:Math.max(0,scrollY-size.directoryY)}:null;
       const header=document.querySelector('.header').getBoundingClientRect().height;
       const viewport=Math.max(320,innerHeight-header);
+      const isStatic=staticOpening();
+      intro.classList.toggle('motion-reduced',isStatic);
+      stage.style.paddingTop=isStatic?`${viewport}px`:'0px';
       stage.style.minHeight=`${viewport}px`;
       // The final directory is measured in normal layout; its first media slot is the landing position.
       const rect=slot.getBoundingClientRect(), stageRect=stage.getBoundingClientRect();
-      const stageH=Math.max(viewport,directory.offsetHeight);
-      const travel=reduced.matches?0:Math.max(540,Math.min(950,viewport*1.12));
+      const stageH=isStatic?viewport+directory.offsetHeight:Math.max(viewport,directory.offsetHeight);
+      const travel=isStatic?0:Math.max(540,Math.min(950,viewport*1.12));
       size={start:scrollY+intro.getBoundingClientRect().top-header,travel,w:stage.clientWidth,h:viewport,x:rect.left-stageRect.left,y:rect.top-stageRect.top,tw:rect.width,th:rect.height};
+      size.directoryY=size.start+(isStatic?viewport:travel);
       intro.style.height=`${stageH+travel}px`;
       stage.style.height=`${stageH}px`;
       intro.classList.add('motion-ready');
-      if(previous)scrollTo({top:size.start+previous.progress*size.travel+previous.offset,behavior:'instant'});
+      if(previous)scrollTo({top:size.start+previous.progress*(size.directoryY-size.start)+previous.offset,behavior:'instant'});
       update();
     }
     function queue() {if(!queued){queued=true;requestAnimationFrame(update);}}
     function goDirectory(event) {
       event?.preventDefault();
       if(!size) measure();
-      history.replaceState(null,'','#work');
+      history.replaceState({...history.state,portfolioView:'work'},'');
       focusDirectory=true;
-      scrollTo({top:size.start+size.travel,behavior:reduced.matches?'instant':'smooth'});
+      scrollTo({top:size.directoryY,behavior:staticOpening()?'instant':'smooth'});
       queue();
     }
     document.querySelectorAll('[data-directory-link]').forEach(a=>a.addEventListener('click',goDirectory));
     const togglePlayback=()=>{
+      if(staticOpening()) {
+        userEnabled=true;manualPause=false;
+        try{sessionStorage.setItem('portfolio-motion','on');}catch{}
+        measure();scrollTo({top:0,behavior:'instant'});update();
+        video.play().catch(syncToggle);syncToggle();return;
+      }
       if(video.paused) {manualPause=false;video.play().catch(()=>{});} else {manualPause=true;video.pause();}
     };
     toggle.addEventListener('click',togglePlayback);directoryToggle.addEventListener('click',togglePlayback);
-    const syncToggle=()=>{toggle.textContent=video.paused?'播放影片':'暂停影片';toggle.setAttribute('aria-label',video.paused?'播放开场视频':'暂停开场视频');directoryToggle.textContent=video.paused?'播放动态封面':'暂停动态封面';directoryToggle.setAttribute('aria-label',directoryToggle.textContent);};
+    const syncToggle=()=>{toggle.textContent=staticOpening()?'播放开场动效':video.paused?'播放影片':'暂停影片';toggle.setAttribute('aria-label',toggle.textContent);directoryToggle.textContent=staticOpening()?'观看视频开场':video.paused?'播放动态封面':'暂停动态封面';directoryToggle.setAttribute('aria-label',directoryToggle.textContent);};
     video.addEventListener('play',syncToggle);video.addEventListener('pause',syncToggle);
     video.addEventListener('error',()=>{toggle.hidden=true;directoryToggle.hidden=true;});
-    document.addEventListener('visibilitychange',()=>{if(document.hidden)video.pause();else if(!manualPause&&!reduced.matches)video.play().catch(()=>{});});
+    document.addEventListener('visibilitychange',()=>{if(document.hidden)video.pause();else if(!manualPause&&!staticOpening())video.play().catch(()=>{});});
     addEventListener('scroll',queue,{passive:true});
     let resizeTimer;
     addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>measure(true),120);});
-    reduced.addEventListener('change',()=>{if(reduced.matches)video.pause();measure(true);});
-    requestAnimationFrame(()=>{measure();if(location.hash==='#work'){scrollTo({top:size.start+size.travel,behavior:'instant'});update();}});
-    addEventListener('load',measure,{once:true});
-    if(reduced.matches)video.pause();else video.play().catch(syncToggle);
+    reduced.addEventListener('change',()=>{if(staticOpening())video.pause();measure(true);syncToggle();});
+    let interacted=false;
+    ['wheel','touchstart','pointerdown','keydown'].forEach(type=>addEventListener(type,()=>{interacted=true;},{once:true,passive:true}));
+    function initialize(){measure();if(!interacted)scrollTo({top:entryWork?size.directoryY:0,behavior:'instant'});update();}
+    requestAnimationFrame(initialize);
+    addEventListener('load',initialize,{once:true});
+    addEventListener('pagehide',()=>history.replaceState({...history.state,portfolioView:progress>.93?'work':'intro'},''));
+    addEventListener('pageshow',event=>{if(event.persisted){measure();update();}});
+    if(staticOpening())video.pause();else video.play().catch(syncToggle);
+    syncToggle();
   }
 
   function setupLightbox(items) {

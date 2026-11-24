@@ -46,5 +46,4 @@
 @media(max-width:360px){.motion-grid{column-gap:12px}.motion-card h2{font-size:16px}.motion-card-heading{min-height:77px}.motion-card>a>p{font-size:12px}.motion-heading p{font-size:13px}.motion-heading p span{display:block;margin:3px 0 0}.hero-name{font-size:42px}.other-images{gap:7px}}
 @media(max-width:700px){.hero-film .docked-open{width:27px;height:27px;right:4px;bottom:4px}.hero-film .docked-open .icon{width:16px;height:16px}}
 @media(max-width:700px){.directory-video-toggle{margin:6px 0 0;min-height:32px}.hero-film video{object-position:70% center}}
-@media(prefers-reduced-motion:reduce){.directory-video-toggle{display:none}}
-@media(prefers-reduced-motion:reduce){.motion-ready .hero-film,.motion-ready .hero-copy,.motion-ready .opening-toggle{display:none}.motion-stage{position:relative;top:auto}.motion-card{transform:none!important}.motion-directory{--reveal:1!important}}
+.motion-reduced .motion-stage{position:relative;top:auto}.motion-reduced .motion-card{transform:none!important}.motion-reduced .motion-directory{--reveal:1!important}.motion-reduced .hero-film::after{transition:none}
