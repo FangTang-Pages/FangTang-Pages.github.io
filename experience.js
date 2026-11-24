@@ -16,7 +16,7 @@
   if(grid) {
     const entries=projects.map(p=>({id:p.id,title:p.title,category:p.category,number:p.number,href:`project.html?id=${p.id}`,image:`assets/${p.id}-cover.webp`,alt:p.images[0][0]}));
     entries.push({id:'other',title:'Other Explorations',category:'其他项目 / 更多设计探索',number:'06',href:'other.html',image:others[0]?.images[0]?.src || 'assets/ore-rebirth-cover.webp',alt:'其他项目：模块、场景与形态探索'});
-    grid.innerHTML=entries.map((p,i)=>`<article class="motion-card" data-card="${i}"><a href="${p.href}" aria-label="查看 ${esc(p.title)} 精选作品"><div class="motion-card-heading"><span class="motion-number">${p.number}<span>·</span></span><h2>${esc(p.title)}</h2></div><div class="motion-media" ${i===0?'id="lumi-slot"':''}><img src="${esc(p.image)}" alt="${esc(p.alt)}" width="800" height="600" decoding="async" ${i<3?'fetchpriority="high"':'loading="lazy"'}><span class="entry-open" aria-hidden="true">${icon('ne')}</span></div><p>${esc(p.category)}</p></a></article>`).join('');
+    grid.innerHTML=entries.map((p,i)=>`<article class="motion-card" data-card="${i}"><a href="${p.href}" aria-label="查看 ${esc(p.title)} 精选作品"><div class="motion-card-heading"><span class="motion-number">${p.number}<span>·</span></span><h2>${esc(p.title)}</h2></div><div class="motion-media" ${i===0?'id="lumi-slot"':''}><img src="${esc(p.image)}" alt="${esc(p.alt)}" width="800" height="600" decoding="async" ${i<3?'fetchpriority="high" loading="eager"':'loading="eager"'}><span class="entry-open" aria-hidden="true">${icon('ne')}</span></div><p>${esc(p.category)}</p></a></article>`).join('');
     setupOpening();
   }
 
@@ -49,123 +49,92 @@
     const entryUrl=new URL(location.href);
     const navigation=performance.getEntriesByType('navigation')[0]?.type;
     const entryWork=entryUrl.searchParams.get('view')==='work' || (navigation==='back_forward'&&history.state?.portfolioView==='work');
-    let userEnabled=entryUrl.searchParams.get('intro')==='1';
-    try{if(userEnabled)sessionStorage.setItem('portfolio-motion','on');else userEnabled=sessionStorage.getItem('portfolio-motion')==='on';}catch{}
     entryUrl.searchParams.delete('view');entryUrl.searchParams.delete('intro');
     if(entryUrl.hash==='#work')entryUrl.hash='';
     history.replaceState({...history.state,portfolioView:entryWork?'work':'intro'},'',entryUrl);
     if(!entryWork)scrollTo({top:0,behavior:'instant'});
-    const intro=document.querySelector('.motion-intro'), stage=intro.querySelector('.motion-stage');
-    const directory=intro.querySelector('.motion-directory'), film=intro.querySelector('.hero-film');
-    const video=intro.querySelector('#opening-video'), copy=intro.querySelector('.hero-copy');
-    const toggle=intro.querySelector('#opening-toggle'), slot=intro.querySelector('#lumi-slot');
-    film.insertAdjacentHTML('beforeend',`<span class="entry-open docked-open" aria-hidden="true">${icon('ne')}</span>`);
-    const heading=intro.querySelector('.motion-heading p');
-    heading.insertAdjacentHTML('beforeend','<button class="directory-video-toggle" aria-label="暂停动态封面">暂停动态封面</button>');
-    const directoryToggle=heading.querySelector('button');
+    const intro=document.querySelector('.motion-intro'),stage=intro.querySelector('.motion-stage');
+    const directory=intro.querySelector('.motion-directory'),film=intro.querySelector('.hero-film');
+    const video=intro.querySelector('#opening-video'),copy=intro.querySelector('.hero-copy');
+    const slot=intro.querySelector('#lumi-slot'),mask=intro.querySelector('.opening-mask');
+    const maskType=mask.querySelector('#opening-type'),maskText=mask.querySelector('text');
+    const maskSolid=mask.querySelector('#opening-solid');
     const cards=[...intro.querySelectorAll('.motion-card')];
-    const reduced=matchMedia('(prefers-reduced-motion: reduce)');
-    const staticOpening=()=>reduced.matches&&!userEnabled;
-    let size,queued=false,manualPause=false,progress=0,focusDirectory=false;
+    film.insertAdjacentHTML('beforeend',`<span class="entry-open docked-open" aria-hidden="true">${icon('ne')}</span>`);
+    let size,queued=false,progress=0,focusDirectory=false,interacted=false;
     const clamp=v=>Math.max(0,Math.min(1,v));
     const ease=v=>v*v*(3-2*v);
     const mix=(a,b,t)=>a+(b-a)*t;
     function update() {
-      queued=false;
-      if(!size) return;
-      if(staticOpening()) {
-        progress=clamp((scrollY-size.start)/size.h);
-        film.style.transform='none';film.style.width=`${size.w}px`;film.style.height=`${size.h}px`;
-        film.style.borderColor='transparent';film.classList.remove('is-docked');
-        copy.style.opacity=1;copy.style.transform='none';copy.style.pointerEvents='auto';copy.inert=false;
-        toggle.style.opacity=1;toggle.style.pointerEvents='auto';toggle.tabIndex=0;
-        directory.style.setProperty('--reveal',1);directory.inert=false;directory.setAttribute('aria-hidden','false');
-        cards.forEach(card=>{card.style.opacity=1;card.style.transform='none';});
-        intro.dataset.progress=progress.toFixed(3);
-        if(focusDirectory&&progress>.999){focusDirectory=false;cards[0].querySelector('a').focus({preventScroll:true});}
-        return;
-      }
+      queued=false;if(!size)return;
       progress=clamp((scrollY-size.start)/size.travel);
-      const t=ease(progress);
+      // The first passage opens the letterforms; the second gives the film a place in the directory.
+      const aperture=clamp(progress/.43),docking=clamp((progress-.43)/.57);
+      const t=ease(docking),zoom=1+15*Math.pow(aperture,1.65);
+      maskType.setAttribute('transform',`translate(${size.w/2} ${size.h*.48}) scale(${size.typeFit*zoom}) translate(${-size.typeX} ${-size.typeY})`);
+      mask.style.opacity=1-ease(clamp((aperture-.55)/.45));
+      mask.style.visibility=aperture>=1?'hidden':'visible';
       film.style.transform=`translate3d(${mix(0,size.x,t)}px,${mix(0,size.y,t)}px,0)`;
-      film.style.width=`${mix(size.w,size.tw,t)}px`;
-      film.style.height=`${mix(size.h,size.th,t)}px`;
+      film.style.width=`${mix(size.w,size.tw,t)}px`;film.style.height=`${mix(size.h,size.th,t)}px`;
       film.style.borderColor=`rgba(162,139,127,${t})`;
-      const fade=1-ease(clamp(progress/.4));
-      copy.style.opacity=fade;copy.style.transform=`translateY(${-24*t}px)`;
-      copy.style.pointerEvents=progress>.12?'none':'auto';
-      copy.inert=progress>.12;
-      toggle.style.opacity=fade;toggle.style.pointerEvents=progress>.12?'none':'auto';toggle.tabIndex=progress>.12?-1:0;
-      directory.style.setProperty('--reveal',ease(clamp((progress-.13)/.5)));
+      const fade=1-ease(clamp(progress/.19));
+      copy.style.opacity=fade;copy.style.pointerEvents=progress>.08?'none':'auto';copy.inert=progress>.08;
+      directory.style.setProperty('--reveal',ease(clamp((docking-.08)/.50)));
       cards.forEach((card,i)=>{
-        const reveal=ease(clamp((progress-.25-i*.045)/.38));
+        const reveal=ease(clamp((docking-.12-i*.055)/.46));
         card.style.opacity=reveal;
-        card.style.transform=i?`translateY(${(1-reveal)*(i%2?-32:32)}px)`:'none';
+        card.style.transform=i?`translateY(${(1-reveal)*(i%2?-28:28)}px)`:'none';
       });
-      directory.inert=progress<.93;
-      directory.setAttribute('aria-hidden',String(progress<.93));
-      intro.dataset.progress=progress.toFixed(3);
-      film.classList.toggle('is-docked',progress>.995);
+      directory.inert=docking<.93;directory.setAttribute('aria-hidden',String(docking<.93));
+      film.classList.toggle('is-docked',docking>.995);
+      intro.dataset.progress=progress.toFixed(3);intro.dataset.aperture=aperture.toFixed(3);intro.dataset.docking=docking.toFixed(3);
       if(focusDirectory&&progress>.999){focusDirectory=false;cards[0].querySelector('a').focus({preventScroll:true});}
     }
     function measure(preserve=false) {
       const previous=preserve===true&&size?{progress:progress>.98?1:progress,offset:Math.max(0,scrollY-size.directoryY)}:null;
       const header=document.querySelector('.header').getBoundingClientRect().height;
-      const viewport=Math.max(320,innerHeight-header);
-      const isStatic=staticOpening();
-      intro.classList.toggle('motion-reduced',isStatic);
-      stage.style.paddingTop=isStatic?`${viewport}px`:'0px';
+      const viewport=Math.max(320,innerHeight-header),w=stage.clientWidth;
       stage.style.minHeight=`${viewport}px`;
-      // The final directory is measured in normal layout; its first media slot is the landing position.
-      const rect=slot.getBoundingClientRect(), stageRect=stage.getBoundingClientRect();
-      const stageH=isStatic?viewport+directory.offsetHeight:Math.max(viewport,directory.offsetHeight);
-      const travel=isStatic?0:Math.max(540,Math.min(950,viewport*1.12));
-      size={start:scrollY+intro.getBoundingClientRect().top-header,travel,w:stage.clientWidth,h:viewport,x:rect.left-stageRect.left,y:rect.top-stageRect.top,tw:rect.width,th:rect.height};
-      size.directoryY=size.start+(isStatic?viewport:travel);
-      intro.style.height=`${stageH+travel}px`;
-      stage.style.height=`${stageH}px`;
       intro.classList.add('motion-ready');
-      if(previous)scrollTo({top:size.start+previous.progress*(size.directoryY-size.start)+previous.offset,behavior:'instant'});
+      mask.setAttribute('viewBox',`0 0 ${w} ${viewport}`);mask.style.height=`${viewport}px`;
+      maskSolid.setAttribute('width',w);maskSolid.setAttribute('height',viewport);
+      mask.querySelector('mask').setAttribute('width',w);mask.querySelector('mask').setAttribute('height',viewport);
+      const stacked=w<=700;
+      maskText.innerHTML=stacked?'<tspan x="0" y="-55">FANG XINGYUE / </tspan><tspan x="0" y="60">PORTFOLIO</tspan>':'<tspan x="0" y="0">FANG XINGYUE / PORTFOLIO</tspan>';
+      const box=maskText.getBBox();
+      const typeFit=(stacked?w*.82:Math.min(w*.58,1000))/box.width;
+      const rect=slot.getBoundingClientRect(),stageRect=stage.getBoundingClientRect();
+      const stageH=Math.max(viewport,directory.offsetHeight),travel=Math.max(1050,Math.min(1700,viewport*1.8));
+      size={start:scrollY+intro.getBoundingClientRect().top-header,travel,w,h:viewport,x:rect.left-stageRect.left,y:rect.top-stageRect.top,tw:rect.width,th:rect.height,typeFit,typeX:box.x+box.width/2,typeY:box.y+box.height/2};
+      size.directoryY=size.start+travel;
+      intro.style.height=`${stageH+travel}px`;stage.style.height=`${stageH}px`;
+      intro.classList.add('motion-ready');
+      if(previous)scrollTo({top:size.start+previous.progress*travel+previous.offset,behavior:'instant'});
       update();
     }
-    function queue() {if(!queued){queued=true;requestAnimationFrame(update);}}
-    function goDirectory(event) {
-      event?.preventDefault();
-      if(!size) measure();
-      history.replaceState({...history.state,portfolioView:'work'},'');
-      focusDirectory=true;
-      scrollTo({top:size.directoryY,behavior:staticOpening()?'instant':'smooth'});
-      queue();
+    function queue(){if(!queued){queued=true;requestAnimationFrame(update);}}
+    function goDirectory(event){
+      event?.preventDefault();if(!size)measure();
+      history.replaceState({...history.state,portfolioView:'work'},'');focusDirectory=true;
+      scrollTo({top:size.directoryY,behavior:'smooth'});queue();
     }
     document.querySelectorAll('[data-directory-link]').forEach(a=>a.addEventListener('click',goDirectory));
-    const togglePlayback=()=>{
-      if(staticOpening()) {
-        userEnabled=true;manualPause=false;
-        try{sessionStorage.setItem('portfolio-motion','on');}catch{}
-        measure();scrollTo({top:0,behavior:'instant'});update();
-        video.play().catch(syncToggle);syncToggle();return;
-      }
-      if(video.paused) {manualPause=false;video.play().catch(()=>{});} else {manualPause=true;video.pause();}
-    };
-    toggle.addEventListener('click',togglePlayback);directoryToggle.addEventListener('click',togglePlayback);
-    const syncToggle=()=>{toggle.textContent=staticOpening()?'播放开场动效':video.paused?'播放影片':'暂停影片';toggle.setAttribute('aria-label',toggle.textContent);directoryToggle.textContent=staticOpening()?'观看视频开场':video.paused?'播放动态封面':'暂停动态封面';directoryToggle.setAttribute('aria-label',directoryToggle.textContent);};
-    video.addEventListener('play',syncToggle);video.addEventListener('pause',syncToggle);
-    video.addEventListener('error',()=>{toggle.hidden=true;directoryToggle.hidden=true;});
-    document.addEventListener('visibilitychange',()=>{if(document.hidden)video.pause();else if(!manualPause&&!staticOpening())video.play().catch(()=>{});});
+    // Explicit portfolio brief: autoplay the silent film, with no playback controls on the home page.
+    video.muted=true;video.defaultMuted=true;video.controls=false;
+    const playFilm=()=>{if(!document.hidden)video.play().catch(()=>{});};
+    video.addEventListener('loadeddata',playFilm,{once:true});
+    document.addEventListener('visibilitychange',()=>{if(document.hidden)video.pause();else playFilm();});
     addEventListener('scroll',queue,{passive:true});
     let resizeTimer;
     addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>measure(true),120);});
-    reduced.addEventListener('change',()=>{if(staticOpening())video.pause();measure(true);syncToggle();});
-    let interacted=false;
-    ['wheel','touchstart','pointerdown','keydown'].forEach(type=>addEventListener(type,()=>{interacted=true;},{once:true,passive:true}));
+    ['wheel','touchstart','pointerdown','keydown'].forEach(type=>addEventListener(type,()=>{interacted=true;if(video.paused)playFilm();},{once:true,passive:true}));
     function initialize(){measure();if(!interacted)scrollTo({top:entryWork?size.directoryY:0,behavior:'instant'});update();}
-    requestAnimationFrame(initialize);
-    addEventListener('load',initialize,{once:true});
+    requestAnimationFrame(initialize);addEventListener('load',initialize,{once:true});
     addEventListener('pagehide',()=>history.replaceState({...history.state,portfolioView:progress>.93?'work':'intro'},''));
-    addEventListener('pageshow',event=>{if(event.persisted){measure();update();}});
-    if(staticOpening())video.pause();else video.play().catch(syncToggle);
-    syncToggle();
+    addEventListener('pageshow',event=>{if(event.persisted){measure();update();playFilm();}});
+    playFilm();
   }
+
 
   function setupLightbox(items) {
     const dialog=document.querySelector('#lightbox');
