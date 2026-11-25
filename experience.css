@@ -126,7 +126,7 @@ html{scrollbar-gutter:stable}html.intro-sequence-locked{overflow-y:hidden;oversc
 .chapter-image-row .image-trigger img{position:absolute;inset:0;width:100%;height:100%;max-height:none;object-fit:contain}
 .chapter-image-row figcaption{margin-top:10px}
 /* White paper diagrams share the page's warm paper surface. */
-.chapter-image-row .selected-figure:has(img.fit-contain):not([style*="--image-background:#000"]) .image-trigger{background:transparent;box-shadow:none}
+.chapter-image-row .selected-figure:has(img.fit-contain):not([style*="--image-background:#000"]) .image-trigger{background:var(--paper);isolation:isolate;box-shadow:none}
 .chapter-image-row .selected-figure:has(img.fit-contain):not([style*="--image-background:#000"]) img{mix-blend-mode:multiply}
 .other-entry{align-items:start}
 .other-images .image-trigger{width:100%;min-width:0;background:#fff}
@@ -193,3 +193,8 @@ html{scrollbar-gutter:stable}html.intro-sequence-locked{overflow-y:hidden;oversc
  .project-pagination .project-next{grid-column:2;grid-row:1}
  .project-pagination .pagination-title{font-size:16px}
 }
+
+/* Project themes lead the smaller numbered chapter headings. */
+.selected-summary h2,.other-heading h2{font-size:clamp(25px,2.4vw,34px)}
+.chapter-copy h2,.other-copy h2{font-size:23px}
+@media(max-width:700px){.selected-summary h2,.other-heading h2{font-size:26px}.chapter-copy h2,.other-copy h2{font-size:21px}}

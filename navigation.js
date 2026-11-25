@@ -19,9 +19,13 @@
     return templates.get(key);
   }
   function state(value){document.body.dataset.routeState=value;}
-  function revealHeroTitle(){
+  async function revealHeroTitle(){
     const hero=document.querySelector('.entry-hero');
-    if(hero)requestAnimationFrame(()=>{if(hero.isConnected)hero.classList.add('is-title-visible');});
+    if(!hero)return;
+    const img=hero.querySelector('.image-trigger img'),video=hero.querySelector('video');
+    if(img)await img.decode().catch(()=>{});
+    else if(video?.readyState<2&&video.poster){const poster=new Image();poster.src=video.poster;await poster.decode().catch(()=>{});}
+    requestAnimationFrame(()=>{if(hero.isConnected)hero.classList.add('is-title-visible');});
   }
   state('ready');
   function attachVideo(){
@@ -89,8 +93,10 @@
         if(overlay){
           const r=target.getBoundingClientRect();
           overlay.firstElementChild.animate([{transform:overlay.firstElementChild.style.transform},{transform:'none'}],{duration:620,fill:'forwards'});
-          nextMain.animate([{opacity:0},{opacity:1}],{duration:380,delay:160,fill:'both'});
+          const contentFade=nextMain.animate([{opacity:0},{opacity:1}],{duration:380,delay:160,fill:'both'});
           await overlay.animate([{left:overlay.style.left,top:overlay.style.top,width:overlay.style.width,height:overlay.style.height,borderRadius:overlay.style.borderRadius},{left:`${r.left}px`,top:`${r.top}px`,width:`${r.width}px`,height:`${r.height}px`,borderRadius:'0px'}],{duration:620,easing:'cubic-bezier(.22,.7,.2,1)',fill:'forwards'}).finished;
+          // Release the opacity compositing layer so diagram blending matches a direct page load.
+          contentFade.cancel();
           if(overlay.querySelector('video')){overlay.firstElementChild.getAnimations().forEach(a=>a.cancel());overlay.firstElementChild.style.transform='';attachVideo();}
         }
         target.style.visibility='';overlay?.remove();overlay=null;revealHeroTitle();
