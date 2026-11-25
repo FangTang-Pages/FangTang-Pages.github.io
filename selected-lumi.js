@@ -1,7 +1,7 @@
 window.SELECTED_LUMI = {
   "subtitle": "光影共生",
   "tags": [
-    "夜光与生态",
+    "夜间光环境",
     "藻类培养与发光",
     "发光实验",
     "光的单元",
@@ -19,23 +19,23 @@ window.SELECTED_LUMI = {
   "sections": [
     {
       "label": "01 / LIGHT & ECOLOGY",
-      "title": "夜光与生态",
-      "text": "对照伦敦夜间灯光、绿地覆盖与生物多样性热点分布，梳理光环境与生态空间的关系。",
+      "title": "夜间光环境",
+      "text": "从全球夜间灯光分布聚焦伦敦，对照城市夜光与 VIIRS 影像，展开对人工照明与光环境的研究。",
       "images": [
+        {
+          "src": "assets/selected/lumi-v44-global-night.webp",
+          "width": 2400,
+          "height": 1210,
+          "background": "#000",
+          "alt": "全球夜间人工灯光分布地图",
+          "caption": "全球夜光 · 人工灯光的空间分布"
+        },
         {
           "src": "assets/selected/lumi-v43-night-maps.webp",
           "width": 2400,
           "height": 1134,
           "alt": "伦敦夜间灯光辐亮度与 VIIRS 夜光地图及图例",
           "caption": "伦敦夜间灯光 · 辐亮度与 VIIRS 夜光分布",
-          "background": "#000"
-        },
-        {
-          "src": "assets/selected/lumi-v43-ecology-maps.webp",
-          "width": 2400,
-          "height": 1134,
-          "alt": "伦敦绿地覆盖与生物多样性热点分布地图及图例",
-          "caption": "生态空间 · 绿地覆盖与生物多样性热点",
           "background": "#000"
         }
       ]
