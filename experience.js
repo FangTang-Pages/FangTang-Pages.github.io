@@ -39,17 +39,17 @@
     const id=new URLSearchParams(location.search).get('id') || 'lumi-city';
     const p=projects.find(p=>p.id===id), s=selected[id];
     if(!p || !s) {
-      target.innerHTML=`<section class="wrap empty"><h1>暂未找到这个项目</h1><p>请回到作品目录继续浏览。</p><a class="text-link" href="index.html?view=work">${icon('left')} 返回作品目录</a></section>`;
+      target.innerHTML=`<section class="wrap empty"><h1>暂未找到这个项目</h1><p>请回到作品目录继续浏览。</p><a class="text-link" href="index.html">${icon('left')} 返回作品目录</a></section>`;
     } else {
       document.title=`${p.title} · 方星月作品集`;
       document.querySelector('meta[name="description"]').content=p.intro;
       const next=projects[projects.indexOf(p)+1];
-      target.innerHTML=`<section class="selected-heading wrap"><a class="back-link" href="index.html?view=work">${icon('left')} 返回作品目录</a><div class="selected-title"><p class="eyebrow"><span class="project-number">${p.number}</span><span>SELECTED PROJECT / 精选作品</span></p><h1>${esc(p.title)}</h1></div><div class="selected-summary"><div><h2>${esc(s.subtitle || p.name)}</h2><p>${esc(p.intro)}</p></div><nav class="project-tags" aria-label="项目章节">${s.sections.map((section,i)=>`<a href="#chapter-${i+1}">${esc(section.title)}</a>`).join('')}</nav></div></section>
+      target.innerHTML=`<section class="selected-heading wrap"><a class="back-link" href="index.html">${icon('left')} 返回作品目录</a><div class="selected-title"><p class="eyebrow"><span class="project-number">${p.number}</span><span>SELECTED PROJECT / 精选作品</span></p><h1>${esc(p.title)}</h1></div><div class="selected-summary"><div><h2>${esc(s.subtitle || p.name)}</h2><p>${esc(p.intro)}</p></div><nav class="project-tags" aria-label="项目章节">${s.sections.map((section,i)=>`<a href="#chapter-${i+1}">${esc(section.title)}</a>`).join('')}</nav></div></section>
       <div class="wrap selected-hero">${figure(s.hero,p.title,true)}</div>
       <div class="selected-chapters wrap">${s.sections.map((section,i)=>`<section class="design-chapter" id="chapter-${i+1}" tabindex="-1"><div class="chapter-copy"><div><span class="eyebrow">${String(i+1).padStart(2,'0')} / ${esc((section.label || 'DESIGN PROCESS').replace(/^\d+\s*\/\s*/,''))}</span><h2>${esc(section.title)}</h2></div><p>${esc(section.text)}</p></div><div class="chapter-images">${imageRows(section.images,p.title)}</div></section>`).join('')}</div>
       ${id==='lumi-city'?`<section class="wrap detail-film" id="project-film"><div class="chapter-copy"><div><span class="eyebrow">FILM / 项目影片</span><h2>光影演绎</h2></div><p>从实验与结构探索，到场景中的光影表达。</p></div><video controls playsinline preload="none" poster="assets/lumi-film-poster.webp" aria-label="LUMI CITY 完整项目影片"><source src="assets/lumi-film.mp4" type="video/mp4">请使用支持 MP4 的浏览器。</video></section>`:''}
       <section class="download-section wrap"><div><p class="eyebrow">THE COMPLETE PROJECT</p><h2>完整作品集</h2><p>研究背景、更多推演与完整图纸，收录于项目作品集。</p></div><a class="download-button" href="documents/${esc(p.pdf)}" download>${icon('download')} 下载完整作品集 PDF</a></section>
-      <section class="next-project wrap"><span class="eyebrow">NEXT / 继续浏览</span><a href="${next?`project.html?id=${next.id}`:'other.html'}"><h2>${next?esc(next.title):'其他项目'}</h2>${icon('ne')}</a><a class="back-link" href="index.html?view=work">${icon('left')} 返回作品目录</a></section>`;
+      <section class="next-project wrap"><span class="eyebrow">NEXT / 继续浏览</span><a href="${next?`project.html?id=${next.id}`:'other.html'}"><h2>${next?esc(next.title):'其他项目'}</h2>${icon('ne')}</a><a class="back-link" href="index.html">${icon('left')} 返回作品目录</a></section>`;
     }
   }
   const otherTarget=document.querySelector('#other-projects');
@@ -60,11 +60,10 @@
 
   function setupOpening() {
     history.scrollRestoration='manual';
-    const entryUrl=new URL(location.href),navigation=performance.getEntriesByType('navigation')[0]?.type;
-    const entryWork=entryUrl.searchParams.get('view')==='work'||(navigation==='back_forward'&&history.state?.portfolioView==='work');
+    const entryUrl=new URL(location.href);
     entryUrl.searchParams.delete('view');entryUrl.searchParams.delete('intro');
     if(entryUrl.hash==='#work')entryUrl.hash='';
-    history.replaceState({...history.state,portfolioView:entryWork?'work':'intro'},'',entryUrl);
+    history.replaceState({...history.state,portfolioView:'intro'},'',entryUrl);
     const intro=document.querySelector('.motion-intro'),stage=intro.querySelector('.motion-stage');
     const directory=intro.querySelector('.motion-directory'),film=intro.querySelector('.hero-film');
     const video=intro.querySelector('#opening-video'),copy=intro.querySelector('.hero-copy');
@@ -72,27 +71,31 @@
     const maskType=mask.querySelector('#opening-type'),maskText=mask.querySelector('text'),maskSolid=mask.querySelector('#opening-solid');
     const cards=[...intro.querySelectorAll('.motion-card')];
     const dockedFace=slot.querySelector('.card-face').cloneNode(true);dockedFace.classList.add('docked-face');film.append(dockedFace);
-    const REVEAL=850,HOLD=300,DOCK=1450,TOTAL=REVEAL+HOLD+DOCK;
-    let state=entryWork?'done':'idle',elapsed=entryWork?TOTAL:0,size,frame=0,lastTick=null,focusDirectory=false,touch=null,initialized=false;
+    const REVEAL=450,HOLD=100,DOCK=950,TOTAL=REVEAL+HOLD+DOCK;
+    let state='idle',elapsed=0,direction=1,size,frame=0,lastTick=null,focusDirectory=false,touch=null,initialized=false;
     const clamp=v=>Math.max(0,Math.min(1,v)),ease=v=>v*v*(3-2*v),mix=(a,b,t)=>a+(b-a)*t;
     function lock(){document.documentElement.classList.add('intro-sequence-locked');}
     function unlock(){document.documentElement.classList.remove('intro-sequence-locked');}
+    function syncVideo(){
+      if(document.hidden||state==='done'){video.pause();return;}
+      video.play().then(()=>{if(document.hidden||state==='done')video.pause();}).catch(()=>{});
+    }
     function paint(){
       if(!size)return;
       const revealing=ease(clamp(elapsed/REVEAL)),docking=clamp((elapsed-REVEAL-HOLD)/DOCK),t=ease(docking);
-      mask.style.transform=elapsed>=REVEAL?`translate3d(0,${-size.maskH*1.06}px,0)`:`perspective(1600px) translate3d(0,${-size.maskH*1.06*revealing}px,0) rotateX(${revealing*55}deg)`;
+      mask.style.transform=`translate3d(0,${-size.maskH*1.01*revealing}px,0)`;
       mask.style.visibility=elapsed>=REVEAL?'hidden':'visible';
-      mask.style.opacity=1-ease(clamp((revealing-.92)/.08));
       film.style.transform=`translate3d(${mix(0,size.x,t)}px,${mix(0,size.y,t)}px,0)`;
       film.style.width=`${mix(size.w,size.tw,t)}px`;film.style.height=`${mix(size.h,size.th,t)}px`;
       film.style.borderColor=`rgba(162,139,127,${t})`;film.style.borderRadius=`${size.radius*t}px`;
       film.style.setProperty('--card-reveal',ease(clamp((docking-.72)/.28)));
-      const fade=1-ease(clamp(elapsed/360));copy.style.opacity=fade;copy.inert=state!=='idle';copy.style.pointerEvents=state==='idle'?'auto':'none';
+      copy.style.opacity=1-ease(clamp(elapsed/220));copy.inert=state!=='idle';copy.style.pointerEvents='none';
       directory.style.setProperty('--reveal',ease(clamp((docking-.06)/.50)));
       cards.forEach((card,i)=>{const reveal=ease(clamp((docking-.10-i*.05)/.48));card.style.opacity=reveal;card.style.transform=i?`translateY(${(1-reveal)*(i%2?-28:28)}px)`:'none';});
       directory.inert=state!=='done';directory.setAttribute('aria-hidden',String(state!=='done'));
       film.classList.toggle('is-docked',state==='done');
-      intro.dataset.state=state;intro.dataset.phase=state==='idle'?'waiting':state==='done'?'directory':elapsed<REVEAL?'reveal':elapsed<REVEAL+HOLD?'full-video':'dock';
+      intro.dataset.state=state;intro.dataset.direction=direction<0?'reverse':'forward';
+      intro.dataset.phase=state==='idle'?'waiting':state==='done'?'directory':elapsed<REVEAL?'reveal':elapsed<REVEAL+HOLD?'full-video':'dock';
       intro.dataset.progress=(elapsed/TOTAL).toFixed(3);intro.dataset.docking=docking.toFixed(3);
     }
     function measure(){
@@ -110,59 +113,83 @@
       size={w,h,maskH,x:rect.left-stageRect.left,y:rect.top-stageRect.top,tw:rect.width,th:rect.height,radius:parseFloat(getComputedStyle(slot).borderTopLeftRadius)||0};
       paint();
     }
-    function finish(){
-      state='done';elapsed=TOTAL;cancelAnimationFrame(frame);frame=0;lastTick=null;
-      unlock();measure();history.replaceState({...history.state,portfolioView:'work'},'');
-      if(focusDirectory)cards[0].querySelector('a').focus({preventScroll:true});
+    function settle(atDirectory){
+      state=atDirectory?'done':'idle';elapsed=atDirectory?TOTAL:0;
+      cancelAnimationFrame(frame);frame=0;lastTick=null;
+      if(atDirectory)unlock();else lock();
+      syncVideo();measure();
+      history.replaceState({...history.state,portfolioView:atDirectory?'work':'intro'},'');
+      if(atDirectory&&focusDirectory)cards[0].querySelector('a').focus({preventScroll:true});
     }
     function advance(now){
       frame=0;if(state!=='running'||document.hidden)return;
-      if(lastTick!==null)elapsed=Math.min(TOTAL,elapsed+Math.min(100,now-lastTick));
-      lastTick=now;paint();if(elapsed>=TOTAL)finish();else frame=requestAnimationFrame(advance);
+      if(lastTick!==null)elapsed=Math.max(0,Math.min(TOTAL,elapsed+direction*Math.min(64,now-lastTick)));
+      lastTick=now;paint();
+      if(elapsed>=TOTAL&&direction>0)settle(true);
+      else if(elapsed<=0&&direction<0)settle(false);
+      else frame=requestAnimationFrame(advance);
     }
-    function start(fromKeyboard=false){
-      if(state!=='idle')return;
-      focusDirectory=fromKeyboard;state='running';elapsed=0;lastTick=null;
-      scrollTo({top:0,behavior:'instant'});lock();measure();playFilm();frame=requestAnimationFrame(advance);
+    function animateTo(nextDirection,fromKeyboard=false){
+      if((state==='idle'&&nextDirection<0)||(state==='done'&&nextDirection>0))return;
+      if(state==='running'&&direction===nextDirection)return;
+      direction=nextDirection;focusDirectory=fromKeyboard&&direction>0;
+      if(direction<0&&directory.contains(document.activeElement))document.activeElement.blur();
+      const wasRunning=state==='running';state='running';
+      scrollTo({top:0,behavior:'instant'});lock();measure();syncVideo();
+      if(!wasRunning)lastTick=null;
+      if(!frame&&!document.hidden)frame=requestAnimationFrame(advance);
     }
-    function goDirectory(event){
-      event?.preventDefault();
-      if(state==='idle')start(event?.detail===0);
-      else if(state==='done'){scrollTo({top:0,behavior:'smooth'});cards[0].querySelector('a').focus({preventScroll:true});}
+    function resetOpening(animate=false){
+      scrollTo({top:0,behavior:'instant'});
+      if(animate&&state!=='idle'){animateTo(-1);return;}
+      if(directory.contains(document.activeElement))document.activeElement.blur();
+      direction=-1;focusDirectory=false;settle(false);
     }
-    document.querySelectorAll('[data-directory-link]').forEach(a=>a.addEventListener('click',goDirectory));
+    function intent(sign,fromKeyboard=false){
+      if(state==='done'&&(sign>0||scrollY>2))return false;
+      animateTo(sign,fromKeyboard);return true;
+    }
+    document.querySelectorAll('[data-directory-link],.header .identity').forEach(a=>a.addEventListener('click',event=>{
+      if(event.button!==0||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
+      event.preventDefault();resetOpening(true);
+    }));
     addEventListener('wheel',event=>{
-      if(state==='done'||event.ctrlKey||event.metaKey||Math.abs(event.deltaY)<=Math.abs(event.deltaX)||Math.abs(event.deltaY)<1)return;
-      event.preventDefault();start();
+      if(event.ctrlKey||event.metaKey||Math.abs(event.deltaY)<=Math.abs(event.deltaX)||Math.abs(event.deltaY)<1)return;
+      if(intent(Math.sign(event.deltaY)))event.preventDefault();
     },{passive:false});
     addEventListener('keydown',event=>{
-      if(state==='done'||event.ctrlKey||event.metaKey||event.altKey||event.target.closest('a,button,input,textarea,select,[contenteditable]'))return;
-      if(['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' ','Enter'].includes(event.key)){event.preventDefault();start(true);}
+      if(event.ctrlKey||event.metaKey||event.altKey||event.target.closest('input,textarea,select,[contenteditable]'))return;
+      if(['Enter',' '].includes(event.key)&&event.target.closest('a,button'))return;
+      const backwards=['ArrowUp','PageUp','Home','Escape'].includes(event.key)||(event.key===' '&&event.shiftKey);
+      const forwards=['ArrowDown','PageDown','End','Enter'].includes(event.key)||(event.key===' '&&!event.shiftKey);
+      if((backwards||forwards)&&intent(backwards?-1:1,true))event.preventDefault();
     });
     addEventListener('touchstart',event=>{touch=event.touches.length===1?{x:event.touches[0].clientX,y:event.touches[0].clientY}:null;},{passive:true});
     addEventListener('touchmove',event=>{
-      if(state==='done'||!touch||event.touches.length!==1)return;
-      const dx=event.touches[0].clientX-touch.x,dy=touch.y-event.touches[0].clientY;
-      if(Math.abs(dy)>Math.abs(dx)){event.preventDefault();if(dy>12)start();}
+      if(!touch||event.touches.length!==1)return;
+      const point=event.touches[0],dx=point.clientX-touch.x,dy=touch.y-point.clientY;
+      if(Math.abs(dy)<6&&Math.abs(dx)<6)return;
+      touch={x:point.clientX,y:point.clientY};
+      if(Math.abs(dy)>Math.abs(dx)&&intent(Math.sign(dy)))event.preventDefault();
     },{passive:false});
     addEventListener('touchend',()=>{touch=null;},{passive:true});
-    intro.addEventListener('click',event=>{if(!event.target.closest('a,button'))start();});
+    addEventListener('touchcancel',()=>{touch=null;},{passive:true});
+    intro.addEventListener('click',event=>{if(state==='idle'&&!event.target.closest('a,button'))animateTo(1);});
     addEventListener('scroll',()=>{if(state!=='done'&&scrollY>0)scrollTo({top:0,behavior:'instant'});},{passive:true});
     video.muted=true;video.defaultMuted=true;video.controls=false;
-    const playFilm=()=>{if(!document.hidden)video.play().catch(()=>{});};
-    video.addEventListener('loadeddata',playFilm,{once:true});
+    video.addEventListener('loadeddata',syncVideo);
     document.addEventListener('visibilitychange',()=>{
       if(document.hidden){video.pause();cancelAnimationFrame(frame);frame=0;lastTick=null;}
-      else{playFilm();if(state==='running'&&!frame){lastTick=null;frame=requestAnimationFrame(advance);}}
+      else{syncVideo();if(state==='running'&&!frame){lastTick=null;frame=requestAnimationFrame(advance);}}
     });
     let resizeTimer;addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(measure,80);});
     function initialize(){
       if(initialized){measure();return;}initialized=true;
-      scrollTo({top:0,behavior:'instant'});if(state==='done')unlock();else lock();measure();playFilm();
+      scrollTo({top:0,behavior:'instant'});lock();measure();syncVideo();
     }
     requestAnimationFrame(initialize);addEventListener('load',initialize,{once:true});
-    addEventListener('pagehide',()=>{history.replaceState({...history.state,portfolioView:state==='done'?'work':'intro'},'');cancelAnimationFrame(frame);frame=0;unlock();});
-    addEventListener('pageshow',event=>{if(event.persisted){if(state!=='done'){state='idle';elapsed=0;lock();scrollTo({top:0,behavior:'instant'});}else unlock();measure();playFilm();}});
+    addEventListener('pagehide',()=>{video.pause();cancelAnimationFrame(frame);frame=0;lastTick=null;unlock();});
+    addEventListener('pageshow',event=>{if(event.persisted)resetOpening();});
   }
 
 

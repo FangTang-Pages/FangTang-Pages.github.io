@@ -1,0 +1,17 @@
+/* Mobile browsers that request a desktop site get the 1440px desktop canvas.
+   Some Android versions retain a 980px media-query viewport in that mode;
+   these scoped rules keep its columns/spacing consistent while it scales to fit. */
+html.desktop-layout{min-width:1440px;--gutter:72px}
+.desktop-layout .motion-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:48px 56px}
+.desktop-layout .motion-directory{padding-block:48px 60px}
+.desktop-layout .motion-heading{display:none}
+.desktop-layout .card-face h2{font-size:23px}
+.desktop-layout .selected-title h1{font-size:86px}
+.desktop-layout .chapter-copy h2{font-size:34px}
+.desktop-layout .other-heading h1{font-size:76px}
+.desktop-layout .other-entry{grid-template-columns:1.8fr 1fr;gap:6%}
+.desktop-layout .other-entry:nth-child(even){grid-template-columns:1fr 1.8fr}
+.desktop-layout .education-list>div{grid-template-columns:220px 160px minmax(0,1fr) auto;gap:16px}
+.desktop-layout .education-list h3{font-size:19px}
+.desktop-layout .education-list p,.desktop-layout .education-list>div>span:last-child{font-size:14px}
+.desktop-layout .profile-contact{flex-direction:row;align-items:center}

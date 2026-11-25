@@ -1,4 +1,4 @@
-/* Selected-work experience: existing palette and paper, with a single-trigger opening. */
+/* Selected-work experience: existing palette and paper, with a reversible opening. */
 .motion-intro{position:relative;overflow:hidden}.motion-stage{position:relative;top:auto;width:100%;min-height:calc(100svh - var(--header));isolation:isolate}
 .motion-directory{position:relative;padding-block:25px 32px;--reveal:1}
 .motion-directory::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to right,#ffffff70 1px,transparent 1px);background-size:33.3333% 100%;border-right:1px solid #ffffff70;pointer-events:none;opacity:var(--reveal)}
@@ -52,9 +52,9 @@
 .other-images img.fit-contain{object-fit:contain}
 @media(max-width:700px){.hero-copy .hero-kicker{font-size:10px;letter-spacing:.1em}.hero-copy .hero-bottom{font-size:13px}.hero-copy .hero-bottom small{font-size:11px}}
 
-/* One gesture starts the whole opening; the completed directory scrolls normally. */
+/* One gesture starts either direction; the completed directory scrolls normally. */
 html{scrollbar-gutter:stable}html.intro-sequence-locked{overflow-y:hidden;overscroll-behavior:none}
-.motion-intro.sequence-done{overflow:visible}.opening-mask{transform-origin:center top;backface-visibility:hidden;will-change:transform}
+.motion-intro.sequence-done{overflow:visible}.opening-mask{will-change:transform}
 .hero-copy .hero-bottom{color:#f5f4ef;text-shadow:0 1px 10px #0008}.hero-copy .hero-kicker{color:var(--muted)}
 @media(max-width:700px){.hero-copy .hero-bottom{gap:14px;font-size:12px}.hero-copy .scroll-cue{font-size:12px;gap:8px}.hero-copy .scroll-cue .icon{width:21px}}
 
