@@ -1,6 +1,9 @@
 window.SELECTED_LUMI = {
   "subtitle": "光影共生",
   "tags": [
+    "夜光与生态",
+    "藻类培养与发光",
+    "发光实验",
     "光的单元",
     "材料实验",
     "开合原型",
@@ -15,7 +18,98 @@ window.SELECTED_LUMI = {
   },
   "sections": [
     {
-      "label": "01 / CONCEPT",
+      "label": "01 / LIGHT & ECOLOGY",
+      "title": "夜光与生态",
+      "text": "对照伦敦夜间灯光、绿地覆盖与生物多样性热点分布，梳理光环境与生态空间的关系。",
+      "images": [
+        {
+          "src": "assets/selected/lumi-v43-night-maps.webp",
+          "width": 2400,
+          "height": 1134,
+          "alt": "伦敦夜间灯光辐亮度与 VIIRS 夜光地图及图例",
+          "caption": "伦敦夜间灯光 · 辐亮度与 VIIRS 夜光分布",
+          "background": "#000"
+        },
+        {
+          "src": "assets/selected/lumi-v43-ecology-maps.webp",
+          "width": 2400,
+          "height": 1134,
+          "alt": "伦敦绿地覆盖与生物多样性热点分布地图及图例",
+          "caption": "生态空间 · 绿地覆盖与生物多样性热点",
+          "background": "#000"
+        }
+      ]
+    },
+    {
+      "label": "02 / ALGAE CULTIVATION",
+      "title": "藻类培养与发光",
+      "text": "记录藻类培养环境与不同周次的状态，并通过摇动培养液观察蓝色生物发光。",
+      "images": [
+        {
+          "src": "assets/selected/lumi-v43-culture-flasks.webp",
+          "width": 2400,
+          "height": 1514,
+          "alt": "实验台上的锥形瓶、培养液及培养环境",
+          "caption": "藻类培养 · 培养瓶与实验环境",
+          "fit": "cover"
+        },
+        {
+          "src": "assets/selected/lumi-v43-culture-weeks.webp",
+          "width": 2400,
+          "height": 1514,
+          "alt": "第一周、第二周和第三周的藻类培养瓶照片",
+          "caption": "培养记录 · 第一至第三周的状态对照",
+          "fit": "cover"
+        },
+        {
+          "src": "assets/selected/lumi-v43-glowing-flasks.webp",
+          "width": 2400,
+          "height": 1142,
+          "alt": "手动摇动培养液后，三组锥形瓶中的蓝色生物发光",
+          "caption": "发光观察 · 摇动培养液后的蓝色发光",
+          "background": "#000"
+        }
+      ]
+    },
+    {
+      "label": "03 / BIOLUMINESCENCE EXPERIMENTS",
+      "title": "发光实验",
+      "text": "组装振动与叶片搅拌装置，观察培养皿和试管中的发光分布及其随时间的变化。",
+      "images": [
+        {
+          "src": "assets/selected/lumi-v43-lab-operation.webp",
+          "width": 1781,
+          "height": 2400,
+          "alt": "戴手套的实验人员操作带搅拌组件的试管装置",
+          "caption": "实验操作 · 试管装置的组装与测试"
+        },
+        {
+          "src": "assets/selected/lumi-v43-lab-components.webp",
+          "width": 1699,
+          "height": 1130,
+          "alt": "试管支架、叶片电机和微型振动组件的实验零件照片",
+          "caption": "装置构成 · 试管、支架与驱动组件"
+        },
+        {
+          "src": "assets/selected/lumi-v43-dish-sequence.webp",
+          "width": 1847,
+          "height": 1208,
+          "alt": "振动装置作用下培养皿中两组发光过程的时间序列",
+          "caption": "振动试验 · 培养皿中 1、3、5 秒的发光记录",
+          "background": "#000"
+        },
+        {
+          "src": "assets/selected/lumi-v43-tube-sequence.webp",
+          "width": 1847,
+          "height": 1208,
+          "alt": "叶片搅拌作用下塑料试管的发光时间序列",
+          "caption": "搅拌试验 · 塑料试管中 1、3、5 秒的发光记录",
+          "background": "#000"
+        }
+      ]
+    },
+    {
+      "label": "04 / CONCEPT",
       "title": "光的单元",
       "text": "从城市夜光与生物发光研究出发，推演可开合单元及其场景组合。",
       "images": [
@@ -37,7 +131,7 @@ window.SELECTED_LUMI = {
       ]
     },
     {
-      "label": "02 / MATERIAL & MAKING",
+      "label": "05 / MATERIAL & MAKING",
       "title": "材料实验",
       "text": "以 3D 打印模具探索真空成型，并通过薄膜热合与充气检验气囊原型。",
       "images": [
@@ -75,7 +169,7 @@ window.SELECTED_LUMI = {
       ]
     },
     {
-      "label": "03 / PHYSICAL PROTOTYPE",
+      "label": "06 / PHYSICAL PROTOTYPE",
       "title": "开合原型",
       "text": "组合面板、连接节点与悬吊结构，制作能够展开、收拢的实体原型。",
       "images": [
@@ -98,7 +192,7 @@ window.SELECTED_LUMI = {
       ]
     },
     {
-      "label": "04 / VISUAL SCENARIOS",
+      "label": "07 / VISUAL SCENARIOS",
       "title": "光影场景",
       "text": "将单元组合置入林地与滨水场景，以日夜光影、材质和尺度表达体验设想。",
       "images": [

@@ -4,7 +4,8 @@ window.SELECTED_CORE = {
     "tags": [
       "共生形态",
       "生态单元",
-      "林间体验"
+      "林间体验",
+      "森林尺度"
     ],
     "hero": {
       "src": "assets/selected/mutualism-hero.webp",
@@ -94,6 +95,29 @@ window.SELECTED_CORE = {
             "fit": "cover"
           }
         ]
+      },
+      {
+        "label": "04 / LANDSCAPE",
+        "title": "森林尺度",
+        "text": "从森林鸟瞰到塔下种植，呈现群塔、林冠与地面水池的关系，补充建筑融入雨林环境的空间设想。",
+        "images": [
+          {
+            "src": "assets/selected/mutualism-forest-aerial-v43.webp",
+            "width": 2560,
+            "height": 1213,
+            "alt": "雨林共生塔群与林冠的鸟瞰效果",
+            "caption": "森林鸟瞰 · 群塔与林冠的分布",
+            "fit": "cover"
+          },
+          {
+            "src": "assets/selected/mutualism-ground-landscape-v43.webp",
+            "width": 2560,
+            "height": 1210,
+            "alt": "共生塔底部的种植、水池与林下空间",
+            "caption": "林下景观 · 塔体下方的种植与水池",
+            "fit": "cover"
+          }
+        ]
       }
     ]
   },
@@ -102,6 +126,7 @@ window.SELECTED_CORE = {
     "tags": [
       "动作转译",
       "立体组合",
+      "剖面联系",
       "流动相遇"
     ],
     "hero": {
@@ -156,7 +181,30 @@ window.SELECTED_CORE = {
         ]
       },
       {
-        "label": "03 / EXPERIENCE",
+        "label": "03 / SECTION",
+        "title": "剖面联系",
+        "text": "通过两组剖面展现跳台、水池与公共平台的高差，说明垂直交通如何串联不同层面的运动与休闲空间。",
+        "images": [
+          {
+            "src": "assets/selected/encounters-section-a-v43.webp",
+            "width": 2560,
+            "height": 936,
+            "alt": "运动建筑中跳台、层间平台与交通的剖面关系",
+            "caption": "空间剖面一 · 跳台、平台与垂直交通",
+            "fit": "cover"
+          },
+          {
+            "src": "assets/selected/encounters-section-b-v43.webp",
+            "width": 2560,
+            "height": 966,
+            "alt": "运动建筑中水池、不同标高平台与上下层空间的剖面关系",
+            "caption": "空间剖面二 · 水池与不同标高的公共空间",
+            "fit": "cover"
+          }
+        ]
+      },
+      {
+        "label": "04 / EXPERIENCE",
         "title": "流动相遇",
         "text": "以透明界面与水景连接运动、步行和停留，让使用者在日常活动中相遇。",
         "images": [
@@ -185,7 +233,8 @@ window.SELECTED_CORE = {
     "tags": [
       "矿坑记忆",
       "叙事路径",
-      "矿壁剧场"
+      "矿壁剧场",
+      "场地游览"
     ],
     "hero": {
       "src": "assets/selected/ore-hero.webp",
@@ -258,6 +307,29 @@ window.SELECTED_CORE = {
             "fit": "cover"
           }
         ]
+      },
+      {
+        "label": "04 / LANDSCAPE",
+        "title": "场地游览",
+        "text": "从水岸停留与整体鸟瞰两个尺度，呈现观景平台、展馆组群与原有矿壁的关系，补充矿坑公共空间的游览设想。",
+        "images": [
+          {
+            "src": "assets/selected/ore-lakeside-v43.webp",
+            "width": 2560,
+            "height": 1575,
+            "alt": "矿坑水岸、观景平台与矿壁建筑的场景效果",
+            "caption": "水岸停留 · 观景平台与矿壁建筑",
+            "background": "#f1eee7"
+          },
+          {
+            "src": "assets/selected/ore-site-aerial-v43.webp",
+            "width": 1909,
+            "height": 2800,
+            "alt": "矿坑地形、水面与展馆组群的整体鸟瞰",
+            "caption": "场地鸟瞰 · 矿壁、水面与展馆组群",
+            "background": "#f1eee7"
+          }
+        ]
       }
     ]
   },
@@ -265,6 +337,7 @@ window.SELECTED_CORE = {
     "subtitle": "城市农场与社区生活",
     "tags": [
       "日常需求",
+      "片区组织",
       "空间衔接",
       "公共生活"
     ],
@@ -298,7 +371,30 @@ window.SELECTED_CORE = {
         ]
       },
       {
-        "label": "02 / SYSTEM",
+        "label": "02 / MASTERPLAN",
+        "title": "片区组织",
+        "text": "结合总平面与整体鸟瞰，展示铁路两侧的建筑、连通平台和公共绿地，将城市农场嵌入车站周边的空间组织。",
+        "images": [
+          {
+            "src": "assets/selected/station-masterplan-v43.webp",
+            "width": 2560,
+            "height": 1811,
+            "alt": "老车站片区的总平面与连通平台布局",
+            "caption": "总平面 · 铁路、连通平台与公共绿地",
+            "fit": "cover"
+          },
+          {
+            "src": "assets/selected/station-district-aerial-v43.webp",
+            "width": 2560,
+            "height": 1809,
+            "alt": "老车站周边建筑、城市农场与公共空间的整体鸟瞰",
+            "caption": "片区鸟瞰 · 建筑组群与城市农场",
+            "fit": "cover"
+          }
+        ]
+      },
+      {
+        "label": "03 / SYSTEM",
         "title": "空间衔接",
         "text": "以三维原型与分层图，衔接车站、商业、文化空间及多层出行路径。",
         "images": [
@@ -319,7 +415,7 @@ window.SELECTED_CORE = {
         ]
       },
       {
-        "label": "03 / EXPERIENCE",
+        "label": "04 / EXPERIENCE",
         "title": "公共生活",
         "text": "通过轴测与步行视角，呈现人在连通平台、绿地与公共空间中的日常活动。",
         "images": [
