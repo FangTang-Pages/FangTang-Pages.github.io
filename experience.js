@@ -9,7 +9,18 @@
   const gallery = [];
   function figure(p, context, eager=false, cls='') {
     const i=gallery.push({...p,context})-1;
-    return `<figure class="selected-figure ${cls}"><button class="image-trigger" data-image-index="${i}" aria-label="放大：${esc(p.alt)}"><img class="${p.fit==='contain'?'fit-contain':''}" src="${esc(p.src)}" width="${p.width}" height="${p.height}" alt="${esc(p.alt)}" ${eager?'fetchpriority="high"':'loading="lazy"'} decoding="async"><span class="image-enlarge" aria-hidden="true">${icon('plus')}</span></button>${p.caption?`<figcaption>${esc(p.caption)}</figcaption>`:''}</figure>`;
+    return `<figure class="selected-figure ${cls}" style="--image-ratio:${p.width/p.height}"><button class="image-trigger" data-image-index="${i}" aria-label="放大：${esc(p.alt)}"><img class="${p.fit==='contain'?'fit-contain':''}" src="${esc(p.src)}" width="${p.width}" height="${p.height}" alt="${esc(p.alt)}" ${eager?'fetchpriority="high"':'loading="lazy"'} decoding="async"><span class="image-enlarge" aria-hidden="true">${icon('plus')}</span></button>${p.caption?`<figcaption>${esc(p.caption)}</figcaption>`:''}</figure>`;
+  }
+
+
+  function imageRows(images, context) {
+    const rows=[];
+    for(let i=0;i<images.length;i+=2){
+      const pair=images.slice(i,i+2);
+      const ratio=Math.max(.85,Math.min(16/9,...pair.map(im=>im.width/im.height)));
+      rows.push(`<div class="chapter-image-row ${pair.length===1?'single-image':''}" style="--frame-ratio:${ratio.toFixed(4)}">${pair.map(im=>figure(im,context)).join('')}</div>`);
+    }
+    return rows.join('');
   }
 
   const grid=document.querySelector('#project-grid');
@@ -30,11 +41,11 @@
       document.title=`${p.title} · 方星月作品集`;
       document.querySelector('meta[name="description"]').content=p.intro;
       const next=projects[projects.indexOf(p)+1];
-      target.innerHTML=`<section class="selected-heading wrap"><a class="back-link" href="index.html?view=work">${icon('left')} 返回作品目录</a><div class="selected-title"><span class="project-number">${p.number}</span><div><p class="eyebrow">SELECTED PROJECT / 精选作品</p><h1>${esc(p.title)}</h1></div></div><div class="selected-summary"><div><h2>${esc(s.subtitle || p.name)}</h2><p>${esc(p.intro)}</p></div><div class="project-tags">${(s.tags || []).map(t=>`<span>${esc(t)}</span>`).join('')}</div></div></section>
+      target.innerHTML=`<section class="selected-heading wrap"><a class="back-link" href="index.html?view=work">${icon('left')} 返回作品目录</a><div class="selected-title"><p class="eyebrow"><span class="project-number">${p.number}</span><span>SELECTED PROJECT / 精选作品</span></p><h1>${esc(p.title)}</h1></div><div class="selected-summary"><div><h2>${esc(s.subtitle || p.name)}</h2><p>${esc(p.intro)}</p></div><nav class="project-tags" aria-label="项目章节">${s.sections.map((section,i)=>`<a href="#chapter-${i+1}">${esc(section.title)}</a>`).join('')}</nav></div></section>
       <div class="wrap selected-hero">${figure(s.hero,p.title,true)}</div>
-      <div class="selected-chapters wrap">${s.sections.map((section,i)=>`<section class="design-chapter" id="chapter-${i+1}"><div class="chapter-copy"><div><span class="eyebrow">${String(i+1).padStart(2,'0')} / ${esc((section.label || 'DESIGN PROCESS').replace(/^\d+\s*\/\s*/,''))}</span><h2>${esc(section.title)}</h2></div><p>${esc(section.text)}</p></div><div class="chapter-images ${section.images.length===1?'single-image':''}">${section.images.map(im=>figure(im,p.title)).join('')}</div></section>`).join('')}</div>
-      ${id==='lumi-city'?`<section class="wrap detail-film" id="project-film"><div class="chapter-copy"><div><span class="eyebrow">FILM / 项目影片</span><h2>设计如何成为体验</h2></div><p>从实验与结构探索，到场景中的光影表达。</p></div><video controls playsinline preload="none" poster="assets/lumi-film-poster.webp" aria-label="LUMI CITY 完整项目影片"><source src="assets/lumi-film.mp4" type="video/mp4">请使用支持 MP4 的浏览器。</video></section>`:''}
-      <section class="download-section wrap"><div><p class="eyebrow">THE COMPLETE PROJECT</p><h2>继续了解完整设计过程</h2><p>研究背景、更多推演与完整图纸，收录于项目作品集。</p></div><a class="download-button" href="documents/${esc(p.pdf)}" download>${icon('download')} 下载完整作品集 PDF</a></section>
+      <div class="selected-chapters wrap">${s.sections.map((section,i)=>`<section class="design-chapter" id="chapter-${i+1}" tabindex="-1"><div class="chapter-copy"><div><span class="eyebrow">${String(i+1).padStart(2,'0')} / ${esc((section.label || 'DESIGN PROCESS').replace(/^\d+\s*\/\s*/,''))}</span><h2>${esc(section.title)}</h2></div><p>${esc(section.text)}</p></div><div class="chapter-images">${imageRows(section.images,p.title)}</div></section>`).join('')}</div>
+      ${id==='lumi-city'?`<section class="wrap detail-film" id="project-film"><div class="chapter-copy"><div><span class="eyebrow">FILM / 项目影片</span><h2>光影演绎</h2></div><p>从实验与结构探索，到场景中的光影表达。</p></div><video controls playsinline preload="none" poster="assets/lumi-film-poster.webp" aria-label="LUMI CITY 完整项目影片"><source src="assets/lumi-film.mp4" type="video/mp4">请使用支持 MP4 的浏览器。</video></section>`:''}
+      <section class="download-section wrap"><div><p class="eyebrow">THE COMPLETE PROJECT</p><h2>完整作品集</h2><p>研究背景、更多推演与完整图纸，收录于项目作品集。</p></div><a class="download-button" href="documents/${esc(p.pdf)}" download>${icon('download')} 下载完整作品集 PDF</a></section>
       <section class="next-project wrap"><span class="eyebrow">NEXT / 继续浏览</span><a href="${next?`project.html?id=${next.id}`:'other.html'}"><h2>${next?esc(next.title):'其他项目'}</h2>${icon('ne')}</a><a class="back-link" href="index.html?view=work">${icon('left')} 返回作品目录</a></section>`;
     }
   }

@@ -1,10 +1,10 @@
 window.SELECTED_LUMI = {
-  "subtitle": "从光环境研究到可开合装置",
+  "subtitle": "可开合光影装置",
   "tags": [
-    "概念生成",
-    "材料与工艺",
-    "可开合原型",
-    "光影视觉"
+    "光的单元",
+    "材料实验",
+    "开合原型",
+    "光影场景"
   ],
   "hero": {
     "src": "assets/selected/lumi-prototypes.webp",
@@ -16,7 +16,7 @@ window.SELECTED_LUMI = {
   "sections": [
     {
       "label": "01 / CONCEPT",
-      "title": "把光环境议题转化为单元设计",
+      "title": "光的单元",
       "text": "从城市夜光与生物发光研究出发，梳理单元、原型和应用场景之间的关系。通过悬挂结构与开合形态推演，探索同一单元在不同空间尺度中的组合方式。",
       "images": [
         {
@@ -37,7 +37,7 @@ window.SELECTED_LUMI = {
     },
     {
       "label": "02 / MATERIAL & MAKING",
-      "title": "用材料与工艺推进原型",
+      "title": "材料实验",
       "text": "分别探索真空成型与热合气囊两条路线：前者使用 3D 打印模具，将塑料片加热、覆模、成型；后者比较薄膜材料，通过热合制作气囊，并进行充气检查。",
       "images": [
         {
@@ -72,7 +72,7 @@ window.SELECTED_LUMI = {
     },
     {
       "label": "03 / PHYSICAL PROTOTYPE",
-      "title": "从结构推演走向实物",
+      "title": "开合原型",
       "text": "将面板、连接节点与悬吊关系组合为能够展开、收拢的实体原型。通过整体展示和局部近景，呈现单元形态、装配关系与构造细节。",
       "images": [
         {
@@ -93,7 +93,7 @@ window.SELECTED_LUMI = {
     },
     {
       "label": "04 / VISUAL SCENARIOS",
-      "title": "让装置进入可感知的场景",
+      "title": "光影场景",
       "text": "把单元组合置入林地与滨水环境，通过日夜光影、材质和尺度关系表达应用设想。场景效果与实物照片并置，呈现概念、形态和视觉体验之间的联系。",
       "images": [
         {
