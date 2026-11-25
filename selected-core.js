@@ -153,8 +153,8 @@ window.SELECTED_CORE = {
             "src": "assets/selected/encounters-combination-clean-exterior-mobile47.png",
             "width": 1640,
             "height": 1199,
-            "alt": "功能生成 · 运动、餐饮与平台的组合推演",
-            "caption": "功能生成 · 运动、餐饮与平台的组合推演"
+            "alt": "功能生成 · 运动、休闲与平台的组合推演",
+            "caption": "功能生成 · 运动、休闲与平台的组合推演"
           }
         ]
       },
