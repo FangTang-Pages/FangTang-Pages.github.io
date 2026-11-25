@@ -60,7 +60,7 @@ window.SELECTED_CORE = {
       {
         "label": "03 / EXPERIENCE",
         "title": "林间体验",
-        "text": "结合结构、植物与人物尺度，呈现林间观察、行走和停留的体验。",
+        "text": "结构与植物交织，为林间观察、行走和停留提供空间。",
         "images": [
           {
             "src": "assets/selected/mutualism-observation-edge-mobile47.png",
@@ -99,7 +99,7 @@ window.SELECTED_CORE = {
       {
         "label": "04 / LANDSCAPE",
         "title": "共生景观",
-        "text": "从森林鸟瞰到塔下种植，呈现群塔、林冠与地面水池的关系，补充建筑融入雨林环境的空间设想。",
+        "text": "群塔融入林冠，塔下的种植与水池延续雨林中的共生关系。",
         "images": [
           {
             "src": "assets/selected/mutualism-forest-aerial-v43.webp",
@@ -161,7 +161,7 @@ window.SELECTED_CORE = {
       {
         "label": "02 / FORM",
         "title": "立体组合",
-        "text": "通过三维单元与分层轴测，梳理水池、跳台、交通与公共平台的组合关系。",
+        "text": "水池、跳台与公共平台分层组合，由交通空间连接成连续的活动场所。",
         "images": [
           {
             "src": "assets/selected/encounters-layers.webp",
@@ -183,7 +183,7 @@ window.SELECTED_CORE = {
       {
         "label": "03 / SECTION",
         "title": "剖面联系",
-        "text": "通过两组剖面展现跳台、水池与公共平台的高差，说明垂直交通如何串联不同层面的运动与休闲空间。",
+        "text": "垂直交通串联不同层面的运动与休闲空间。",
         "images": [
           {
             "src": "assets/selected/encounters-section-a-v43.webp",
@@ -311,7 +311,7 @@ window.SELECTED_CORE = {
       {
         "label": "04 / LANDSCAPE",
         "title": "场地游览",
-        "text": "从水岸停留与整体鸟瞰两个尺度，呈现观景平台、展馆组群与原有矿壁的关系，补充矿坑公共空间的游览设想。",
+        "text": "观景平台与展馆组群沿矿壁和水岸展开，形成游览与停留的公共空间。",
         "images": [
           {
             "src": "assets/selected/ore-lakeside-v43.webp",
@@ -373,7 +373,7 @@ window.SELECTED_CORE = {
       {
         "label": "02 / MASTERPLAN",
         "title": "片区组织",
-        "text": "结合总平面与整体鸟瞰，展示铁路两侧的建筑、连通平台和公共绿地，将城市农场嵌入车站周边的空间组织。",
+        "text": "连通平台与公共绿地连接铁路两侧的建筑，将城市农场融入车站周边的日常生活。",
         "images": [
           {
             "src": "assets/selected/station-masterplan-v43.webp",
@@ -396,7 +396,7 @@ window.SELECTED_CORE = {
       {
         "label": "03 / SYSTEM",
         "title": "空间衔接",
-        "text": "以三维原型与分层图，衔接车站、商业、文化空间及多层出行路径。",
+        "text": "多层出行路径衔接车站、商业与文化空间。",
         "images": [
           {
             "src": "assets/selected/station-prototypes-clean-exterior-mobile47.png",
@@ -417,7 +417,7 @@ window.SELECTED_CORE = {
       {
         "label": "04 / EXPERIENCE",
         "title": "公共生活",
-        "text": "通过轴测与步行视角，呈现人在连通平台、绿地与公共空间中的日常活动。",
+        "text": "连通平台串联绿地与公共空间，容纳步行、停留和交流等日常活动。",
         "images": [
           {
             "src": "assets/selected/station-connection-clean-mobile47.png",
