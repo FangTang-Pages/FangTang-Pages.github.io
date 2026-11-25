@@ -84,14 +84,14 @@ window.SELECTED_LUMI = {
       "text": "从城市夜光与生物发光研究出发，推演可开合单元及其场景组合。",
       "images": [
         {
-          "src": "assets/selected/lumi-concept-clean-exterior.svg",
+          "src": "assets/selected/lumi-concept-clean-exterior-mobile47.png",
           "width": 1900,
           "height": 1398,
           "alt": "藻类单元概念、两条原型路线和场景应用关系图",
           "caption": "概念推演 · 单元、原型与场景的联系"
         },
         {
-          "src": "assets/selected/lumi-folding-clean.svg",
+          "src": "assets/selected/lumi-folding-clean-mobile47.png",
           "width": 1892,
           "height": 2200,
           "alt": "开合结构 · 悬挂关系与展开、收拢形态",
@@ -106,14 +106,14 @@ window.SELECTED_LUMI = {
       "text": "以 3D 打印模具探索真空成型，并通过薄膜热合与充气检验气囊原型。",
       "images": [
         {
-          "src": "assets/selected/lumi-materials-clean-exterior.svg",
+          "src": "assets/selected/lumi-materials-clean-exterior-mobile47.png",
           "width": 1992,
           "height": 789,
           "alt": "TPU、磨砂TPU、PVC和PE的材料与性能比较图",
           "caption": "材料探索 · 对比柔韧性、透光性与热合条件"
         },
         {
-          "src": "assets/selected/lumi-vacuum-forming-clean-edge.svg",
+          "src": "assets/selected/lumi-vacuum-forming-clean-edge-mobile47.png",
           "width": 1987,
           "height": 1325,
           "alt": "塑料片覆于打印模具进行真空成型的制作照片",
@@ -121,7 +121,7 @@ window.SELECTED_LUMI = {
           "fit": "cover"
         },
         {
-          "src": "assets/selected/lumi-heat-sealing-clean-edge.svg",
+          "src": "assets/selected/lumi-heat-sealing-clean-edge-mobile47.png",
           "width": 1988,
           "height": 1325,
           "alt": "使用热工具沿轮廓热合两层塑料薄膜",
@@ -167,7 +167,7 @@ window.SELECTED_LUMI = {
       "text": "将单元组合置入林地与滨水场景，以日夜光影、材质和尺度表达体验设想。",
       "images": [
         {
-          "src": "assets/selected/lumi-day-scenario-edge.svg",
+          "src": "assets/selected/lumi-day-scenario-edge-mobile47.png",
           "width": 2000,
           "height": 1265,
           "alt": "林地中的模块单元与日间空间场景效果",
@@ -175,7 +175,7 @@ window.SELECTED_LUMI = {
           "fit": "cover"
         },
         {
-          "src": "assets/selected/lumi-riverside-scenario-edge.svg",
+          "src": "assets/selected/lumi-riverside-scenario-edge-mobile47.png",
           "width": 2000,
           "height": 1266,
           "alt": "滨水空间中成组悬挂装置的夜间视觉效果",
@@ -183,7 +183,7 @@ window.SELECTED_LUMI = {
           "fit": "cover"
         },
         {
-          "src": "assets/selected/lumi-luminous-unit-edge.svg",
+          "src": "assets/selected/lumi-luminous-unit-edge-mobile47.png",
           "width": 2001,
           "height": 1267,
           "alt": "悬挂发光单元的夜间概念效果",
@@ -191,7 +191,7 @@ window.SELECTED_LUMI = {
           "fit": "cover"
         },
         {
-          "src": "assets/selected/lumi-underbridge-scenario-edge.svg",
+          "src": "assets/selected/lumi-underbridge-scenario-edge-mobile47.png",
           "width": 2001,
           "height": 1267,
           "alt": "桥下空间中成组发光单元的应用效果",

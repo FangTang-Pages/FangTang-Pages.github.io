@@ -21,14 +21,14 @@ window.SELECTED_CORE = {
         "text": "以水循环与多物种共生为线索，通过曲面和骨架组合推演空间形态。",
         "images": [
           {
-            "src": "assets/selected/mutualism-form-clean-exterior.svg",
+            "src": "assets/selected/mutualism-form-clean-exterior-mobile47.png",
             "width": 1750,
             "height": 427,
             "alt": "由曲面形态到结构骨架的组合推演",
             "caption": "由曲面形态到结构骨架的组合推演"
           },
           {
-            "src": "assets/selected/mutualism-water-exterior.svg",
+            "src": "assets/selected/mutualism-water-exterior-mobile47.png",
             "width": 1800,
             "height": 1907,
             "alt": "功能分层与集雨、过滤、使用需求的系统关系",
@@ -42,14 +42,14 @@ window.SELECTED_CORE = {
         "text": "拆解科研、栖息、种植与湿地单元，梳理垂直连接及供水关系。",
         "images": [
           {
-            "src": "assets/selected/mutualism-cells-clean-exterior.svg",
+            "src": "assets/selected/mutualism-cells-clean-exterior-mobile47.png",
             "width": 1677,
             "height": 746,
             "alt": "鸟类栖息与科研空间的细胞单元",
             "caption": "鸟类栖息与科研空间的细胞单元"
           },
           {
-            "src": "assets/selected/mutualism-landscape-clean-exterior.svg",
+            "src": "assets/selected/mutualism-landscape-clean-exterior-mobile47.png",
             "width": 1720,
             "height": 660,
             "alt": "立体种植与湿地 · 种植、蓄水与生态单元的组合",
@@ -63,7 +63,7 @@ window.SELECTED_CORE = {
         "text": "结合结构、植物与人物尺度，呈现林间观察、行走和停留的体验。",
         "images": [
           {
-            "src": "assets/selected/mutualism-observation-edge.svg",
+            "src": "assets/selected/mutualism-observation-edge-mobile47.png",
             "width": 1797,
             "height": 845,
             "alt": "人在共生空间中的观察与停留场景",
@@ -71,7 +71,7 @@ window.SELECTED_CORE = {
             "fit": "cover"
           },
           {
-            "src": "assets/selected/mutualism-interior-edge.svg",
+            "src": "assets/selected/mutualism-interior-edge-mobile47.png",
             "width": 1798,
             "height": 845,
             "alt": "步道、种植与内部结构的空间效果",
@@ -79,7 +79,7 @@ window.SELECTED_CORE = {
             "fit": "cover"
           },
           {
-            "src": "assets/selected/mutualism-canopy-edge.svg",
+            "src": "assets/selected/mutualism-canopy-edge-mobile47.png",
             "width": 1798,
             "height": 846,
             "alt": "从林间步道仰望共生塔的结构与植物",
@@ -87,7 +87,7 @@ window.SELECTED_CORE = {
             "fit": "cover"
           },
           {
-            "src": "assets/selected/mutualism-garden-walk-edge.svg",
+            "src": "assets/selected/mutualism-garden-walk-edge-mobile47.png",
             "width": 1797,
             "height": 845,
             "alt": "共生塔内部种植平台与行走场景",
@@ -143,14 +143,14 @@ window.SELECTED_CORE = {
         "text": "从跳水、潜水与攀岩的动作提炼空间关系，组合运动、休闲与平台功能。",
         "images": [
           {
-            "src": "assets/selected/encounters-movement-opaque-local-paper.svg",
+            "src": "assets/selected/encounters-movement-opaque-local-paper-mobile47.png",
             "width": 1758,
             "height": 1251,
             "alt": "概念生成 · 跳水、潜水与攀岩动作的空间转译",
             "caption": "概念生成 · 跳水、潜水与攀岩动作的空间转译"
           },
           {
-            "src": "assets/selected/encounters-combination-clean-exterior.svg",
+            "src": "assets/selected/encounters-combination-clean-exterior-mobile47.png",
             "width": 1640,
             "height": 1199,
             "alt": "功能生成 · 运动、餐饮与平台的组合推演",
@@ -172,7 +172,7 @@ window.SELECTED_CORE = {
             "fit": "cover"
           },
           {
-            "src": "assets/selected/encounters-units-clean-exterior.svg",
+            "src": "assets/selected/encounters-units-clean-exterior-mobile47.png",
             "width": 1608,
             "height": 918,
             "alt": "跳水与潜水空间的三维单元",
@@ -209,7 +209,7 @@ window.SELECTED_CORE = {
         "text": "以透明界面与水景连接运动、步行和停留，让使用者在日常活动中相遇。",
         "images": [
           {
-            "src": "assets/selected/encounters-walkway-edge.svg",
+            "src": "assets/selected/encounters-walkway-edge-mobile47.png",
             "width": 1796,
             "height": 846,
             "alt": "水下运动与公共步道之间的观看关系",
@@ -217,7 +217,7 @@ window.SELECTED_CORE = {
             "fit": "cover"
           },
           {
-            "src": "assets/selected/encounters-social-edge.svg",
+            "src": "assets/selected/encounters-social-edge-mobile47.png",
             "width": 1796,
             "height": 847,
             "alt": "水池、跳台与瀑布界面的活动场景",
@@ -250,14 +250,14 @@ window.SELECTED_CORE = {
         "text": "以矿坑开采、废弃与修复设想串联叙事，从地形高差中提炼展馆形态。",
         "images": [
           {
-            "src": "assets/selected/ore-timeline-clean-exterior.svg",
+            "src": "assets/selected/ore-timeline-clean-exterior-mobile47.png",
             "width": 1766,
             "height": 1111,
             "alt": "矿坑变迁 · 开采、废弃与修复设想的场景对照",
             "caption": "矿坑变迁 · 开采、废弃与修复设想的场景对照"
           },
           {
-            "src": "assets/selected/ore-form-clean-exterior.svg",
+            "src": "assets/selected/ore-form-clean-exterior-mobile47.png",
             "width": 699,
             "height": 2026,
             "alt": "形态生成 · 从矿坑高差到展馆形态的推演",
@@ -271,14 +271,14 @@ window.SELECTED_CORE = {
         "text": "串联入口、展厅与休憩区域，以楼梯、采光和材料组织连续的参观体验。",
         "images": [
           {
-            "src": "assets/selected/ore-route-clean-exterior.svg",
+            "src": "assets/selected/ore-route-clean-exterior-mobile47.png",
             "width": 1776,
             "height": 866,
             "alt": "历史博物馆 · 入口、展厅与休憩空间的参观路径",
             "caption": "历史博物馆 · 入口、展厅与休憩空间的参观路径"
           },
           {
-            "src": "assets/selected/ore-exhibit-clean-exterior.svg",
+            "src": "assets/selected/ore-exhibit-clean-exterior-mobile47.png",
             "width": 1701,
             "height": 1605,
             "alt": "展览大厅 · 内部空间、材料与环绕楼梯",
@@ -292,7 +292,7 @@ window.SELECTED_CORE = {
         "text": "以原有矿壁为水上剧场的背景，通过参观路线连接舞台、观众与环境。",
         "images": [
           {
-            "src": "assets/selected/ore-theatre-clean-exterior.svg",
+            "src": "assets/selected/ore-theatre-clean-exterior-mobile47.png",
             "width": 1773,
             "height": 1295,
             "alt": "水上剧场 · 参观路径、舞台与观众区的组织",
@@ -355,14 +355,14 @@ window.SELECTED_CORE = {
         "text": "围绕出行、工作与生活需求，梳理交通、办公、公共活动和生态空间的组合。",
         "images": [
           {
-            "src": "assets/selected/station-workflow-clean-exterior.svg",
+            "src": "assets/selected/station-workflow-clean-exterior-mobile47.png",
             "width": 1765,
             "height": 1984,
             "alt": "功能关系 · 交通、日常需求与城市农业",
             "caption": "功能关系 · 交通、日常需求与城市农业"
           },
           {
-            "src": "assets/selected/station-functions-clean-exterior.svg",
+            "src": "assets/selected/station-functions-clean-exterior-mobile47.png",
             "width": 1785,
             "height": 699,
             "alt": "办公、公共活动、交通与生态功能的组合",
@@ -399,14 +399,14 @@ window.SELECTED_CORE = {
         "text": "以三维原型与分层图，衔接车站、商业、文化空间及多层出行路径。",
         "images": [
           {
-            "src": "assets/selected/station-prototypes-clean-exterior.svg",
+            "src": "assets/selected/station-prototypes-clean-exterior-mobile47.png",
             "width": 859,
             "height": 2069,
             "alt": "空间原型 · 车站、商业与文化空间",
             "caption": "空间原型 · 车站、商业与文化空间"
           },
           {
-            "src": "assets/selected/station-circulation-clean-exterior.svg",
+            "src": "assets/selected/station-circulation-clean-exterior-mobile47.png",
             "width": 1782,
             "height": 1037,
             "alt": "交通衔接 · 地下换乘与地上连通平台",
@@ -420,7 +420,7 @@ window.SELECTED_CORE = {
         "text": "通过轴测与步行视角，呈现人在连通平台、绿地与公共空间中的日常活动。",
         "images": [
           {
-            "src": "assets/selected/station-connection-clean.svg",
+            "src": "assets/selected/station-connection-clean-mobile47.png",
             "width": 1449,
             "height": 2126,
             "alt": "车站联结 · 连通平台与中心公共空间的轴测",
