@@ -20,7 +20,7 @@ window.SELECTED_LUMI = {
       "text": "从城市夜光与生物发光研究出发，推演可开合单元及其场景组合。",
       "images": [
         {
-          "src": "assets/selected/lumi-concept-clean-paper.svg",
+          "src": "assets/selected/lumi-concept-clean-exterior.svg",
           "width": 1900,
           "height": 1398,
           "alt": "藻类单元概念、两条原型路线和场景应用关系图",
@@ -42,7 +42,7 @@ window.SELECTED_LUMI = {
       "text": "以 3D 打印模具探索真空成型，并通过薄膜热合与充气检验气囊原型。",
       "images": [
         {
-          "src": "assets/selected/lumi-materials-clean-paper.svg",
+          "src": "assets/selected/lumi-materials-clean-exterior.svg",
           "width": 1992,
           "height": 789,
           "alt": "TPU、磨砂TPU、PVC和PE的材料与性能比较图",
