@@ -6,7 +6,8 @@
   const projects = window.PORTFOLIO_PROJECTS || [];
   const others = window.OTHER_PROJECTS || [];
   const selected = {...window.SELECTED_CORE, 'lumi-city':window.SELECTED_LUMI};
-  const gallery = [];
+  let gallery = [];
+  let openingHandle=null, lightboxCleanup=null;
   const projectRoutes = [
     ['lumi-city','LUMI CITY'],['mutualism-tower','Mutualism Tower'],
     ['encounters','N Kinds of Encounters'],['ore-rebirth','Ore Rebirth'],
@@ -37,9 +38,13 @@
     return rows.join('');
   }
 
+  function mountContent(){
+  gallery=[];lightboxCleanup?.();lightboxCleanup=null;
+  const existingDialog=document.querySelector('#lightbox');
+  if(existingDialog)existingDialog.replaceWith(existingDialog.cloneNode(true));
   const grid=document.querySelector('#project-grid');
   if(grid) {
-    const entries=projects.map(p=>({id:p.id,title:p.title,category:p.category,number:p.number,href:`project.html?id=${p.id}`,image:`assets/${p.id}-cover.webp`,alt:p.images[0][0]}));
+    const entries=projects.map(p=>({id:p.id,title:p.title,category:p.category,number:p.number,href:`project.html?id=${p.id}`,image:selected[p.id]?.hero.src || `assets/${p.id}-cover.webp`,alt:p.images[0][0]}));
     entries.push({id:'other',title:'Other Explorations',category:'其他项目 / 更多设计探索',number:'06',href:'other.html',image:others[0]?.images[0]?.src || 'assets/ore-rebirth-cover.webp',alt:'其他项目：模块、场景与形态探索'});
     grid.innerHTML=entries.map((p,i)=>`<article class="motion-card" data-card="${i}"><a href="${p.href}" aria-label="查看 ${esc(p.title)} 精选作品"><div class="motion-media" ${i===0?'id="lumi-slot"':''}><img src="${esc(p.image)}" alt="${esc(p.alt)}" width="800" height="600" decoding="async" fetchpriority="${i<3?'high':'auto'}" loading="eager"><div class="card-face"><span class="card-index" aria-hidden="true">${p.number}</span><h2>${esc(p.title)}</h2><span class="entry-open" aria-hidden="true">${icon('ne')}</span></div></div></a></article>`).join('');
     setupOpening();
@@ -54,8 +59,8 @@
     } else {
       document.title=`${p.title} · 方星月作品集`;
       document.querySelector('meta[name="description"]').content=p.intro;
-      target.innerHTML=`<section class="selected-heading wrap"><a class="back-link" href="index.html?view=work">${icon('left')} 返回作品目录</a><div class="selected-title"><p class="eyebrow"><span class="project-number">${p.number}</span><span>SELECTED PROJECT / 精选作品</span></p><h1>${esc(p.title)}</h1></div><div class="selected-summary"><div><h2>${esc(s.subtitle || p.name)}</h2><p>${esc(p.intro)}</p></div><nav class="project-tags" aria-label="项目章节">${s.sections.map((section,i)=>`<a href="#chapter-${i+1}">${esc(section.title)}</a>`).join('')}</nav></div></section>
-      <div class="wrap selected-hero">${figure(s.hero,p.title,true)}</div>
+      target.innerHTML=`<div class="wrap entry-back"><a class="back-link" href="index.html?view=work">${icon('left')} 返回作品目录</a></div>${id==='lumi-city'?lumiEntry():`<div class="wrap selected-hero entry-hero">${figure(s.hero,p.title,true)}</div>`}<section class="selected-heading wrap"><div class="selected-title"><p class="eyebrow"><span class="project-number">${p.number}</span><span>SELECTED PROJECT / 精选作品</span></p><h1>${esc(p.title)}</h1></div><div class="selected-summary"><div><h2>${esc(s.subtitle || p.name)}</h2><p>${esc(p.intro)}</p></div><nav class="project-tags" aria-label="项目章节">${s.sections.map((section,i)=>`<a href="#chapter-${i+1}">${esc(section.title)}</a>`).join('')}</nav></div></section>
+      ${id==='lumi-city'?`<div class="wrap selected-hero">${figure(s.hero,p.title,true)}</div>`:''}
       <div class="selected-chapters wrap">${s.sections.map((section,i)=>`<section class="design-chapter" id="chapter-${i+1}" tabindex="-1"><div class="chapter-copy"><div><span class="eyebrow">${String(i+1).padStart(2,'0')} / ${esc((section.label || 'DESIGN PROCESS').replace(/^\d+\s*\/\s*/,''))}</span><h2>${esc(section.title)}</h2></div><p>${esc(section.text)}</p></div><div class="chapter-images">${imageRows(section.images,p.title)}</div></section>`).join('')}</div>
       ${id==='lumi-city'?`<section class="wrap detail-film" id="project-film"><div class="chapter-copy"><div><span class="eyebrow">FILM / 项目影片</span><h2>光影演绎</h2></div><p>从实验与结构探索，到场景中的光影表达。</p></div><video controls playsinline preload="none" poster="assets/lumi-film-poster.webp" aria-label="LUMI CITY 完整项目影片"><source src="assets/lumi-film.mp4" type="video/mp4">请使用支持 MP4 的浏览器。</video></section>`:''}
       <section class="download-section wrap"><div><p class="eyebrow">THE COMPLETE PROJECT</p><h2>完整作品集</h2><p>研究背景、更多推演与完整图纸，收录于项目作品集。</p></div><a class="download-button" href="documents/${esc(p.pdf)}" download>${icon('download')} 下载完整作品集 PDF</a></section>
@@ -64,12 +69,18 @@
   }
   const otherTarget=document.querySelector('#other-projects');
   if(otherTarget) {
+    if(!document.querySelector('.entry-hero')){const hero=document.createElement('div');hero.className='selected-hero entry-hero';hero.innerHTML=figure(others[0].images[0],'其他项目',true);document.querySelector('.other-heading').before(hero);}
     otherTarget.innerHTML=others.map((p,i)=>`<article class="other-entry"><div class="other-images">${p.images.map(im=>figure(im,p.title)).join('')}</div><div class="other-copy"><span class="eyebrow">${String(i+1).padStart(2,'0')} / EXPLORATION</span><h2>${esc(p.title)}</h2>${p.subtitle?`<p class="other-subtitle">${esc(p.subtitle)}</p>`:''}<p>${esc(p.text)}</p></div></article>`).join('');
     document.querySelector('#other-pagination').innerHTML=projectPagination('other');
   }
-  if(gallery.length) setupLightbox(gallery);
+  if(gallery.length) lightboxCleanup=setupLightbox(gallery);
+  }
+  function lumiEntry(){return `<div class="wrap entry-hero lumi-entry"><button class="entry-video-button" aria-label="放大播放 LUMI 视频"><span class="entry-video-slot"></span><span class="image-enlarge" aria-hidden="true">${icon('plus')}</span></button></div>`;}
+  window.PortfolioPage={mount:mountContent,opening:()=>openingHandle};
+  mountContent();
 
   function setupOpening() {
+    let active=true;
     history.scrollRestoration='manual';
     const entryUrl=new URL(location.href);
     const isHistoryReturn=performance.getEntriesByType('navigation')[0]?.type==='back_forward';
@@ -90,8 +101,8 @@
     function lock(){document.documentElement.classList.add('intro-sequence-locked');}
     function unlock(){document.documentElement.classList.remove('intro-sequence-locked');}
     function syncVideo(){
-      if(document.hidden||state==='done'){video.pause();return;}
-      video.play().then(()=>{if(document.hidden||state==='done')video.pause();}).catch(()=>{});
+      if(!active||document.hidden||state==='done'){video.pause();return;}
+      video.play().then(()=>{if(!active||document.hidden||state==='done')video.pause();}).catch(()=>{});
     }
     function paint(){
       if(!size)return;
@@ -112,6 +123,7 @@
       intro.dataset.progress=(elapsed/TOTAL).toFixed(3);intro.dataset.docking=docking.toFixed(3);
     }
     function measure(){
+      if(!active||!intro.isConnected)return;
       const header=document.querySelector('.header').getBoundingClientRect().height,w=stage.clientWidth,h=Math.max(320,innerHeight-header),maskH=h*.5;
       intro.classList.add('motion-ready');intro.classList.toggle('sequence-done',state==='done');
       mask.setAttribute('viewBox',`0 0 ${w} ${maskH}`);mask.style.height=`${maskH}px`;
@@ -159,17 +171,18 @@
       direction=-1;focusDirectory=false;settle(false);
     }
     function intent(sign,fromKeyboard=false){
+      if(!active)return false;
       if(state==='done'&&(sign>0||scrollY>2))return false;
       animateTo(sign,fromKeyboard);return true;
     }
     document.querySelectorAll('[data-directory-link]').forEach(a=>a.addEventListener('click',event=>{
       if(event.button!==0||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
-      event.preventDefault();focusDirectory=false;direction=1;
+      if(!active)return;event.preventDefault();focusDirectory=false;direction=1;
       scrollTo({top:0,behavior:'instant'});settle(true);
     }));
     document.querySelectorAll('.header .identity').forEach(a=>a.addEventListener('click',event=>{
       if(event.button!==0||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
-      event.preventDefault();resetOpening(true);
+      if(!active)return;event.preventDefault();resetOpening(true);
     }));
     addEventListener('wheel',event=>{
       if(event.ctrlKey||event.metaKey||Math.abs(event.deltaY)<=Math.abs(event.deltaX)||Math.abs(event.deltaY)<1)return;
@@ -193,10 +206,11 @@
     addEventListener('touchend',()=>{touch=null;},{passive:true});
     addEventListener('touchcancel',()=>{touch=null;},{passive:true});
     intro.addEventListener('click',event=>{if(state==='idle'&&!event.target.closest('a,button'))animateTo(1);});
-    addEventListener('scroll',()=>{if(state!=='done'&&scrollY>0)scrollTo({top:0,behavior:'instant'});},{passive:true});
+    addEventListener('scroll',()=>{if(active&&state!=='done'&&scrollY>0)scrollTo({top:0,behavior:'instant'});},{passive:true});
     video.muted=true;video.defaultMuted=true;video.controls=false;
     video.addEventListener('loadeddata',syncVideo);
     document.addEventListener('visibilitychange',()=>{
+      if(!active)return;
       if(document.hidden){video.pause();cancelAnimationFrame(frame);frame=0;lastTick=null;}
       else{syncVideo();if(state==='running'&&!frame){lastTick=null;frame=requestAnimationFrame(advance);}}
     });
@@ -205,10 +219,11 @@
       if(initialized){measure();return;}initialized=true;
       scrollTo({top:0,behavior:'instant'});if(state==='done')unlock();else lock();measure();syncVideo();
     }
+    openingHandle={video,film,suspend(){active=false;video.pause();cancelAnimationFrame(frame);frame=0;unlock();},resume(directory=true){active=true;scrollTo({top:0,behavior:'instant'});settle(directory);}};
     requestAnimationFrame(initialize);addEventListener('load',initialize,{once:true});
     addEventListener('pagehide',()=>{video.pause();cancelAnimationFrame(frame);frame=0;lastTick=null;unlock();});
     addEventListener('pageshow',event=>{
-      if(!event.persisted)return;
+      if(!active||!event.persisted)return;
       scrollTo({top:0,behavior:'instant'});focusDirectory=false;
       settle(history.state?.portfolioView==='work');
     });
@@ -251,6 +266,7 @@
     stage.addEventListener('pointerdown',e=>{if(zoom>1&&e.pointerType==='mouse'){drag={x:e.clientX,y:e.clientY,left:stage.scrollLeft,top:stage.scrollTop};stage.setPointerCapture(e.pointerId);e.preventDefault();}});
     stage.addEventListener('pointermove',e=>{if(drag){stage.scrollLeft=drag.left+drag.x-e.clientX;stage.scrollTop=drag.top+drag.y-e.clientY;}});
     stage.addEventListener('pointerup',()=>drag=null);stage.addEventListener('pointercancel',()=>drag=null);
-    new ResizeObserver(()=>resize(true)).observe(stage);
+    const observer=new ResizeObserver(()=>resize(true));observer.observe(stage);
+    return ()=>observer.disconnect();
   }
 })();
