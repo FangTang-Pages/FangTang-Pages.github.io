@@ -59,7 +59,7 @@
     } else {
       document.title=`${p.title} · 方星月作品集`;
       document.querySelector('meta[name="description"]').content=p.intro;
-      target.innerHTML=`<div class="wrap entry-back"><a class="back-link" href="index.html?view=work">${icon('left')} 返回作品目录</a></div>${id==='lumi-city'?lumiEntry():`<div class="wrap selected-hero entry-hero">${figure(s.hero,p.title,true)}</div>`}<section class="selected-heading wrap"><div class="selected-title"><p class="eyebrow"><span class="project-number">${p.number}</span><span>SELECTED PROJECT / 精选作品</span></p><h1>${esc(p.title)}</h1></div><div class="selected-summary"><div><h2>${esc(s.subtitle || p.name)}</h2><p>${esc(p.intro)}</p></div><nav class="project-tags" aria-label="项目章节">${s.sections.map((section,i)=>`<a href="#chapter-${i+1}">${esc(section.title)}</a>`).join('')}</nav></div></section>
+      target.innerHTML=`<div class="wrap entry-back"><a class="back-link" href="index.html?view=work">${icon('left')} 返回作品目录</a></div>${id==='lumi-city'?lumiEntry(p.title):`<div class="wrap selected-hero entry-hero">${figure(s.hero,p.title,true)}${heroTitle(p.title)}</div>`}<section class="selected-heading wrap" id="project-overview"><div class="selected-summary"><div><h2>${esc(s.subtitle || p.name)}</h2><p>${esc(p.intro)}</p></div><nav class="project-tags" aria-label="项目章节">${s.sections.map((section,i)=>`<a href="#chapter-${i+1}">${esc(section.title)}</a>`).join('')}</nav></div></section>
       ${id==='lumi-city'?`<div class="wrap selected-hero">${figure(s.hero,p.title,true)}</div>`:''}
       <div class="selected-chapters wrap">${s.sections.map((section,i)=>`<section class="design-chapter" id="chapter-${i+1}" tabindex="-1"><div class="chapter-copy"><div><span class="eyebrow">${String(i+1).padStart(2,'0')} / ${esc((section.label || 'DESIGN PROCESS').replace(/^\d+\s*\/\s*/,''))}</span><h2>${esc(section.title)}</h2></div><p>${esc(section.text)}</p></div><div class="chapter-images">${imageRows(section.images,p.title)}</div></section>`).join('')}</div>
       ${id==='lumi-city'?`<section class="wrap detail-film" id="project-film"><div class="chapter-copy"><div><span class="eyebrow">FILM / 项目影片</span><h2>光影演绎</h2></div><p>从实验与结构探索，到场景中的光影表达。</p></div><video controls playsinline preload="none" poster="assets/lumi-film-poster.webp" aria-label="LUMI CITY 完整项目影片"><source src="assets/lumi-film.mp4" type="video/mp4">请使用支持 MP4 的浏览器。</video></section>`:''}
@@ -69,13 +69,14 @@
   }
   const otherTarget=document.querySelector('#other-projects');
   if(otherTarget) {
-    if(!document.querySelector('.entry-hero')){const hero=document.createElement('div');hero.className='selected-hero entry-hero';hero.innerHTML=figure(others[0].images[0],'其他项目',true);document.querySelector('.other-heading').before(hero);}
+    if(!document.querySelector('.entry-hero')){const hero=document.createElement('div');hero.className='selected-hero entry-hero';hero.innerHTML=figure(others[0].images[0],'其他项目',true)+heroTitle('其他项目','#other-projects');document.querySelector('.other-heading').before(hero);}
     otherTarget.innerHTML=others.map((p,i)=>`<article class="other-entry"><div class="other-images">${p.images.map(im=>figure(im,p.title)).join('')}</div><div class="other-copy"><span class="eyebrow">${String(i+1).padStart(2,'0')} / EXPLORATION</span><h2>${esc(p.title)}</h2>${p.subtitle?`<p class="other-subtitle">${esc(p.subtitle)}</p>`:''}<p>${esc(p.text)}</p></div></article>`).join('');
     document.querySelector('#other-pagination').innerHTML=projectPagination('other');
   }
   if(gallery.length) lightboxCleanup=setupLightbox(gallery);
   }
-  function lumiEntry(){return `<div class="wrap entry-hero lumi-entry"><button class="entry-video-button" aria-label="放大播放 LUMI 视频"><span class="entry-video-slot"></span><span class="image-enlarge" aria-hidden="true">${icon('plus')}</span></button></div>`;}
+  function heroTitle(title,anchor='#project-overview'){return `<div class="entry-hero-copy"><h1>${esc(title)}</h1><a class="entry-scroll-cue" href="${anchor}">向下滚动，探索项目 <span aria-hidden="true">↓</span></a></div>`;}
+  function lumiEntry(title){return `<div class="wrap entry-hero lumi-entry"><button class="entry-video-button" aria-label="放大播放 LUMI 视频"><span class="entry-video-slot"></span><span class="image-enlarge" aria-hidden="true">${icon('plus')}</span></button>${heroTitle(title)}</div>`;}
   window.PortfolioPage={mount:mountContent,opening:()=>openingHandle};
   mountContent();
 
