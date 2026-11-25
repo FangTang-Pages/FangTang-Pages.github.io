@@ -115,7 +115,7 @@ window.SELECTED_CORE = {
       {
         "label": "01 / CONCEPT",
         "title": "动作转译",
-        "text": "从跳水、潜水与攀岩的动作提炼空间关系，组合运动、餐饮与平台功能。",
+        "text": "从跳水、潜水与攀岩的动作提炼空间关系，组合运动、休闲与平台功能。",
         "images": [
           {
             "src": "assets/selected/encounters-movement-clean.webp",
