@@ -25,7 +25,7 @@
     const img=hero.querySelector('.image-trigger img'),video=hero.querySelector('video');
     if(img)await img.decode().catch(()=>{});
     else if(video?.readyState<2&&video.poster){const poster=new Image();poster.src=video.poster;await poster.decode().catch(()=>{});}
-    requestAnimationFrame(()=>{if(hero.isConnected)hero.classList.add('is-title-visible');});
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{if(hero.isConnected)hero.classList.add('is-title-visible');}));
   }
   state('ready');
   function attachVideo(){

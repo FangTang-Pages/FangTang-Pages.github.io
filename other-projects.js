@@ -135,18 +135,18 @@ window.OTHER_PROJECTS = [
     "id": "generative-explorations",
     "title": "生成式形态探索",
     "subtitle": "算法生长与视觉生成",
-    "text": "以噪声侵蚀、路径生长与细胞自动机探索形态，结合 AI 生成场景与视觉表现。",
+    "text": "通过地形坡度分析、路径生长与细胞自动机探索形态，结合 AI 视觉呈现生成结果。",
     "tags": [
       "生成式设计",
       "AI 视觉"
     ],
     "images": [
       {
-        "src": "assets/selected/misc-generative-terrain.webp",
-        "width": 1462,
-        "height": 931,
-        "alt": "由侵蚀地形模型转化的山地场景 AI 视觉效果",
-        "caption": "侵蚀地形 · AI 场景",
+        "src": "assets/selected/misc-generative-slope.webp",
+        "width": 1844,
+        "height": 1308,
+        "alt": "地形模型的坡度分布分析，白色、浅绿和绿色分别表示三个坡度区间",
+        "caption": "地形坡度 · 分布分析",
         "fit": "contain"
       },
       {

@@ -4,7 +4,7 @@
 .entry-hero .image-trigger img{width:100%;height:100%;object-fit:cover;display:block}
 .entry-hero .image-trigger::after,.entry-video-button::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#0009 0%,#0002 42%,transparent 70%);pointer-events:none;opacity:0;transition:opacity .5s ease}
 .entry-hero.is-title-visible .image-trigger::after,.entry-hero.is-title-visible .entry-video-button::after{opacity:1}
-.entry-hero-copy{position:absolute;top:clamp(24px,3vw,44px);left:clamp(24px,3vw,44px);right:clamp(24px,3vw,44px);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:start;pointer-events:none;opacity:0;transition:opacity .5s ease;z-index:2;color:#fff}
+.entry-hero-copy{position:absolute;top:clamp(24px,3vw,44px);left:clamp(24px,3vw,44px);right:clamp(24px,3vw,44px);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:start;pointer-events:none;opacity:0;transition:opacity 1s ease-in-out .18s;z-index:2;color:#fff}
 .entry-hero.is-title-visible .entry-hero-copy{opacity:1}
 .entry-hero-copy h1{font-family:Arial,"Microsoft YaHei",sans-serif;font-size:clamp(34px,4.5vw,66px);line-height:1.1;letter-spacing:-.035em;font-weight:400;color:#fff;margin:0;text-wrap:balance;text-shadow:0 2px 14px #0003;outline:none}
 .entry-scroll-cue{color:#fff;font-size:13px;line-height:1.5;white-space:nowrap;padding-top:8px;pointer-events:auto;text-shadow:0 1px 8px #0006}
@@ -30,3 +30,6 @@ body[data-route-state="loading"] main,body[data-route-state="expanding"] main{po
  .entry-scroll-cue span{font-size:14px;margin-left:4px}
  .entry-hero-copy h1{grid-row:2;font-size:clamp(26px,7vw,38px);max-width:100%;line-height:1.12}
 }
+
+/* Keep the explicitly requested opacity reveal even when system motion is reduced. */
+@media(prefers-reduced-motion:reduce){.entry-hero-copy{transition:opacity 1s ease-in-out .18s!important}}
