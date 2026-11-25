@@ -5,7 +5,7 @@ window.SELECTED_CORE = {
       "共生形态",
       "生态单元",
       "林间体验",
-      "森林尺度"
+      "共生景观"
     ],
     "hero": {
       "src": "assets/selected/mutualism-hero.webp",
@@ -98,7 +98,7 @@ window.SELECTED_CORE = {
       },
       {
         "label": "04 / LANDSCAPE",
-        "title": "森林尺度",
+        "title": "共生景观",
         "text": "从森林鸟瞰到塔下种植，呈现群塔、林冠与地面水池的关系，补充建筑融入雨林环境的空间设想。",
         "images": [
           {

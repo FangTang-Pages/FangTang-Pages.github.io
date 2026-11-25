@@ -209,3 +209,6 @@ html{scrollbar-gutter:stable}html.intro-sequence-locked{overflow-y:hidden;oversc
 .chapter-image-row:has(img[src$="station-workflow-clean-exterior.svg"]),
 .chapter-image-row:has(img[src$="station-prototypes-clean-exterior.svg"]){column-gap:clamp(48px,5vw,80px)}
 }
+
+/* Separate the exploded layers from the spatial units. */
+@media(min-width:701px){.chapter-image-row:has(img[src$="encounters-layers.webp"]){column-gap:clamp(48px,5vw,80px)}}
