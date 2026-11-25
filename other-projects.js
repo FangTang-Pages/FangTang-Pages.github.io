@@ -83,16 +83,11 @@ window.OTHER_PROJECTS = [
         "caption": "文化中心 · 整体效果"
       },
       {
-        "src": "assets/selected/misc-datong-court.webp",
+        "src": "assets/selected/misc-datong-court-clean.webp",
         "width": 1600,
-        "height": 893,
+        "height": 890,
         "alt": "大同古城文化中心的连廊与庭院场景",
-        "caption": "院落连廊 · 游览体验",
-        "thumbnail": {
-          "src": "assets/selected/misc-datong-court-preview.webp",
-          "width": 1600,
-          "height": 890
-        }
+        "caption": "院落连廊 · 游览体验"
       },
       {
         "src": "assets/selected/misc-datong-arrival.webp",

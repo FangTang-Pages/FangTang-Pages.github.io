@@ -7,8 +7,19 @@
   const others = window.OTHER_PROJECTS || [];
   const selected = {...window.SELECTED_CORE, 'lumi-city':window.SELECTED_LUMI};
   const gallery = [];
+  const projectRoutes = [
+    ['lumi-city','LUMI CITY'],['mutualism-tower','Mutualism Tower'],
+    ['encounters','N Kinds of Encounters'],['ore-rebirth','Ore Rebirth'],
+    ['old-station','Nourishing the Old Station'],['other','其他项目']
+  ].map(([id,title])=>({id,title,href:id==='other'?'other.html':`project.html?id=${id}`}));
+  function projectPagination(id) {
+    const i=projectRoutes.findIndex(p=>p.id===id),n=projectRoutes.length;
+    const prev=projectRoutes[(i+n-1)%n],next=projectRoutes[(i+1)%n];
+    return `<nav class="project-pagination" aria-label="项目导航"><a class="project-prev" href="${prev.href}"><span class="pagination-label">${icon('left')} 上一个项目</span><span class="pagination-title">${esc(prev.title)}</span></a><a class="pagination-directory" href="index.html?view=work">返回目录</a><a class="project-next" href="${next.href}"><span class="pagination-label">下一个项目 ${icon('right')}</span><span class="pagination-title">${esc(next.title)}</span></a></nav>`;
+  }
   function figure(p, context, eager=false, cls='') {
-    const i=gallery.push({...p,context})-1;
+    const paper=cls.includes('chapter-figure')&&p.fit!=='cover'&&p.background!=='#000';
+    const i=gallery.push({...p,context,paper})-1;
     const preview=p.thumbnail || p;
     return `<figure class="selected-figure ${cls}" style="--image-ratio:${preview.width/preview.height};--image-background:${esc(p.background || '#fff')}"><button class="image-trigger" data-image-index="${i}" aria-label="放大：${esc(p.alt)}"><img class="${p.fit==='cover'?'fit-cover':'fit-contain'}" src="${esc(preview.src)}" width="${preview.width}" height="${preview.height}" alt="${esc(p.alt)}" ${eager?'fetchpriority="high"':'loading="lazy"'} decoding="async"><span class="image-enlarge" aria-hidden="true">${icon('plus')}</span></button>${p.caption?`<figcaption>${esc(p.caption)}</figcaption>`:''}</figure>`;
   }
@@ -21,7 +32,7 @@
       const ratios=pair.map(im=>{const preview=im.thumbnail || im;return preview.width/preview.height;});
       const allVisual=pair.every(im=>im.fit==='cover');
       const ratio=allVisual?ratios.reduce((sum,r)=>sum+r,0)/ratios.length:Math.max(.85,Math.min(16/9,...ratios));
-      rows.push(`<div class="chapter-image-row ${pair.length===1?'single-image':''}" style="--frame-ratio:${ratio.toFixed(4)}">${pair.map(im=>figure(im,context)).join('')}</div>`);
+      rows.push(`<div class="chapter-image-row ${pair.length===1?'single-image':''} ${allVisual?'':'natural-row'}" style="--frame-ratio:${ratio.toFixed(4)};--columns:${ratios.map(r=>`${r.toFixed(5)}fr`).join(' ')}">${pair.map(im=>figure(im,context,false,'chapter-figure')).join('')}</div>`);
     }
     return rows.join('');
   }
@@ -39,31 +50,33 @@
     const id=new URLSearchParams(location.search).get('id') || 'lumi-city';
     const p=projects.find(p=>p.id===id), s=selected[id];
     if(!p || !s) {
-      target.innerHTML=`<section class="wrap empty"><h1>暂未找到这个项目</h1><p>请回到作品目录继续浏览。</p><a class="text-link" href="index.html">${icon('left')} 返回作品目录</a></section>`;
+      target.innerHTML=`<section class="wrap empty"><h1>暂未找到这个项目</h1><p>请回到作品目录继续浏览。</p><a class="text-link" href="index.html?view=work">${icon('left')} 返回作品目录</a></section>`;
     } else {
       document.title=`${p.title} · 方星月作品集`;
       document.querySelector('meta[name="description"]').content=p.intro;
-      const next=projects[projects.indexOf(p)+1];
-      target.innerHTML=`<section class="selected-heading wrap"><a class="back-link" href="index.html">${icon('left')} 返回作品目录</a><div class="selected-title"><p class="eyebrow"><span class="project-number">${p.number}</span><span>SELECTED PROJECT / 精选作品</span></p><h1>${esc(p.title)}</h1></div><div class="selected-summary"><div><h2>${esc(s.subtitle || p.name)}</h2><p>${esc(p.intro)}</p></div><nav class="project-tags" aria-label="项目章节">${s.sections.map((section,i)=>`<a href="#chapter-${i+1}">${esc(section.title)}</a>`).join('')}</nav></div></section>
+      target.innerHTML=`<section class="selected-heading wrap"><a class="back-link" href="index.html?view=work">${icon('left')} 返回作品目录</a><div class="selected-title"><p class="eyebrow"><span class="project-number">${p.number}</span><span>SELECTED PROJECT / 精选作品</span></p><h1>${esc(p.title)}</h1></div><div class="selected-summary"><div><h2>${esc(s.subtitle || p.name)}</h2><p>${esc(p.intro)}</p></div><nav class="project-tags" aria-label="项目章节">${s.sections.map((section,i)=>`<a href="#chapter-${i+1}">${esc(section.title)}</a>`).join('')}</nav></div></section>
       <div class="wrap selected-hero">${figure(s.hero,p.title,true)}</div>
       <div class="selected-chapters wrap">${s.sections.map((section,i)=>`<section class="design-chapter" id="chapter-${i+1}" tabindex="-1"><div class="chapter-copy"><div><span class="eyebrow">${String(i+1).padStart(2,'0')} / ${esc((section.label || 'DESIGN PROCESS').replace(/^\d+\s*\/\s*/,''))}</span><h2>${esc(section.title)}</h2></div><p>${esc(section.text)}</p></div><div class="chapter-images">${imageRows(section.images,p.title)}</div></section>`).join('')}</div>
       ${id==='lumi-city'?`<section class="wrap detail-film" id="project-film"><div class="chapter-copy"><div><span class="eyebrow">FILM / 项目影片</span><h2>光影演绎</h2></div><p>从实验与结构探索，到场景中的光影表达。</p></div><video controls playsinline preload="none" poster="assets/lumi-film-poster.webp" aria-label="LUMI CITY 完整项目影片"><source src="assets/lumi-film.mp4" type="video/mp4">请使用支持 MP4 的浏览器。</video></section>`:''}
       <section class="download-section wrap"><div><p class="eyebrow">THE COMPLETE PROJECT</p><h2>完整作品集</h2><p>研究背景、更多推演与完整图纸，收录于项目作品集。</p></div><a class="download-button" href="documents/${esc(p.pdf)}" download>${icon('download')} 下载完整作品集 PDF</a></section>
-      <section class="next-project wrap"><span class="eyebrow">NEXT / 继续浏览</span><a href="${next?`project.html?id=${next.id}`:'other.html'}"><h2>${next?esc(next.title):'其他项目'}</h2>${icon('ne')}</a><a class="back-link" href="index.html">${icon('left')} 返回作品目录</a></section>`;
+      <div class="wrap">${projectPagination(id)}</div>`;
     }
   }
   const otherTarget=document.querySelector('#other-projects');
   if(otherTarget) {
     otherTarget.innerHTML=others.map((p,i)=>`<article class="other-entry"><div class="other-images">${p.images.map(im=>figure(im,p.title)).join('')}</div><div class="other-copy"><span class="eyebrow">${String(i+1).padStart(2,'0')} / EXPLORATION</span><h2>${esc(p.title)}</h2>${p.subtitle?`<p class="other-subtitle">${esc(p.subtitle)}</p>`:''}<p>${esc(p.text)}</p></div></article>`).join('');
+    document.querySelector('#other-pagination').innerHTML=projectPagination('other');
   }
   if(gallery.length) setupLightbox(gallery);
 
   function setupOpening() {
     history.scrollRestoration='manual';
     const entryUrl=new URL(location.href);
+    const isHistoryReturn=performance.getEntriesByType('navigation')[0]?.type==='back_forward';
+    const entryWork=entryUrl.searchParams.get('view')==='work'||entryUrl.hash==='#work'||(isHistoryReturn&&history.state?.portfolioView==='work');
     entryUrl.searchParams.delete('view');entryUrl.searchParams.delete('intro');
     if(entryUrl.hash==='#work')entryUrl.hash='';
-    history.replaceState({...history.state,portfolioView:'intro'},'',entryUrl);
+    history.replaceState({...history.state,portfolioView:entryWork?'work':'intro'},'',entryUrl);
     const intro=document.querySelector('.motion-intro'),stage=intro.querySelector('.motion-stage');
     const directory=intro.querySelector('.motion-directory'),film=intro.querySelector('.hero-film');
     const video=intro.querySelector('#opening-video'),copy=intro.querySelector('.hero-copy');
@@ -72,7 +85,7 @@
     const cards=[...intro.querySelectorAll('.motion-card')];
     const dockedFace=slot.querySelector('.card-face').cloneNode(true);dockedFace.classList.add('docked-face');film.append(dockedFace);
     const REVEAL=450,HOLD=100,DOCK=950,TOTAL=REVEAL+HOLD+DOCK;
-    let state='idle',elapsed=0,direction=1,size,frame=0,lastTick=null,focusDirectory=false,touch=null,initialized=false;
+    let state=entryWork?'done':'idle',elapsed=entryWork?TOTAL:0,direction=1,size,frame=0,lastTick=null,focusDirectory=false,touch=null,initialized=false;
     const clamp=v=>Math.max(0,Math.min(1,v)),ease=v=>v*v*(3-2*v),mix=(a,b,t)=>a+(b-a)*t;
     function lock(){document.documentElement.classList.add('intro-sequence-locked');}
     function unlock(){document.documentElement.classList.remove('intro-sequence-locked');}
@@ -149,7 +162,12 @@
       if(state==='done'&&(sign>0||scrollY>2))return false;
       animateTo(sign,fromKeyboard);return true;
     }
-    document.querySelectorAll('[data-directory-link],.header .identity').forEach(a=>a.addEventListener('click',event=>{
+    document.querySelectorAll('[data-directory-link]').forEach(a=>a.addEventListener('click',event=>{
+      if(event.button!==0||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
+      event.preventDefault();focusDirectory=false;direction=1;
+      scrollTo({top:0,behavior:'instant'});settle(true);
+    }));
+    document.querySelectorAll('.header .identity').forEach(a=>a.addEventListener('click',event=>{
       if(event.button!==0||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
       event.preventDefault();resetOpening(true);
     }));
@@ -185,11 +203,15 @@
     let resizeTimer;addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(measure,80);});
     function initialize(){
       if(initialized){measure();return;}initialized=true;
-      scrollTo({top:0,behavior:'instant'});lock();measure();syncVideo();
+      scrollTo({top:0,behavior:'instant'});if(state==='done')unlock();else lock();measure();syncVideo();
     }
     requestAnimationFrame(initialize);addEventListener('load',initialize,{once:true});
     addEventListener('pagehide',()=>{video.pause();cancelAnimationFrame(frame);frame=0;lastTick=null;unlock();});
-    addEventListener('pageshow',event=>{if(event.persisted)resetOpening();});
+    addEventListener('pageshow',event=>{
+      if(!event.persisted)return;
+      scrollTo({top:0,behavior:'instant'});focusDirectory=false;
+      settle(history.state?.portfolioView==='work');
+    });
   }
 
 
@@ -214,7 +236,7 @@
     }
     function show(index) {
       current=Math.max(0,Math.min(items.length-1,index));zoom=1;
-      const p=items[current];img.onload=()=>resize();img.src=p.src;img.alt=p.alt;
+      const p=items[current];dialog.classList.toggle('paper-view',!!p.paper);img.onload=()=>resize();img.src=p.src;img.alt=p.alt;
       document.querySelector('#lightbox-caption').textContent=p.caption||p.alt;
       document.querySelector('#lightbox-page').textContent=`${current+1} / ${items.length}`;
       prev.disabled=current===0;next.disabled=current===items.length-1;

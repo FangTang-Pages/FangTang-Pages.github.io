@@ -20,18 +20,18 @@ window.SELECTED_LUMI = {
       "text": "从城市夜光与生物发光研究出发，推演可开合单元及其场景组合。",
       "images": [
         {
-          "src": "assets/selected/lumi-concept.webp",
-          "width": 2000,
-          "height": 1525,
+          "src": "assets/selected/lumi-concept-clean.webp",
+          "width": 1900,
+          "height": 1398,
           "alt": "藻类单元概念、两条原型路线和场景应用关系图",
           "caption": "概念推演 · 单元、原型与场景的联系"
         },
         {
-          "src": "assets/selected/lumi-folding.webp",
+          "src": "assets/selected/lumi-folding-clean.svg",
           "width": 1892,
           "height": 2200,
-          "alt": "悬挂结构及展开、收拢形态的设计图",
-          "caption": "结构示意 · 悬挂关系与开合形态",
+          "alt": "开合结构 · 悬挂关系与展开、收拢形态",
+          "caption": "开合结构 · 悬挂关系与展开、收拢形态",
           "background": "#000"
         }
       ]
@@ -42,50 +42,35 @@ window.SELECTED_LUMI = {
       "text": "以 3D 打印模具探索真空成型，并通过薄膜热合与充气检验气囊原型。",
       "images": [
         {
-          "src": "assets/selected/lumi-materials.webp",
-          "width": 2000,
-          "height": 809,
+          "src": "assets/selected/lumi-materials-clean.webp",
+          "width": 1992,
+          "height": 789,
           "alt": "TPU、磨砂TPU、PVC和PE的材料与性能比较图",
           "caption": "材料探索 · 对比柔韧性、透光性与热合条件"
         },
         {
-          "src": "assets/selected/lumi-vacuum-forming.webp",
-          "width": 2000,
-          "height": 1337,
+          "src": "assets/selected/lumi-vacuum-forming-clean.webp",
+          "width": 1989,
+          "height": 1327,
           "alt": "塑料片覆于打印模具进行真空成型的制作照片",
           "caption": "真空成型路线 · 打印模具与覆模成型",
-          "fit": "cover",
-          "thumbnail": {
-            "src": "assets/selected/lumi-vacuum-forming-preview.webp",
-            "width": 1989,
-            "height": 1327
-          }
+          "fit": "cover"
         },
         {
-          "src": "assets/selected/lumi-heat-sealing.webp",
-          "width": 2000,
-          "height": 1343,
+          "src": "assets/selected/lumi-heat-sealing-clean.webp",
+          "width": 1988,
+          "height": 1327,
           "alt": "使用热工具沿轮廓热合两层塑料薄膜",
           "caption": "气囊制作路线 · 薄膜热合",
-          "fit": "cover",
-          "thumbnail": {
-            "src": "assets/selected/lumi-heat-sealing-preview.webp",
-            "width": 1988,
-            "height": 1327
-          }
+          "fit": "cover"
         },
         {
-          "src": "assets/selected/lumi-inflation.webp",
-          "width": 2000,
-          "height": 1343,
+          "src": "assets/selected/lumi-inflation-clean.webp",
+          "width": 1988,
+          "height": 1324,
           "alt": "利用气泵为薄膜样件充气的过程照片",
           "caption": "气囊制作路线 · 充气与泄漏检查",
-          "fit": "cover",
-          "thumbnail": {
-            "src": "assets/selected/lumi-inflation-preview.webp",
-            "width": 1988,
-            "height": 1324
-          }
+          "fit": "cover"
         }
       ]
     },

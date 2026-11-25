@@ -115,7 +115,8 @@ html{scrollbar-gutter:stable}html.intro-sequence-locked{overflow-y:hidden;oversc
 .chapter-copy p{max-width:none;margin-top:10px}
 .design-chapter{scroll-margin-top:calc(var(--header) + 24px)}
 .design-chapter:focus{outline:none}
-.design-chapter:focus-visible{outline:2px solid var(--green);outline-offset:7px}
+.design-chapter:focus-visible{outline:none}
+.design-chapter:focus-visible .chapter-copy h2{text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:8px}
 .chapter-images{display:block}
 .chapter-image-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px;align-items:start}
 .chapter-image-row+.chapter-image-row{margin-top:28px}
@@ -160,4 +161,34 @@ html{scrollbar-gutter:stable}html.intro-sequence-locked{overflow-y:hidden;oversc
 @media(max-width:700px){
  .motion-grid{gap:22px}
  .motion-media{aspect-ratio:3/1;min-height:110px}
+}
+
+/* Clean image viewing and consistent visual edges. */
+.image-trigger{overflow:hidden;box-shadow:none}
+.image-trigger img{transition:transform .5s ease;transform-origin:center}
+.chapter-image-row .image-trigger{box-shadow:none}
+.chapter-image-row.natural-row{grid-template-columns:var(--columns)}
+.chapter-image-row.natural-row .image-trigger{aspect-ratio:var(--image-ratio);max-height:none}
+.image-trigger:focus-visible{outline:none}
+.image-trigger:focus-visible .image-enlarge{box-shadow:0 0 0 2px var(--green)}
+@media(hover:hover) and (pointer:fine){.image-trigger:hover img{transform:scale(1.035)}}
+#lightbox,#lightbox::backdrop{background:var(--paper);color:var(--ink)}
+#lightbox .lightbox-stage{outline:none}
+#lightbox.paper-view .lightbox-canvas img{mix-blend-mode:multiply}
+#lightbox .lightbox-heading button,#lightbox .lightbox-controls button{border-color:var(--line)}
+#lightbox :focus-visible{outline-color:var(--green)}
+.project-pagination{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:30px;align-items:center;padding-block:36px 44px;border-top:1px solid var(--line)}
+.project-pagination a{min-width:0;display:flex;gap:12px;align-items:center;min-height:48px}
+.project-pagination .project-prev,.project-pagination .project-next{flex-direction:column;align-items:flex-start;justify-content:center;gap:0}
+.project-pagination .project-next{align-items:flex-end;text-align:right}
+.project-pagination .pagination-directory{font-size:14px;justify-content:center;color:var(--muted)}
+.project-pagination .pagination-label{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);margin-bottom:7px}
+.project-pagination .pagination-title{display:block;font-size:clamp(16px,1.7vw,23px);line-height:1.4;overflow-wrap:anywhere}
+.project-pagination .icon{flex-shrink:0}
+@media(max-width:700px){
+ .chapter-image-row.natural-row{grid-template-columns:minmax(0,1fr)}
+ .project-pagination{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 18px;padding-block:28px}
+ .project-pagination .pagination-directory{grid-column:1/-1;grid-row:2}
+ .project-pagination .project-next{grid-column:2;grid-row:1}
+ .project-pagination .pagination-title{font-size:16px}
 }
