@@ -228,7 +228,7 @@ a.school-badge:hover{color:var(--green);text-decoration:underline;text-underline
  .profile-heading{display:block}
  .profile-portrait{top:20px;width:80px}
  .profile-copy h1{padding-right:100px}
- .profile-copy h2{padding-right:0;margin-top:36px;margin-bottom:16px;font-size:25px}
+ .profile-copy h2{padding-right:0;margin-top:60px;margin-bottom:16px;font-size:25px}
  .profile-portrait figcaption{font-size:10px;letter-spacing:0}
  .education-list>div{grid-template-columns:minmax(0,1fr) auto;gap:10px 12px;padding-block:20px;align-items:start}
  .education-list h3{grid-area:1 / 1;font-size:16px;line-height:1.6}
