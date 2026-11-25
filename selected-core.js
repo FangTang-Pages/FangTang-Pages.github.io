@@ -62,7 +62,7 @@ window.SELECTED_CORE = {
         "text": "结合结构、植物与人物尺度，呈现林间观察、行走和停留的体验。",
         "images": [
           {
-            "src": "assets/selected/mutualism-observation-opaque.svg",
+            "src": "assets/selected/mutualism-observation-edge.svg",
             "width": 1797,
             "height": 845,
             "alt": "人在共生空间中的观察与停留场景",
@@ -70,7 +70,7 @@ window.SELECTED_CORE = {
             "fit": "cover"
           },
           {
-            "src": "assets/selected/mutualism-interior-opaque.svg",
+            "src": "assets/selected/mutualism-interior-edge.svg",
             "width": 1798,
             "height": 845,
             "alt": "步道、种植与内部结构的空间效果",
@@ -118,7 +118,7 @@ window.SELECTED_CORE = {
         "text": "从跳水、潜水与攀岩的动作提炼空间关系，组合运动、休闲与平台功能。",
         "images": [
           {
-            "src": "assets/selected/encounters-movement-opaque.svg",
+            "src": "assets/selected/encounters-movement-opaque-local-paper.svg",
             "width": 1758,
             "height": 1251,
             "alt": "概念生成 · 跳水、潜水与攀岩动作的空间转译",
@@ -201,7 +201,7 @@ window.SELECTED_CORE = {
         "text": "以矿坑开采、废弃与修复设想串联叙事，从地形高差中提炼展馆形态。",
         "images": [
           {
-            "src": "assets/selected/ore-timeline-opaque.svg",
+            "src": "assets/selected/ore-timeline-clean-paper.svg",
             "width": 1766,
             "height": 1111,
             "alt": "矿坑变迁 · 开采、废弃与修复设想的场景对照",
@@ -282,7 +282,7 @@ window.SELECTED_CORE = {
         "text": "围绕出行、工作与生活需求，梳理交通、办公、公共活动和生态空间的组合。",
         "images": [
           {
-            "src": "assets/selected/station-workflow-clean-paper.svg",
+            "src": "assets/selected/station-workflow-clean-paper-local-paper.svg",
             "width": 1765,
             "height": 1984,
             "alt": "功能关系 · 交通、日常需求与城市农业",
