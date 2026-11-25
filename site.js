@@ -6,11 +6,12 @@
   const projects = window.PORTFOLIO_PROJECTS || [];
   const grid = document.querySelector('#project-grid');
   if (grid) grid.innerHTML = projects.map((p, i) => `<article class="folio-entry"><a href="project.html?id=${p.id}" aria-label="阅读 ${esc(p.title)} 完整作品集"><div class="entry-heading"><span class="entry-number" aria-hidden="true">${p.number}<span>·</span></span><h2>${esc(p.title)}</h2></div><div class="entry-image"><img src="assets/${p.id}-thumb.webp" srcset="assets/${p.id}-thumb.webp 800w, assets/${p.id}-cover.webp 1920w" sizes="(max-width: 600px) 46vw, (max-width: 1100px) 29vw, 19vw" alt="${esc(p.images[0][0])}" width="800" height="600" ${i < 3 ? 'fetchpriority="high"' : 'loading="lazy"'}><span class="entry-open" aria-hidden="true">${icon('ne')}</span></div><p class="entry-category">${esc(p.category)}</p></a></article>`).join('');
-  document.querySelector('[data-copy-email]')?.addEventListener('click', async () => {
+  document.querySelectorAll('[data-copy]').forEach(button => button.addEventListener('click', async () => {
     const status = document.querySelector('#copy-status');
-    try { await navigator.clipboard.writeText('fangxingyue249@163.com'); status.textContent = '邮箱已复制'; }
-    catch { status.textContent = '请长按或选中上方邮箱复制'; }
-  });
+    const label = button.dataset.copyLabel || '内容';
+    try { await navigator.clipboard.writeText(button.dataset.copy); status.textContent = `${label}已复制`; }
+    catch { status.textContent = `请长按或选中上方${label}复制`; }
+  }));
   const target = document.querySelector('#project-content');
   if (!target) return;
   const id = new URLSearchParams(location.search).get('id') || 'lumi-city';

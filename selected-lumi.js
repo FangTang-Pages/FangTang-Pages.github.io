@@ -52,21 +52,24 @@ window.SELECTED_LUMI = {
           "width": 2000,
           "height": 1337,
           "alt": "塑料片覆于打印模具进行真空成型的制作照片",
-          "caption": "真空成型路线 · 打印模具与覆模成型"
+          "caption": "真空成型路线 · 打印模具与覆模成型",
+          "fit": "cover"
         },
         {
           "src": "assets/selected/lumi-heat-sealing.webp",
           "width": 2000,
           "height": 1343,
           "alt": "使用热工具沿轮廓热合两层塑料薄膜",
-          "caption": "气囊制作路线 · 薄膜热合"
+          "caption": "气囊制作路线 · 薄膜热合",
+          "fit": "cover"
         },
         {
           "src": "assets/selected/lumi-inflation.webp",
           "width": 2000,
           "height": 1343,
           "alt": "利用气泵为薄膜样件充气的过程照片",
-          "caption": "气囊制作路线 · 充气与泄漏检查"
+          "caption": "气囊制作路线 · 充气与泄漏检查",
+          "fit": "cover"
         }
       ]
     },
@@ -80,14 +83,16 @@ window.SELECTED_LUMI = {
           "width": 2000,
           "height": 1125,
           "alt": "悬挂单元透明面板和连接结构的实物近景",
-          "caption": "实物近景 · 面板组合与悬吊关系"
+          "caption": "实物近景 · 面板组合与悬吊关系",
+          "fit": "cover"
         },
         {
           "src": "assets/selected/lumi-joint-detail.webp",
           "width": 2000,
           "height": 1125,
           "alt": "白色连接节点、紧固件与透明面板局部",
-          "caption": "构造细节 · 节点、紧固与面板连接"
+          "caption": "构造细节 · 节点、紧固与面板连接",
+          "fit": "cover"
         }
       ]
     },
@@ -101,14 +106,32 @@ window.SELECTED_LUMI = {
           "width": 2000,
           "height": 1268,
           "alt": "林地中的模块单元与日间空间场景效果",
-          "caption": "场景效果 · 日间单元组合"
+          "caption": "场景效果 · 日间单元组合",
+          "fit": "cover"
         },
         {
           "src": "assets/selected/lumi-riverside-scenario.webp",
           "width": 2000,
           "height": 1268,
           "alt": "滨水空间中成组悬挂装置的夜间视觉效果",
-          "caption": "场景效果 · 滨水夜间光影"
+          "caption": "场景效果 · 滨水夜间光影",
+          "fit": "cover"
+        },
+        {
+          "src": "assets/selected/lumi-luminous-unit.webp",
+          "width": 2001,
+          "height": 1269,
+          "alt": "悬挂发光单元的夜间概念效果",
+          "caption": "单元效果 · 悬挂形态与发光表现",
+          "fit": "cover"
+        },
+        {
+          "src": "assets/selected/lumi-underbridge-scenario.webp",
+          "width": 2001,
+          "height": 1269,
+          "alt": "桥下空间中成组发光单元的应用效果",
+          "caption": "场景效果 · 桥下光影装置",
+          "fit": "cover"
         }
       ]
     }

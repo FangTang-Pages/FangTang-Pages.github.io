@@ -66,14 +66,32 @@ window.SELECTED_CORE = {
             "width": 1800,
             "height": 848,
             "alt": "人在共生空间中的观察与停留场景",
-            "caption": "人在共生空间中的观察与停留场景"
+            "caption": "人在共生空间中的观察与停留场景",
+            "fit": "cover"
           },
           {
             "src": "assets/selected/mutualism-interior.webp",
             "width": 1800,
             "height": 845,
             "alt": "步道、种植与内部结构的空间效果",
-            "caption": "步道、种植与内部结构的空间效果"
+            "caption": "步道、种植与内部结构的空间效果",
+            "fit": "cover"
+          },
+          {
+            "src": "assets/selected/mutualism-canopy.webp",
+            "width": 1800,
+            "height": 848,
+            "alt": "从林间步道仰望共生塔的结构与植物",
+            "caption": "林冠视角 · 结构与植物交织",
+            "fit": "cover"
+          },
+          {
+            "src": "assets/selected/mutualism-garden-walk.webp",
+            "width": 1800,
+            "height": 845,
+            "alt": "共生塔内部种植平台与行走场景",
+            "caption": "林间行走 · 种植平台与公共步道",
+            "fit": "cover"
           }
         ]
       }
@@ -146,14 +164,16 @@ window.SELECTED_CORE = {
             "width": 1800,
             "height": 848,
             "alt": "水下运动与公共步道之间的观看关系",
-            "caption": "水下运动与公共步道之间的观看关系"
+            "caption": "水下运动与公共步道之间的观看关系",
+            "fit": "cover"
           },
           {
             "src": "assets/selected/encounters-social.webp",
             "width": 1800,
             "height": 849,
             "alt": "水池、跳台与瀑布界面的活动场景",
-            "caption": "水池、跳台与瀑布界面的活动场景"
+            "caption": "水池、跳台与瀑布界面的活动场景",
+            "fit": "cover"
           }
         ]
       }
@@ -233,7 +253,8 @@ window.SELECTED_CORE = {
             "width": 1801,
             "height": 1047,
             "alt": "面向矿壁的水上剧场体验效果",
-            "caption": "面向矿壁的水上剧场体验效果"
+            "caption": "面向矿壁的水上剧场体验效果",
+            "fit": "cover"
           }
         ]
       }
@@ -313,7 +334,8 @@ window.SELECTED_CORE = {
             "width": 1801,
             "height": 1601,
             "alt": "从步行视角表达公共活动与绿化场景",
-            "caption": "从步行视角表达公共活动与绿化场景"
+            "caption": "从步行视角表达公共活动与绿化场景",
+            "fit": "cover"
           }
         ]
       }

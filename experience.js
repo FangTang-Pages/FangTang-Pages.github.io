@@ -9,7 +9,7 @@
   const gallery = [];
   function figure(p, context, eager=false, cls='') {
     const i=gallery.push({...p,context})-1;
-    return `<figure class="selected-figure ${cls}" style="--image-ratio:${p.width/p.height}"><button class="image-trigger" data-image-index="${i}" aria-label="放大：${esc(p.alt)}"><img class="${p.fit==='contain'?'fit-contain':''}" src="${esc(p.src)}" width="${p.width}" height="${p.height}" alt="${esc(p.alt)}" ${eager?'fetchpriority="high"':'loading="lazy"'} decoding="async"><span class="image-enlarge" aria-hidden="true">${icon('plus')}</span></button>${p.caption?`<figcaption>${esc(p.caption)}</figcaption>`:''}</figure>`;
+    return `<figure class="selected-figure ${cls}" style="--image-ratio:${p.width/p.height}"><button class="image-trigger" data-image-index="${i}" aria-label="放大：${esc(p.alt)}"><img class="${p.fit==='cover'?'fit-cover':'fit-contain'}" src="${esc(p.src)}" width="${p.width}" height="${p.height}" alt="${esc(p.alt)}" ${eager?'fetchpriority="high"':'loading="lazy"'} decoding="async"><span class="image-enlarge" aria-hidden="true">${icon('plus')}</span></button>${p.caption?`<figcaption>${esc(p.caption)}</figcaption>`:''}</figure>`;
   }
 
 
@@ -17,7 +17,9 @@
     const rows=[];
     for(let i=0;i<images.length;i+=2){
       const pair=images.slice(i,i+2);
-      const ratio=Math.max(.85,Math.min(16/9,...pair.map(im=>im.width/im.height)));
+      const ratios=pair.map(im=>im.width/im.height);
+      const allVisual=pair.every(im=>im.fit==='cover');
+      const ratio=allVisual?ratios.reduce((sum,r)=>sum+r,0)/ratios.length:Math.max(.85,Math.min(16/9,...ratios));
       rows.push(`<div class="chapter-image-row ${pair.length===1?'single-image':''}" style="--frame-ratio:${ratio.toFixed(4)}">${pair.map(im=>figure(im,context)).join('')}</div>`);
     }
     return rows.join('');

@@ -199,3 +199,45 @@ body { font-size:16px; }
 .section-label h2 small{display:inline-block;margin:0 0 0 14px}
 .profile-portrait img{height:auto;object-fit:contain}
 @media(max-width:700px){.section-label{margin-bottom:22px}.section-label h2 small{margin-left:10px}}
+
+/* v16: compact portrait, consistent typography and structured personal details. */
+.serif-word{font-family:inherit}
+.profile-heading{grid-template-columns:minmax(0,1fr) 160px;gap:8%;align-items:center}
+.profile-portrait{width:160px;justify-self:end}
+.profile-portrait img{height:auto}
+.profile-copy h2,.profile-contact h2{font-family:inherit;font-weight:400;letter-spacing:0}
+.education-list>div{grid-template-columns:220px 160px minmax(0,1fr) auto;gap:16px;align-items:baseline}
+.education-list h3{grid-area:auto;font-size:19px}
+.education-list p{grid-area:auto}
+.education-list span{grid-area:auto}
+.education-list .school-badge{font-size:13px;color:var(--muted);line-height:1.55}
+.school-badge small{display:block;font-size:11px;line-height:1.6}
+a.school-badge:hover{color:var(--green);text-decoration:underline;text-underline-offset:3px}
+.contact-details{min-width:0}
+.contact-number{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:14px;font-size:18px}
+.contact-number a{min-height:44px;display:flex;align-items:center;font-variant-numeric:tabular-nums}
+.contact-number>span:not(.contact-label){font-variant-numeric:tabular-nums}
+.contact-label{font-size:14px;color:var(--muted)}
+.contact-number .copy-email{margin-left:4px}
+@media(min-width:701px) and (max-width:1050px){
+ .education-list>div{grid-template-columns:200px 120px minmax(0,1fr) auto;gap:12px}
+ .education-list h3{font-size:17px}
+ .education-list p,.education-list>div>span:last-child{font-size:13px}
+}
+@media(max-width:700px){
+ .profile-heading{display:block}
+ .profile-portrait{top:20px;width:80px}
+ .profile-copy h1{padding-right:100px}
+ .profile-copy h2{padding-right:0;margin-top:36px;margin-bottom:16px;font-size:25px}
+ .profile-portrait figcaption{font-size:10px;letter-spacing:0}
+ .education-list>div{grid-template-columns:minmax(0,1fr) auto;gap:10px 12px;padding-block:20px;align-items:start}
+ .education-list h3{grid-area:1 / 1;font-size:16px;line-height:1.6}
+ .education-list .school-badge{grid-area:1 / 2;min-width:92px;font-size:12px;line-height:1.6}
+ .school-badge small{font-size:10px}
+ .education-list p{grid-area:2 / 1;font-size:13px}
+ .education-list>div>span:last-child{grid-area:2 / 2;font-size:12px;text-align:right}
+ .contact-details{width:100%}
+ .contact-number{font-size:17px;gap:12px;margin-top:10px}
+ .contact-number .copy-email{font-size:13px;margin-left:auto}
+ .profile-contact h2{font-size:26px}
+}

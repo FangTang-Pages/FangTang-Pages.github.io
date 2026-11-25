@@ -132,3 +132,15 @@ html{scrollbar-gutter:stable}html.intro-sequence-locked{overflow-y:hidden;oversc
  .chapter-image-row+.chapter-image-row{margin-top:24px}
  .other-entry{align-items:stretch}
 }
+
+/* v16: quieter directory, edge-to-edge visuals and aligned chapter navigation. */
+.motion-grid{gap:48px 56px}
+.project-tags{justify-content:flex-end;justify-self:stretch;text-align:right}
+.chapter-image-row .image-trigger img.fit-cover{object-fit:cover}
+.other-images .image-trigger img{object-fit:cover}
+.other-images .image-trigger{background:transparent}
+@media(min-width:701px) and (max-width:980px){.motion-grid{gap:32px}}
+@media(max-width:700px){
+ .motion-grid{gap:22px}
+ .motion-media{aspect-ratio:3/1;min-height:110px}
+}
