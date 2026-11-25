@@ -69,7 +69,7 @@
   }
   const otherTarget=document.querySelector('#other-projects');
   if(otherTarget) {
-    if(!document.querySelector('.entry-hero')){const hero=document.createElement('div');hero.className='selected-hero entry-hero';hero.innerHTML=figure(others[0].images[0],'其他项目',true)+heroTitle('其他项目','#other-projects');document.querySelector('.other-heading').before(hero);}
+    if(!document.querySelector('.entry-hero')){const hero=document.createElement('div');hero.className='selected-hero entry-hero';hero.innerHTML=figure(others[0].images[0],'其他项目',true)+heroTitle('Other Explorations','#other-projects');document.querySelector('.other-heading').before(hero);}
     otherTarget.innerHTML=others.map((p,i)=>`<article class="other-entry"><div class="other-images">${p.images.map(im=>figure(im,p.title)).join('')}</div><div class="other-copy"><span class="eyebrow">${String(i+1).padStart(2,'0')} / EXPLORATION</span><h2>${esc(p.title)}</h2>${p.subtitle?`<p class="other-subtitle">${esc(p.subtitle)}</p>`:''}<p>${esc(p.text)}</p></div></article>`).join('');
     document.querySelector('#other-pagination').innerHTML=projectPagination('other');
   }
