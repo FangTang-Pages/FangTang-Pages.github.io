@@ -213,14 +213,12 @@ body { font-size:16px; }
 .education-list .school-badge{font-size:13px;color:var(--muted);line-height:1.55}
 .school-badge small{display:block;font-size:11px;line-height:1.6}
 a.school-badge:hover{color:var(--green);text-decoration:underline;text-underline-offset:3px}
-.contact-details{min-width:0}
-.contact-number{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:14px;font-size:18px;max-width:100%}
-.contact-copy{padding:0;min-height:44px;background:transparent;text-align:left;cursor:pointer;color:var(--ink)}
-.contact-number>span:not(.contact-label){font-variant-numeric:tabular-nums}
-.contact-label{font-size:14px;color:var(--muted)}
-.copy-hint{font-size:13px;border-bottom:1px solid var(--line);padding-block:5px;white-space:nowrap}
-.contact-copy:hover .copy-hint{border-color:var(--green);color:var(--green)}
-.contact-label,.contact-value{white-space:nowrap}
+.contact-details{min-width:0;width:510px;max-width:100%;display:grid;gap:12px}
+.contact-row{display:grid;grid-template-columns:92px minmax(0,1fr) 56px;gap:14px;align-items:center;width:100%;min-height:44px;padding:0;background:transparent;color:var(--ink);text-align:left;cursor:pointer}
+.contact-label{font-size:14px;color:var(--muted);white-space:nowrap}
+.contact-value{font-size:18px;line-height:1.6;font-variant-numeric:tabular-nums;white-space:nowrap}
+.copy-hint{justify-self:end;font-size:13px;border-bottom:1px solid var(--line);padding-block:5px;white-space:nowrap}
+.contact-row:hover .copy-hint{border-color:var(--green);color:var(--green)}
 @media(min-width:701px) and (max-width:1050px){
  .education-list>div{grid-template-columns:200px 120px minmax(0,1fr) auto;gap:12px}
  .education-list h3{font-size:17px}
@@ -239,6 +237,12 @@ a.school-badge:hover{color:var(--green);text-decoration:underline;text-underline
  .education-list p{grid-area:2 / 1;font-size:13px}
  .education-list>div>span:last-child{grid-area:2 / 2;font-size:12px;text-align:right}
  .contact-details{width:100%}
- .contact-number{font-size:17px;gap:8px;margin-top:10px}
+ .contact-details{gap:20px}
+ .contact-row{grid-template-columns:minmax(0,1fr) auto;gap:4px 12px}
+ .contact-row .contact-label{grid-column:1 / -1}
+ .contact-value{font-size:17px}
+ .copy-hint{font-size:12px}
  .profile-contact h2{font-size:26px}
 }
+
+@media(max-width:360px){.contact-value{font-size:16px}}
