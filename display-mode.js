@@ -11,7 +11,14 @@
     else if(requested==='desktop'||requested==='mobile')sessionStorage.setItem(key,JSON.stringify({mode:requested,ua}));
     const saved=JSON.parse(sessionStorage.getItem(key)||'null');
     if(saved?.ua===ua)override=saved.mode;
+    else if(saved)sessionStorage.removeItem(key);
   } catch { if(requested==='desktop'||requested==='mobile')override=requested; }
+  // Treat explicit links as a one-time choice. A later browser mode change
+  // must not replay an old URL override when the same page is reloaded.
+  if(['desktop','mobile','auto'].includes(requested)){
+    const cleanUrl=new URL(location.href);cleanUrl.searchParams.delete('layout');
+    history.replaceState(history.state,'',cleanUrl);
+  }
   const touch=navigator.maxTouchPoints>0||matchMedia('(pointer:coarse)').matches;
   const smallScreen=screen.width<=1024&&screen.height<=1366;
   const mobileUA=/Android|iPhone|iPad|iPod|Mobile|Windows Phone/i.test(ua);
