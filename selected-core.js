@@ -62,32 +62,32 @@ window.SELECTED_CORE = {
         "text": "结合结构、植物与人物尺度，呈现林间观察、行走和停留的体验。",
         "images": [
           {
-            "src": "assets/selected/mutualism-observation.webp",
-            "width": 1800,
-            "height": 848,
+            "src": "assets/selected/mutualism-observation-edge.svg",
+            "width": 1797,
+            "height": 845,
             "alt": "人在共生空间中的观察与停留场景",
             "caption": "人在共生空间中的观察与停留场景",
             "fit": "cover"
           },
           {
-            "src": "assets/selected/mutualism-interior.webp",
-            "width": 1800,
+            "src": "assets/selected/mutualism-interior-edge.svg",
+            "width": 1798,
             "height": 845,
             "alt": "步道、种植与内部结构的空间效果",
             "caption": "步道、种植与内部结构的空间效果",
             "fit": "cover"
           },
           {
-            "src": "assets/selected/mutualism-canopy.webp",
-            "width": 1800,
-            "height": 848,
+            "src": "assets/selected/mutualism-canopy-edge.svg",
+            "width": 1798,
+            "height": 846,
             "alt": "从林间步道仰望共生塔的结构与植物",
             "caption": "林冠视角 · 结构与植物交织",
             "fit": "cover"
           },
           {
-            "src": "assets/selected/mutualism-garden-walk.webp",
-            "width": 1800,
+            "src": "assets/selected/mutualism-garden-walk-edge.svg",
+            "width": 1797,
             "height": 845,
             "alt": "共生塔内部种植平台与行走场景",
             "caption": "林间行走 · 种植平台与公共步道",
@@ -161,17 +161,17 @@ window.SELECTED_CORE = {
         "text": "以透明界面与水景连接运动、步行和停留，让使用者在日常活动中相遇。",
         "images": [
           {
-            "src": "assets/selected/encounters-walkway.webp",
-            "width": 1800,
-            "height": 848,
+            "src": "assets/selected/encounters-walkway-edge.svg",
+            "width": 1796,
+            "height": 846,
             "alt": "水下运动与公共步道之间的观看关系",
             "caption": "水下运动与公共步道之间的观看关系",
             "fit": "cover"
           },
           {
-            "src": "assets/selected/encounters-social.webp",
-            "width": 1800,
-            "height": 849,
+            "src": "assets/selected/encounters-social-edge.svg",
+            "width": 1796,
+            "height": 847,
             "alt": "水池、跳台与瀑布界面的活动场景",
             "caption": "水池、跳台与瀑布界面的活动场景",
             "fit": "cover"

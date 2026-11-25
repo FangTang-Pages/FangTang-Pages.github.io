@@ -49,17 +49,17 @@ window.SELECTED_LUMI = {
           "caption": "材料探索 · 对比柔韧性、透光性与热合条件"
         },
         {
-          "src": "assets/selected/lumi-vacuum-forming-clean.webp",
-          "width": 1989,
-          "height": 1327,
+          "src": "assets/selected/lumi-vacuum-forming-clean-edge.svg",
+          "width": 1987,
+          "height": 1325,
           "alt": "塑料片覆于打印模具进行真空成型的制作照片",
           "caption": "真空成型路线 · 打印模具与覆模成型",
           "fit": "cover"
         },
         {
-          "src": "assets/selected/lumi-heat-sealing-clean.webp",
+          "src": "assets/selected/lumi-heat-sealing-clean-edge.svg",
           "width": 1988,
-          "height": 1327,
+          "height": 1325,
           "alt": "使用热工具沿轮廓热合两层塑料薄膜",
           "caption": "气囊制作路线 · 薄膜热合",
           "fit": "cover"
@@ -103,33 +103,33 @@ window.SELECTED_LUMI = {
       "text": "将单元组合置入林地与滨水场景，以日夜光影、材质和尺度表达体验设想。",
       "images": [
         {
-          "src": "assets/selected/lumi-day-scenario.webp",
+          "src": "assets/selected/lumi-day-scenario-edge.svg",
           "width": 2000,
-          "height": 1268,
+          "height": 1265,
           "alt": "林地中的模块单元与日间空间场景效果",
           "caption": "场景效果 · 日间单元组合",
           "fit": "cover"
         },
         {
-          "src": "assets/selected/lumi-riverside-scenario.webp",
+          "src": "assets/selected/lumi-riverside-scenario-edge.svg",
           "width": 2000,
-          "height": 1268,
+          "height": 1266,
           "alt": "滨水空间中成组悬挂装置的夜间视觉效果",
           "caption": "场景效果 · 滨水夜间光影",
           "fit": "cover"
         },
         {
-          "src": "assets/selected/lumi-luminous-unit.webp",
+          "src": "assets/selected/lumi-luminous-unit-edge.svg",
           "width": 2001,
-          "height": 1269,
+          "height": 1267,
           "alt": "悬挂发光单元的夜间概念效果",
           "caption": "单元效果 · 悬挂形态与发光表现",
           "fit": "cover"
         },
         {
-          "src": "assets/selected/lumi-underbridge-scenario.webp",
+          "src": "assets/selected/lumi-underbridge-scenario-edge.svg",
           "width": 2001,
-          "height": 1269,
+          "height": 1267,
           "alt": "桥下空间中成组发光单元的应用效果",
           "caption": "场景效果 · 桥下光影装置",
           "fit": "cover"

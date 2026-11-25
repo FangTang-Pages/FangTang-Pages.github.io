@@ -10,9 +10,9 @@ window.OTHER_PROJECTS = [
     ],
     "images": [
       {
-        "src": "assets/selected/misc-box-overview.webp",
-        "width": 1339,
-        "height": 540,
+        "src": "assets/selected/misc-box-overview-edge.svg",
+        "width": 1334,
+        "height": 533,
         "alt": "盒子联盟的彩色模块化市集整体轴测",
         "caption": "市集整体 · 场景轴测"
       },
