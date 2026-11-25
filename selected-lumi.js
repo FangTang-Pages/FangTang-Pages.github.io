@@ -1,5 +1,5 @@
 window.SELECTED_LUMI = {
-  "subtitle": "可开合光影装置",
+  "subtitle": "光影共生",
   "tags": [
     "光的单元",
     "材料实验",
@@ -17,7 +17,7 @@ window.SELECTED_LUMI = {
     {
       "label": "01 / CONCEPT",
       "title": "光的单元",
-      "text": "从城市夜光与生物发光研究出发，梳理单元、原型和应用场景之间的关系。通过悬挂结构与开合形态推演，探索同一单元在不同空间尺度中的组合方式。",
+      "text": "从城市夜光与生物发光研究出发，推演可开合单元及其场景组合。",
       "images": [
         {
           "src": "assets/selected/lumi-concept.webp",
@@ -31,14 +31,15 @@ window.SELECTED_LUMI = {
           "width": 1892,
           "height": 2200,
           "alt": "悬挂结构及展开、收拢形态的设计图",
-          "caption": "结构示意 · 悬挂关系与开合形态"
+          "caption": "结构示意 · 悬挂关系与开合形态",
+          "background": "#000"
         }
       ]
     },
     {
       "label": "02 / MATERIAL & MAKING",
       "title": "材料实验",
-      "text": "分别探索真空成型与热合气囊两条路线：前者使用 3D 打印模具，将塑料片加热、覆模、成型；后者比较薄膜材料，通过热合制作气囊，并进行充气检查。",
+      "text": "以 3D 打印模具探索真空成型，并通过薄膜热合与充气检验气囊原型。",
       "images": [
         {
           "src": "assets/selected/lumi-materials.webp",
@@ -53,7 +54,12 @@ window.SELECTED_LUMI = {
           "height": 1337,
           "alt": "塑料片覆于打印模具进行真空成型的制作照片",
           "caption": "真空成型路线 · 打印模具与覆模成型",
-          "fit": "cover"
+          "fit": "cover",
+          "thumbnail": {
+            "src": "assets/selected/lumi-vacuum-forming-preview.webp",
+            "width": 1989,
+            "height": 1327
+          }
         },
         {
           "src": "assets/selected/lumi-heat-sealing.webp",
@@ -61,7 +67,12 @@ window.SELECTED_LUMI = {
           "height": 1343,
           "alt": "使用热工具沿轮廓热合两层塑料薄膜",
           "caption": "气囊制作路线 · 薄膜热合",
-          "fit": "cover"
+          "fit": "cover",
+          "thumbnail": {
+            "src": "assets/selected/lumi-heat-sealing-preview.webp",
+            "width": 1988,
+            "height": 1327
+          }
         },
         {
           "src": "assets/selected/lumi-inflation.webp",
@@ -69,14 +80,19 @@ window.SELECTED_LUMI = {
           "height": 1343,
           "alt": "利用气泵为薄膜样件充气的过程照片",
           "caption": "气囊制作路线 · 充气与泄漏检查",
-          "fit": "cover"
+          "fit": "cover",
+          "thumbnail": {
+            "src": "assets/selected/lumi-inflation-preview.webp",
+            "width": 1988,
+            "height": 1324
+          }
         }
       ]
     },
     {
       "label": "03 / PHYSICAL PROTOTYPE",
       "title": "开合原型",
-      "text": "将面板、连接节点与悬吊关系组合为能够展开、收拢的实体原型。通过整体展示和局部近景，呈现单元形态、装配关系与构造细节。",
+      "text": "组合面板、连接节点与悬吊结构，制作能够展开、收拢的实体原型。",
       "images": [
         {
           "src": "assets/selected/lumi-prototype-close.webp",
@@ -99,7 +115,7 @@ window.SELECTED_LUMI = {
     {
       "label": "04 / VISUAL SCENARIOS",
       "title": "光影场景",
-      "text": "把单元组合置入林地与滨水环境，通过日夜光影、材质和尺度关系表达应用设想。场景效果与实物照片并置，呈现概念、形态和视觉体验之间的联系。",
+      "text": "将单元组合置入林地与滨水场景，以日夜光影、材质和尺度表达体验设想。",
       "images": [
         {
           "src": "assets/selected/lumi-day-scenario.webp",

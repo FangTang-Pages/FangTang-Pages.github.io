@@ -87,7 +87,12 @@ window.OTHER_PROJECTS = [
         "width": 1600,
         "height": 893,
         "alt": "大同古城文化中心的连廊与庭院场景",
-        "caption": "院落连廊 · 游览体验"
+        "caption": "院落连廊 · 游览体验",
+        "thumbnail": {
+          "src": "assets/selected/misc-datong-court-preview.webp",
+          "width": 1600,
+          "height": 890
+        }
       },
       {
         "src": "assets/selected/misc-datong-arrival.webp",

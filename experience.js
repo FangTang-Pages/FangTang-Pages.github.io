@@ -9,7 +9,8 @@
   const gallery = [];
   function figure(p, context, eager=false, cls='') {
     const i=gallery.push({...p,context})-1;
-    return `<figure class="selected-figure ${cls}" style="--image-ratio:${p.width/p.height}"><button class="image-trigger" data-image-index="${i}" aria-label="放大：${esc(p.alt)}"><img class="${p.fit==='cover'?'fit-cover':'fit-contain'}" src="${esc(p.src)}" width="${p.width}" height="${p.height}" alt="${esc(p.alt)}" ${eager?'fetchpriority="high"':'loading="lazy"'} decoding="async"><span class="image-enlarge" aria-hidden="true">${icon('plus')}</span></button>${p.caption?`<figcaption>${esc(p.caption)}</figcaption>`:''}</figure>`;
+    const preview=p.thumbnail || p;
+    return `<figure class="selected-figure ${cls}" style="--image-ratio:${preview.width/preview.height};--image-background:${esc(p.background || '#fff')}"><button class="image-trigger" data-image-index="${i}" aria-label="放大：${esc(p.alt)}"><img class="${p.fit==='cover'?'fit-cover':'fit-contain'}" src="${esc(preview.src)}" width="${preview.width}" height="${preview.height}" alt="${esc(p.alt)}" ${eager?'fetchpriority="high"':'loading="lazy"'} decoding="async"><span class="image-enlarge" aria-hidden="true">${icon('plus')}</span></button>${p.caption?`<figcaption>${esc(p.caption)}</figcaption>`:''}</figure>`;
   }
 
 
@@ -17,7 +18,7 @@
     const rows=[];
     for(let i=0;i<images.length;i+=2){
       const pair=images.slice(i,i+2);
-      const ratios=pair.map(im=>im.width/im.height);
+      const ratios=pair.map(im=>{const preview=im.thumbnail || im;return preview.width/preview.height;});
       const allVisual=pair.every(im=>im.fit==='cover');
       const ratio=allVisual?ratios.reduce((sum,r)=>sum+r,0)/ratios.length:Math.max(.85,Math.min(16/9,...ratios));
       rows.push(`<div class="chapter-image-row ${pair.length===1?'single-image':''}" style="--frame-ratio:${ratio.toFixed(4)}">${pair.map(im=>figure(im,context)).join('')}</div>`);
@@ -53,7 +54,7 @@
   }
   const otherTarget=document.querySelector('#other-projects');
   if(otherTarget) {
-    otherTarget.innerHTML=others.map((p,i)=>`<article class="other-entry"><div class="other-images">${p.images.map(im=>figure(im,p.title)).join('')}</div><div class="other-copy"><span class="eyebrow">${String(i+1).padStart(2,'0')} / EXPLORATION</span><h2>${esc(p.title)}</h2>${p.subtitle?`<p class="other-subtitle">${esc(p.subtitle)}</p>`:''}<p>${esc(p.text)}</p><div class="other-tags">${(p.tags || []).map(t=>`<span>${esc(t)}</span>`).join('')}</div></div></article>`).join('');
+    otherTarget.innerHTML=others.map((p,i)=>`<article class="other-entry"><div class="other-images">${p.images.map(im=>figure(im,p.title)).join('')}</div><div class="other-copy"><span class="eyebrow">${String(i+1).padStart(2,'0')} / EXPLORATION</span><h2>${esc(p.title)}</h2>${p.subtitle?`<p class="other-subtitle">${esc(p.subtitle)}</p>`:''}<p>${esc(p.text)}</p></div></article>`).join('');
   }
   if(gallery.length) setupLightbox(gallery);
 

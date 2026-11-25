@@ -17,7 +17,7 @@ window.SELECTED_CORE = {
       {
         "label": "01 / CONCEPT",
         "title": "共生形态",
-        "text": "以雨林中的水循环与多物种共生为出发点，将集雨、输水和栖息需求转化为空间组织。通过曲面与骨架的组合推演，让外部形态与内部功能建立联系。",
+        "text": "以水循环与多物种共生为线索，通过曲面和骨架组合推演空间形态。",
         "images": [
           {
             "src": "assets/selected/mutualism-form.webp",
@@ -38,7 +38,7 @@ window.SELECTED_CORE = {
       {
         "label": "02 / SYSTEM",
         "title": "生态单元",
-        "text": "将科研、鸟类栖息、种植和湿地分解为不同单元，推演它们在垂直方向的连接方式。以分解图说明单元形态、使用空间与供水系统之间的关系。",
+        "text": "拆解科研、栖息、种植与湿地单元，梳理垂直连接及供水关系。",
         "images": [
           {
             "src": "assets/selected/mutualism-cells.webp",
@@ -59,7 +59,7 @@ window.SELECTED_CORE = {
       {
         "label": "03 / EXPERIENCE",
         "title": "林间体验",
-        "text": "通过内部场景效果呈现观察、行走与停留的体验，让抽象的生态关系成为可感知的空间。结构、植物与人物尺度共同解释共生塔的使用设想。",
+        "text": "结合结构、植物与人物尺度，呈现林间观察、行走和停留的体验。",
         "images": [
           {
             "src": "assets/selected/mutualism-observation.webp",
@@ -115,7 +115,7 @@ window.SELECTED_CORE = {
       {
         "label": "01 / CONCEPT",
         "title": "动作转译",
-        "text": "从跳水、潜水与攀岩的方向变化出发，提炼向上、向下和穿行的空间关系。把运动设施与餐饮、平台等功能组合，探索活动之间产生联系的方式。",
+        "text": "从跳水、潜水与攀岩的动作提炼空间关系，组合运动、餐饮与平台功能。",
         "images": [
           {
             "src": "assets/selected/encounters-movement.webp",
@@ -136,14 +136,15 @@ window.SELECTED_CORE = {
       {
         "label": "02 / FORM",
         "title": "立体组合",
-        "text": "通过三维单元与分层轴测，梳理水池、跳台、垂直交通和公共平台之间的关系。既展示局部空间的构成，也说明不同层级如何组成复合活动场所。",
+        "text": "通过三维单元与分层轴测，梳理水池、跳台、交通与公共平台的组合关系。",
         "images": [
           {
             "src": "assets/selected/encounters-layers.webp",
             "width": 1556,
             "height": 2200,
             "alt": "多层运动空间的分解轴测",
-            "caption": "多层运动空间的分解轴测"
+            "caption": "多层运动空间的分解轴测",
+            "fit": "cover"
           },
           {
             "src": "assets/selected/encounters-units.webp",
@@ -157,7 +158,7 @@ window.SELECTED_CORE = {
       {
         "label": "03 / EXPERIENCE",
         "title": "流动相遇",
-        "text": "将观看运动、沿水行走和餐饮停留纳入同一体验。通过透明界面与水景表达，让运动者与旁观者产生视觉联系，呈现日常相遇的空间设想。",
+        "text": "以透明界面与水景连接运动、步行和停留，让使用者在日常活动中相遇。",
         "images": [
           {
             "src": "assets/selected/encounters-walkway.webp",
@@ -197,7 +198,7 @@ window.SELECTED_CORE = {
       {
         "label": "01 / CONCEPT",
         "title": "矿坑记忆",
-        "text": "以开采、废弃与修复设想之间的变化组织项目叙事，从矿坑高差中提炼展馆的形态语言。场地记忆既是设计背景，也是参观者理解空间的线索。",
+        "text": "以矿坑开采、废弃与修复设想串联叙事，从地形高差中提炼展馆形态。",
         "images": [
           {
             "src": "assets/selected/ore-timeline.webp",
@@ -218,7 +219,7 @@ window.SELECTED_CORE = {
       {
         "label": "02 / JOURNEY",
         "title": "叙事路径",
-        "text": "将入口、展厅与休憩区域组织为连续的参观过程，通过内部剖解说明楼梯、采光和展示空间。以不同层次的观看方式，使矿坑历史与材料表达相互关联。",
+        "text": "串联入口、展厅与休憩区域，以楼梯、采光和材料组织连续的参观体验。",
         "images": [
           {
             "src": "assets/selected/ore-route.webp",
@@ -239,7 +240,7 @@ window.SELECTED_CORE = {
       {
         "label": "03 / EXPERIENCE",
         "title": "矿壁剧场",
-        "text": "水上剧场将原有矿壁作为体验背景，以参观路线连接舞台和观众区。通过轴测与场景效果解释参与方式，呈现文化活动与矿坑环境结合的设计提案。",
+        "text": "以原有矿壁为水上剧场的背景，通过参观路线连接舞台、观众与环境。",
         "images": [
           {
             "src": "assets/selected/ore-theatre.webp",
@@ -254,7 +255,12 @@ window.SELECTED_CORE = {
             "height": 1047,
             "alt": "面向矿壁的水上剧场体验效果",
             "caption": "面向矿壁的水上剧场体验效果",
-            "fit": "cover"
+            "fit": "cover",
+            "thumbnail": {
+              "src": "assets/selected/ore-stage-preview.webp",
+              "width": 1793,
+              "height": 1039
+            }
           }
         ]
       }
@@ -278,7 +284,7 @@ window.SELECTED_CORE = {
       {
         "label": "01 / NEEDS",
         "title": "日常需求",
-        "text": "围绕出行、工作、消费与生活需求，梳理轨道交通和城市农业之间的关系。用功能图将复杂议题拆解，明确办公、公共活动、交通与生态空间的组合思路。",
+        "text": "围绕出行、工作与生活需求，梳理交通、办公、公共活动和生态空间的组合。",
         "images": [
           {
             "src": "assets/selected/station-workflow.webp",
@@ -299,7 +305,7 @@ window.SELECTED_CORE = {
       {
         "label": "02 / SYSTEM",
         "title": "空间衔接",
-        "text": "以三维原型推演车站、商业和文化空间，进一步组织地下换乘、地上入口与高架连通平台。分层图用于说明不同功能与出行方式如何衔接。",
+        "text": "以三维原型与分层图，衔接车站、商业、文化空间及多层出行路径。",
         "images": [
           {
             "src": "assets/selected/station-prototypes.webp",
@@ -320,14 +326,20 @@ window.SELECTED_CORE = {
       {
         "label": "03 / EXPERIENCE",
         "title": "公共生活",
-        "text": "通过轴测与步行视角，将连通平台、绿化和公共活动空间放入可理解的场景。强调人如何经过、停留和使用空间，呈现复合城市农场的生活设想。",
+        "text": "通过轴测与步行视角，呈现人在连通平台、绿地与公共空间中的日常活动。",
         "images": [
           {
             "src": "assets/selected/station-connection.webp",
             "width": 1474,
             "height": 2201,
             "alt": "连通平台、车站与中心公共空间的轴测",
-            "caption": "连通平台、车站与中心公共空间的轴测"
+            "caption": "连通平台、车站与中心公共空间的轴测",
+            "fit": "cover",
+            "thumbnail": {
+              "src": "assets/selected/station-connection-preview.webp",
+              "width": 1449,
+              "height": 2126
+            }
           },
           {
             "src": "assets/selected/station-park.webp",
@@ -335,7 +347,12 @@ window.SELECTED_CORE = {
             "height": 1601,
             "alt": "从步行视角表达公共活动与绿化场景",
             "caption": "从步行视角表达公共活动与绿化场景",
-            "fit": "cover"
+            "fit": "cover",
+            "thumbnail": {
+              "src": "assets/selected/station-park-preview.webp",
+              "width": 1795,
+              "height": 1469
+            }
           }
         ]
       }
