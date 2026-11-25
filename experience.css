@@ -200,3 +200,12 @@ html{scrollbar-gutter:stable}html.intro-sequence-locked{overflow-y:hidden;oversc
 @media(max-width:700px){.selected-summary h2,.other-heading h2{font-size:26px}.chapter-copy h2,.other-copy h2{font-size:21px}}
 
 @media(min-width:701px){.chapter-image-row .image-trigger img[src$="ore-exhibit-clean-paper.svg"]{inset:6%;width:88%;height:88%}}
+
+/* Target only transparent diagram pairs that visually merge across the gutter. */
+@media(min-width:701px){
+.chapter-image-row:has(img[src$="mutualism-form-clean-paper.svg"]),
+.chapter-image-row:has(img[src$="mutualism-cells-clean-paper.svg"]),
+.chapter-image-row:has(img[src$="encounters-movement-opaque-local-paper.svg"]),
+.chapter-image-row:has(img[src$="station-workflow-clean-paper-local-paper.svg"]),
+.chapter-image-row:has(img[src$="station-prototypes-clean-paper.svg"]){column-gap:clamp(48px,5vw,80px)}
+}
