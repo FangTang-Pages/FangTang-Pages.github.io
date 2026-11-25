@@ -67,7 +67,7 @@ html{scrollbar-gutter:stable}html.intro-sequence-locked{overflow-y:hidden;oversc
 .motion-grid{width:100%;max-width:none;margin:0;padding:0;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
 .motion-card:nth-child(n){padding-top:0;--rise:0}
 .motion-card>a{display:block;border-radius:12px}
-.motion-media{aspect-ratio:2/1;border-radius:12px;border:2px solid #a28b7f}
+.motion-media{width:100%;min-width:0;aspect-ratio:2/1;border-radius:12px;border:2px solid #a28b7f}
 .card-face{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:36px 34px;background:linear-gradient(0deg,#0e1c26a1,#10252c55 70%,#10252c40);color:#fff;pointer-events:none}
 .card-face h2{font-size:clamp(19px,1.6vw,24px);line-height:1.26;letter-spacing:-.015em;font-weight:500;max-width:100%;text-align:center;color:#fff;text-shadow:0 1px 9px #0007;min-height:0;overflow-wrap:normal}
 .card-index{position:absolute;left:15px;top:12px;color:#ffffffd4;font-size:12px;font-variant-numeric:tabular-nums;letter-spacing:.08em}
@@ -81,7 +81,7 @@ html{scrollbar-gutter:stable}html.intro-sequence-locked{overflow-y:hidden;oversc
 @media(max-width:700px){
  .motion-directory{width:calc(100% - 36px);min-height:0;padding-block:30px 36px}
  .motion-heading{margin:0 0 24px}.motion-heading h1{font-size:36px;letter-spacing:.10em}
- .motion-grid{grid-template-columns:1fr;gap:14px}
+ .motion-grid{grid-template-columns:minmax(0,1fr);gap:14px}
  .motion-media{aspect-ratio:2.8/1;border-radius:10px;min-height:116px}
  .motion-card>a{border-radius:10px}
  .card-face{padding:22px 38px}
