@@ -125,7 +125,7 @@
     }
     function measure(){
       if(!active||!intro.isConnected)return;
-      const header=document.querySelector('.header').getBoundingClientRect().height,w=stage.clientWidth,h=Math.max(320,innerHeight-header),maskH=h*.5;
+      const header=document.querySelector('.header').getBoundingClientRect().height,w=stage.clientWidth,h=Math.max(320,innerHeight-header),maskH=h*(w<=700?.5:.44);
       intro.classList.add('motion-ready');intro.classList.toggle('sequence-done',state==='done');
       mask.setAttribute('viewBox',`0 0 ${w} ${maskH}`);mask.style.height=`${maskH}px`;
       maskSolid.setAttribute('width',w);maskSolid.setAttribute('height',maskH);mask.querySelector('mask').setAttribute('width',w);mask.querySelector('mask').setAttribute('height',maskH);

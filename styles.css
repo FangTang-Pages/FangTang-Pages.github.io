@@ -246,3 +246,5 @@ a.school-badge:hover{color:var(--green);text-decoration:underline;text-underline
 }
 
 @media(max-width:360px){.contact-value{font-size:16px}}
+
+.company-legal{font-size:.7em;font-weight:400;line-height:1.6}.experience-list h3 strong{font-weight:600}

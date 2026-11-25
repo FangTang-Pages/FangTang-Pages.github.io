@@ -198,3 +198,5 @@ html{scrollbar-gutter:stable}html.intro-sequence-locked{overflow-y:hidden;oversc
 .selected-summary h2,.other-heading h2{font-size:clamp(25px,2.4vw,34px)}
 .chapter-copy h2,.other-copy h2{font-size:23px}
 @media(max-width:700px){.selected-summary h2,.other-heading h2{font-size:26px}.chapter-copy h2,.other-copy h2{font-size:21px}}
+
+@media(min-width:701px){.chapter-image-row .image-trigger img[src$="ore-exhibit-clean.webp"]{inset:6%;width:88%;height:88%}}

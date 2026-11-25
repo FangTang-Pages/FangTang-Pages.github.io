@@ -10,9 +10,9 @@ window.OTHER_PROJECTS = [
     ],
     "images": [
       {
-        "src": "assets/selected/misc-box-overview-edge.svg",
-        "width": 1334,
-        "height": 533,
+        "src": "assets/selected/misc-box-overview-hd.webp",
+        "width": 4000,
+        "height": 2138,
         "alt": "盒子联盟的彩色模块化市集整体轴测",
         "caption": "市集整体 · 场景轴测"
       },
@@ -146,7 +146,7 @@ window.OTHER_PROJECTS = [
         "width": 1844,
         "height": 1308,
         "alt": "地形模型的坡度分布分析，白色、浅绿和绿色分别表示三个坡度区间",
-        "caption": "地形坡度 · 分布分析",
+        "caption": "Houdini地形分析",
         "fit": "contain"
       },
       {
