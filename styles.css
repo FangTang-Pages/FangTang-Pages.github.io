@@ -214,11 +214,13 @@ body { font-size:16px; }
 .school-badge small{display:block;font-size:11px;line-height:1.6}
 a.school-badge:hover{color:var(--green);text-decoration:underline;text-underline-offset:3px}
 .contact-details{min-width:0}
-.contact-number{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:14px;font-size:18px}
-.contact-number a{min-height:44px;display:flex;align-items:center;font-variant-numeric:tabular-nums}
+.contact-number{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:14px;font-size:18px;max-width:100%}
+.contact-copy{padding:0;min-height:44px;background:transparent;text-align:left;cursor:pointer;color:var(--ink)}
 .contact-number>span:not(.contact-label){font-variant-numeric:tabular-nums}
 .contact-label{font-size:14px;color:var(--muted)}
-.contact-number .copy-email{margin-left:4px}
+.copy-hint{font-size:13px;border-bottom:1px solid var(--line);padding-block:5px;white-space:nowrap}
+.contact-copy:hover .copy-hint{border-color:var(--green);color:var(--green)}
+.contact-label,.contact-value{white-space:nowrap}
 @media(min-width:701px) and (max-width:1050px){
  .education-list>div{grid-template-columns:200px 120px minmax(0,1fr) auto;gap:12px}
  .education-list h3{font-size:17px}
@@ -237,7 +239,6 @@ a.school-badge:hover{color:var(--green);text-decoration:underline;text-underline
  .education-list p{grid-area:2 / 1;font-size:13px}
  .education-list>div>span:last-child{grid-area:2 / 2;font-size:12px;text-align:right}
  .contact-details{width:100%}
- .contact-number{font-size:17px;gap:12px;margin-top:10px}
- .contact-number .copy-email{font-size:13px;margin-left:auto}
+ .contact-number{font-size:17px;gap:8px;margin-top:10px}
  .profile-contact h2{font-size:26px}
 }
