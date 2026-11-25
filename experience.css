@@ -124,6 +124,9 @@ html{scrollbar-gutter:stable}html.intro-sequence-locked{overflow-y:hidden;oversc
 .chapter-image-row .image-trigger{position:relative;width:100%;min-width:0;aspect-ratio:var(--frame-ratio);max-height:650px;background:var(--image-background,#fff);box-shadow:inset 0 0 0 1px #0000000a}
 .chapter-image-row .image-trigger img{position:absolute;inset:0;width:100%;height:100%;max-height:none;object-fit:contain}
 .chapter-image-row figcaption{margin-top:10px}
+/* White paper diagrams share the page's warm paper surface. */
+.chapter-image-row .selected-figure:has(img.fit-contain):not([style*="--image-background:#000"]) .image-trigger{background:transparent;box-shadow:none}
+.chapter-image-row .selected-figure:has(img.fit-contain):not([style*="--image-background:#000"]) img{mix-blend-mode:multiply}
 .other-entry{align-items:start}
 .other-images .image-trigger{width:100%;min-width:0;background:#fff}
 .other-images .image-trigger img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
