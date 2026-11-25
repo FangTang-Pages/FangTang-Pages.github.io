@@ -57,3 +57,36 @@ html{scrollbar-gutter:stable}html.intro-sequence-locked{overflow-y:hidden;oversc
 .motion-intro.sequence-done{overflow:visible}.opening-mask{transform-origin:center top;backface-visibility:hidden;will-change:transform}
 .hero-copy .hero-bottom{color:#f5f4ef;text-shadow:0 1px 10px #0008}.hero-copy .hero-kicker{color:var(--muted)}
 @media(max-width:700px){.hero-copy .hero-bottom{gap:14px;font-size:12px}.hero-copy .scroll-cue{font-size:12px;gap:8px}.hero-copy .scroll-cue .icon{width:21px}}
+
+
+/* Compact directory: equal image tiles and a centered heading. */
+.motion-directory{width:min(calc(100% - var(--gutter)*2),1200px);min-height:calc(100svh - var(--header));display:flex;flex-direction:column;justify-content:center;padding-block:48px 60px}
+.motion-directory::before{display:none}
+.motion-heading{display:block;text-align:center;margin:0 0 42px}
+.motion-heading h1{font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif;font-size:clamp(38px,4.4vw,62px);line-height:1.1;letter-spacing:.12em;font-weight:300;color:var(--ink)}
+.motion-grid{width:100%;max-width:none;margin:0;padding:0;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.motion-card:nth-child(n){padding-top:0;--rise:0}
+.motion-card>a{display:block;border-radius:12px}
+.motion-media{aspect-ratio:2/1;border-radius:12px;border:2px solid #a28b7f}
+.card-face{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:36px 34px;background:linear-gradient(0deg,#0e1c26a1,#10252c55 70%,#10252c40);color:#fff;pointer-events:none}
+.card-face h2{font-size:clamp(19px,1.6vw,24px);line-height:1.26;letter-spacing:-.015em;font-weight:500;max-width:100%;text-align:center;color:#fff;text-shadow:0 1px 9px #0007;min-height:0;overflow-wrap:normal}
+.card-index{position:absolute;left:15px;top:12px;color:#ffffffd4;font-size:12px;font-variant-numeric:tabular-nums;letter-spacing:.08em}
+.card-face .entry-open{right:13px;bottom:12px;width:25px;height:25px;background:transparent;border:1px solid #ffffff80;color:#fff;box-shadow:none}
+.card-face .entry-open .icon{width:15px;height:15px}
+.hero-film .docked-face{opacity:var(--card-reveal,0)}
+.motion-card a:hover h2{color:#fff}
+.motion-card a:hover .entry-open{background:#ffffff20;color:#fff}
+.motion-home .footer{margin-top:0}
+@media(min-width:701px) and (max-width:980px){.motion-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.motion-directory{padding-block:38px 44px}.motion-heading{margin-bottom:30px}}
+@media(max-width:700px){
+ .motion-directory{width:calc(100% - 36px);min-height:0;padding-block:30px 36px}
+ .motion-heading{margin:0 0 24px}.motion-heading h1{font-size:36px;letter-spacing:.10em}
+ .motion-grid{grid-template-columns:1fr;gap:14px}
+ .motion-media{aspect-ratio:2.8/1;border-radius:10px;min-height:116px}
+ .motion-card>a{border-radius:10px}
+ .card-face{padding:22px 38px}
+ .card-face h2{font-size:20px;line-height:1.25;max-width:290px;min-height:0}
+ .card-index{left:12px;top:10px;font-size:11px}
+ .motion-card .card-face .entry-open,.hero-film .card-face .entry-open{right:11px;bottom:10px;width:23px;height:23px}
+ .motion-card .card-face .entry-open .icon,.hero-film .card-face .entry-open .icon{width:14px;height:14px}
+}

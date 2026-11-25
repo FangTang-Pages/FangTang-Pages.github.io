@@ -16,7 +16,7 @@
   if(grid) {
     const entries=projects.map(p=>({id:p.id,title:p.title,category:p.category,number:p.number,href:`project.html?id=${p.id}`,image:`assets/${p.id}-cover.webp`,alt:p.images[0][0]}));
     entries.push({id:'other',title:'Other Explorations',category:'其他项目 / 更多设计探索',number:'06',href:'other.html',image:others[0]?.images[0]?.src || 'assets/ore-rebirth-cover.webp',alt:'其他项目：模块、场景与形态探索'});
-    grid.innerHTML=entries.map((p,i)=>`<article class="motion-card" data-card="${i}"><a href="${p.href}" aria-label="查看 ${esc(p.title)} 精选作品"><div class="motion-card-heading"><span class="motion-number">${p.number}<span>·</span></span><h2>${esc(p.title)}</h2></div><div class="motion-media" ${i===0?'id="lumi-slot"':''}><img src="${esc(p.image)}" alt="${esc(p.alt)}" width="800" height="600" decoding="async" ${i<3?'fetchpriority="high" loading="eager"':'loading="eager"'}><span class="entry-open" aria-hidden="true">${icon('ne')}</span></div><p>${esc(p.category)}</p></a></article>`).join('');
+    grid.innerHTML=entries.map((p,i)=>`<article class="motion-card" data-card="${i}"><a href="${p.href}" aria-label="查看 ${esc(p.title)} 精选作品"><div class="motion-media" ${i===0?'id="lumi-slot"':''}><img src="${esc(p.image)}" alt="${esc(p.alt)}" width="800" height="600" decoding="async" fetchpriority="${i<3?'high':'auto'}" loading="eager"><div class="card-face"><span class="card-index" aria-hidden="true">${p.number}</span><h2>${esc(p.title)}</h2><span class="entry-open" aria-hidden="true">${icon('ne')}</span></div></div></a></article>`).join('');
     setupOpening();
   }
 
@@ -57,7 +57,7 @@
     const slot=intro.querySelector('#lumi-slot'),mask=intro.querySelector('.opening-mask');
     const maskType=mask.querySelector('#opening-type'),maskText=mask.querySelector('text'),maskSolid=mask.querySelector('#opening-solid');
     const cards=[...intro.querySelectorAll('.motion-card')];
-    film.insertAdjacentHTML('beforeend',`<span class="entry-open docked-open" aria-hidden="true">${icon('ne')}</span>`);
+    const dockedFace=slot.querySelector('.card-face').cloneNode(true);dockedFace.classList.add('docked-face');film.append(dockedFace);
     const REVEAL=850,HOLD=300,DOCK=1450,TOTAL=REVEAL+HOLD+DOCK;
     let state=entryWork?'done':'idle',elapsed=entryWork?TOTAL:0,size,frame=0,lastTick=null,focusDirectory=false,touch=null,initialized=false;
     const clamp=v=>Math.max(0,Math.min(1,v)),ease=v=>v*v*(3-2*v),mix=(a,b,t)=>a+(b-a)*t;
@@ -71,7 +71,8 @@
       mask.style.opacity=1-ease(clamp((revealing-.92)/.08));
       film.style.transform=`translate3d(${mix(0,size.x,t)}px,${mix(0,size.y,t)}px,0)`;
       film.style.width=`${mix(size.w,size.tw,t)}px`;film.style.height=`${mix(size.h,size.th,t)}px`;
-      film.style.borderColor=`rgba(162,139,127,${t})`;
+      film.style.borderColor=`rgba(162,139,127,${t})`;film.style.borderRadius=`${size.radius*t}px`;
+      film.style.setProperty('--card-reveal',ease(clamp((docking-.72)/.28)));
       const fade=1-ease(clamp(elapsed/360));copy.style.opacity=fade;copy.inert=state!=='idle';copy.style.pointerEvents=state==='idle'?'auto':'none';
       directory.style.setProperty('--reveal',ease(clamp((docking-.06)/.50)));
       cards.forEach((card,i)=>{const reveal=ease(clamp((docking-.10-i*.05)/.48));card.style.opacity=reveal;card.style.transform=i?`translateY(${(1-reveal)*(i%2?-28:28)}px)`:'none';});
@@ -92,7 +93,7 @@
       const stageH=state==='done'?Math.max(h,directory.offsetHeight):h;
       intro.style.height=`${stageH}px`;stage.style.height=`${stageH}px`;stage.style.minHeight=`${h}px`;
       const rect=slot.getBoundingClientRect(),stageRect=stage.getBoundingClientRect();
-      size={w,h,maskH,x:rect.left-stageRect.left,y:rect.top-stageRect.top,tw:rect.width,th:rect.height};
+      size={w,h,maskH,x:rect.left-stageRect.left,y:rect.top-stageRect.top,tw:rect.width,th:rect.height,radius:parseFloat(getComputedStyle(slot).borderTopLeftRadius)||0};
       paint();
     }
     function finish(){
