@@ -322,9 +322,9 @@ window.SELECTED_CORE = {
             "background": "#f1eee7"
           },
           {
-            "src": "assets/selected/ore-site-aerial-v43.webp",
+            "src": "assets/selected/ore-site-aerial-landscape.webp",
             "width": 1909,
-            "height": 2800,
+            "height": 1174,
             "alt": "矿坑地形、水面与展馆组群的整体鸟瞰",
             "caption": "场地鸟瞰 · 矿壁、水面与展馆组群",
             "background": "#f1eee7"
