@@ -143,7 +143,7 @@ window.SELECTED_CORE = {
         "text": "从跳水、潜水与攀岩的动作提炼空间关系，组合运动、休闲与平台功能。",
         "images": [
           {
-            "src": "assets/selected/encounters-movement-opaque-local-paper-mobile47.png",
+            "src": "assets/selected/encounters-movement-climb.png",
             "width": 1758,
             "height": 1251,
             "alt": "概念生成 · 跳水、潜水与攀岩动作的空间转译",
@@ -172,9 +172,9 @@ window.SELECTED_CORE = {
             "fit": "cover"
           },
           {
-            "src": "assets/selected/encounters-units-clean-exterior-mobile47.png",
-            "width": 1608,
-            "height": 918,
+            "src": "assets/selected/encounters-units-complete.png",
+            "width": 1542,
+            "height": 905,
             "alt": "跳水与潜水空间的三维单元",
             "caption": "跳水与潜水空间的三维单元"
           }
